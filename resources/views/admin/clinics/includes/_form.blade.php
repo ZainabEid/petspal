@@ -97,9 +97,9 @@
                 {!! Form::label('phones', 'Enter clinic phones', ['class' => 'boldfont']) !!}
 
                 {{-- if clinic =>  edit existing clinic --}}
-                @if (isset($clinic))
+                @if (isset($clinic) && $clinic->phones->count() > 0)
 
-                    @foreach ($clinic->phones->pluck('phone') as $index => $phone)
+                    @foreach ($clinic->phones as $index => $phone)
 
                         <div
                             class="form-group mb-3 phone-validation  @error('phones.' . $index) 'is-invalid' @enderror">
@@ -136,18 +136,17 @@
 
                     <div class="phone-validation form-group mb-3 @error('phones.0') 'has-error' @enderror">
 
-                        {!! Form::text('phones[]', null, ['placeholder' => 'Enter clinic phone', 'class' => 'phone w-50 form-control d-inline-flex ']) !!}
-
-                        @error('phones.0')
-                            <span class="text-danger">
-                                {{ $message }}
-                            </span>
-                        @enderror
+                        {!! Form::text('phones[]',"", ['placeholder' => 'Enter clinic phone', 'class' => 'phone w-50 form-control d-inline-flex ']) !!}
 
                         <span style="cursor: pointer;" id="add-phone"
                             data-url="{{ route('admin.clinics.add-phone') }}">
                             <i class="align-middle" data-feather="plus"></i>
                         </span>
+                        @error('phones.0')
+                        <span class="text-danger">
+                            {{ $message }}
+                        </span>
+                    @enderror
 
                     </div>
 

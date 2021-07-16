@@ -54,7 +54,6 @@ class ClinicRequest extends FormRequest
             }
         }
 
-       
 
        
 
@@ -64,7 +63,8 @@ class ClinicRequest extends FormRequest
             'description' => 'required|array|min:1',
             'address' => 'nullable|string' ,
             'phones' => ['required', 'array', 'min:1'],
-            // 'phones.*' => 'regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:16',
+            'phones.0' => ['required'],
+            'phones.*' => 'regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:16',
             'social' =>'' ,
             'rate' =>'' ,
             

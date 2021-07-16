@@ -19,7 +19,7 @@
 
         {{-- if clinic =>  edit existing clinic --}}
         {{-- ---------------------------------- --}}
-        @if (isset($clinic))
+        @if (isset($clinic) && $clinic->workingDays->count() > 0)
 
             @foreach ($clinic->workingDays as $workingDay)
 

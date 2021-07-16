@@ -68,6 +68,7 @@ class ClinicController extends Controller
     public function edit(Clinic $clinic)
     {
         $categories = $this->categories->all('id','name');
+        $clinic->phones = $clinic->phones->pluck('phone');
         return view('admin.clinics.edit', compact('clinic','categories'));
 
     }// end of edit
