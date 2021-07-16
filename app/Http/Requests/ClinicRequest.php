@@ -18,7 +18,7 @@ class ClinicRequest extends FormRequest
     {
         $workdays = request()->workDays;
 
-
+      if(  isset($workdays)){
         foreach ( $workdays as $day =>$periods ) {
             foreach ( $periods as  $index => $period ) {
 
@@ -54,6 +54,10 @@ class ClinicRequest extends FormRequest
             }
         }
 
+      }
+
+      
+
 
        
 
@@ -64,7 +68,7 @@ class ClinicRequest extends FormRequest
             'address' => 'nullable|string' ,
             'phones' => ['required', 'array', 'min:1'],
             'phones.0' => ['required'],
-            'phones.*' => 'regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:16',
+            // 'phones.*' => 'regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:16',
             'social' =>'' ,
             'rate' =>'' ,
             
