@@ -27,7 +27,10 @@ class ClinicsCategoriesTableSeeder extends Seeder
 
         ];
 
+        foreach ($categories as  $category) {
+           ClinicsCategory::create($category);
+        }
+        
       
-        $category = ClinicsCategory::createMany($categories);
     }
 }
