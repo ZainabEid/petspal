@@ -61,11 +61,11 @@ Route::middleware('admin.auth:admin')->group(function () {
     Route::resource('pets-categories', 'PetsCategoryController');
 
     // Dashboard
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-
-
+    
+    
 });
 
 
 // lang
 Route::get('/{lang}', 'DashboardController@changeLanguage')->name('change-lang');
+Route::get('/', 'DashboardController@index')->name('dashboard');

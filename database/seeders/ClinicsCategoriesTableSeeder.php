@@ -10,21 +10,24 @@ class ClinicsCategoriesTableSeeder extends Seeder
   
     public function run()
     {
-         $category = ClinicsCategory::create([
-            'name' =>  ['en' => 'category name 1', 'ar' => 'category name 1'],
-            'description' =>  ['en' => 'category description 1', 'ar' => 'category description 1'],
-            ]);
-        $category2 = ClinicsCategory::create([
-            'name' =>  ['en' => 'category name 2', 'ar' => 'category name 2'],
-            'description' =>  ['en' => 'category description 2', 'ar' => 'category description 2'],
-            ]);
-        $category2 = ClinicsCategory::create([
-            'name' =>  ['en' => 'category name 3', 'ar' => 'category name 3'],
-            'description' =>  ['en' => 'category description 3', 'ar' => 'category description 3'],
-            ]);
-        $category = ClinicsCategory::create([
-            'name' =>  ['en' => 'category name 4', 'ar' => 'category name 4'],
-            'description' =>  ['en' => 'category description 4', 'ar' => 'category description 4'],
-            ]);
+        $categories =[
+          1 =>  [
+                'name' =>  ['en' => 'surgery', 'ar' => 'جراحة'],
+                'description' =>  ['en' => 'sergery', 'ar' => 'جراحة'],
+          ],
+          2=>[
+            'name' =>  ['en' => 'Critical Care', 'ar' => 'عناية متخصصة'],
+            'description' =>  ['en' => 'Critical Care', 'ar' => 'عناية متخصصة'],
+          ],
+          3=>[
+            'name' =>  ['en' => 'Specialists', 'ar' => 'أخصائي'],
+            'description' =>  ['en' => 'Specialists', 'ar' => 'أخصائي'],
+          ],
+        
+
+        ];
+
+      
+        $category = ClinicsCategory::createMany($categories);
     }
 }
