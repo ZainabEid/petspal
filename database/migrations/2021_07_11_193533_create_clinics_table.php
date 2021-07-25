@@ -15,7 +15,7 @@ class CreateClinicsTable extends Migration
     {
         Schema::create('clinics', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('clinics_categrory_id')->unsigned();
+            $table->bigInteger('clinics_category_id')->unsigned();
             $table->string('name');
             $table->string('description');
             $table->string('address');
@@ -23,7 +23,7 @@ class CreateClinicsTable extends Migration
             $table->double('rate')->default(0);
             $table->string('media');
 
-            $table->foreign('clinics_categrory_id')->references('id')->on('clinics_categories')->onDelete('cascade');
+            $table->foreign('clinics_category_id')->references('id')->on('clinics_categories')->onDelete('cascade');
 
             $table->timestamps();
         });

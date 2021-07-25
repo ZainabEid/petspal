@@ -2,20 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Optix\Media\Models\Media as BaseMedia;
 
-class Media extends Model
+class Media extends BaseMedia
 {
-    use HasFactory;
-
-    protected $fillable=[
-        'src', 'type', 'alt'
-    ];
-
-    public function mediable()
+    public static function boot()
     {
-        return $this->morphTo();
+        parent::boot();
+        static::deleted(function ($model){
+            $model->filesystem()->deleteDirectory(
+                $model->getDirectory()
+            );
+        });
     }
-
 }

@@ -19,5 +19,11 @@ class PetsCategory extends Model
     
     public $translatable = ['name', 'description'];
 
+  
+    public function accounts()
+    {
+        return $this->hasMany(Account::class,'pets_category_id');
+    }
+
 }
 

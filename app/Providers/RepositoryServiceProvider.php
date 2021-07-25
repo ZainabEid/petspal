@@ -5,15 +5,19 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Roles\RoleRepository;
 use App\Repositories\Eloquent\BaseRepository;
+use App\Repositories\Eloquent\UserRepository;
 use App\Repositories\Eloquent\AdminRepository;
 use App\Repositories\Eloquent\ClinicRepository;
+use App\Repositories\Eloquent\AccountRepository;
 use App\Repositories\Eloquent\PetsCategoryRepository;
+use App\Repositories\Eloquent\Contracts\ClinicInterface;
 use App\Repositories\Eloquent\ClinicsCategoryRepository;
+use App\Repositories\Eloquent\Contracts\AccountInterface;
 use App\Repositories\Eloquent\Contracts\EloquentInterface;
 use App\Repositories\Roles\Contracts\RoleRepositoryInterface;
 use App\Repositories\Eloquent\Contracts\PetsCategoryInterface;
+use App\Repositories\Eloquent\Contracts\UserRepositoryInterface;
 use App\Repositories\Eloquent\Contracts\AdminRepositoryInterface;
-use App\Repositories\Eloquent\Contracts\ClinicInterface;
 use App\Repositories\Eloquent\Contracts\ClinicsCategoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -33,5 +37,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ClinicsCategoryInterface::class , ClinicsCategoryRepository::class);
         $this->app->bind(PetsCategoryInterface::class , PetsCategoryRepository::class);
         $this->app->bind(ClinicInterface::class , ClinicRepository::class);
+        $this->app->bind(UserRepositoryInterface::class , UserRepository::class);
+        $this->app->bind(AccountInterface::class , AccountRepository::class);
     }
 }

@@ -101,7 +101,7 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
         } catch(\Exception $e)
         {
             DB::rollback();
-            throw $e;
+            return back()->withError($e->getMessage());
         }
         
        
@@ -206,7 +206,7 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
         } catch(\Exception $e)
         {
             DB::rollback();
-            throw $e;
+            return back()->withError($e->getMessage());
         }
         
        

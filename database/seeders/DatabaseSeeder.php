@@ -15,9 +15,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(ClinicsCategoriesTableSeeder::class);
         $this->call(ClinicsTableSeeder::class);
+
         $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(AdminTableSeeder::class);
+        
+        $this->call(PetsCategoriesTableSeeder::class);
         
         // \App\Models\User::factory(10)->create();
     }

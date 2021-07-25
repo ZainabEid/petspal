@@ -12,8 +12,8 @@ class ClinicsCategoriesTableSeeder extends Seeder
     {
         $categories =[
           1 =>  [
-                'name' =>  ['en' => 'surgery', 'ar' => 'جراحة'],
-                'description' =>  ['en' => 'sergery', 'ar' => 'جراحة'],
+            'name' =>  ['en' => 'surgery', 'ar' => 'جراحة'],
+            'description' =>  ['en' => 'sergery', 'ar' => 'جراحة'],
           ],
           2=>[
             'name' =>  ['en' => 'Critical Care', 'ar' => 'عناية متخصصة'],

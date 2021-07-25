@@ -32,7 +32,7 @@ function getModels(){
 
         }else{
 
-            $out[] = basename(substr($filename,0,-4));
+            $out[] =    (substr($filename,0,-4));
         }
     }
 

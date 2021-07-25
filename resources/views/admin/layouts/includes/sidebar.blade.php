@@ -35,7 +35,7 @@
                     </li>
                 @endif
 
-            
+
             @endif
 
             {{-- clinics --}}
@@ -45,36 +45,37 @@
                     {{ __('Clinics') }}
                 </li>
 
-                
+
                 {{-- All clinics --}}
                 @if (Auth::guard('admin')->user()->can('read_clinic'))
                     <li class="sidebar-item @if (Request::is('admin/clinics')) active @endif">
                         <a class="sidebar-link" href="{{ route('admin.clinics.index') }}">
                             <i class="align-middle" data-feather="user"></i> <span
-                            class="align-middle">{{ __('Clinics') }}</span>
+                                class="align-middle">{{ __('Clinics') }}</span>
                         </a>
                     </li>
                 @endif
-                
-                
-                
+
+
+
                 {{-- add clinic --}}
                 @if (Auth::guard('admin')->user()->can('create_clinic'))
                     <li class="sidebar-item @if (Request::is('admin/clinics/create')) active @endif">
                         <a class="sidebar-link" href="{{ route('admin.clinics.create') }}">
-                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">{{ __('Add Clinic') }}</span>
+                            <i class="align-middle" data-feather="user"></i> <span
+                                class="align-middle">{{ __('Add Clinic') }}</span>
                         </a>
                     </li>
-                @endif  
+                @endif
 
-               
-               
+
+
                 {{-- All clinics Category --}}
                 @if (Auth::guard('admin')->user()->can('read_clinic_category'))
                     <li class="sidebar-item @if (Request::is('admin/clinics-categories*')) active @endif">
                         <a class="sidebar-link" href="{{ route('admin.clinics-categories.index') }}">
                             <i class="align-middle" data-feather="user"></i> <span
-                            class="align-middle">{{ __('Clinics Categories') }}</span>
+                                class="align-middle">{{ __('Clinics Categories') }}</span>
                         </a>
                     </li>
                 @endif
@@ -86,36 +87,70 @@
 
 
 
-             {{-- pets --}}
-             @if (Auth::guard('admin')->user()->can('create_petscategory', 'read_petscategory', 'update_petscategory', 'delete_petscategory'))
+            {{-- pets --}}
+            @if (Auth::guard('admin')->user()->can('create_petscategory', 'read_petscategory', 'update_petscategory', 'delete_petscategory'))
 
-             <li class="sidebar-header">
-                 {{ __('pets') }}
-             </li>
-
-
-             
-             {{-- All pets Category --}}
-             @if (Auth::guard('admin')->user()->can('read_petscategory'))
-                 <li class="sidebar-item @if (Request::is('admin/pets-categories*')) active @endif">
-                     <a class="sidebar-link" href="{{ route('admin.pets-categories.index') }}">
-                         <i class="align-middle" data-feather="user"></i> <span
-                         class="align-middle">{{ __('pets Categories') }}</span>
-                     </a>
-                 </li>
-             @endif
-
-
-         
-             
-             
-
-         @endif
+                <li class="sidebar-header">
+                    {{ __('pets') }}
+                </li>
 
 
 
+                {{-- All pets Category --}}
+                @if (Auth::guard('admin')->user()->can('read_petscategory'))
+                    <li class="sidebar-item @if (Request::is('admin/pets-categories*')) active @endif">
+                        <a class="sidebar-link" href="{{ route('admin.pets-categories.index') }}">
+                            <i class="align-middle" data-feather="user"></i> <span
+                                class="align-middle">{{ __('pets Categories') }}</span>
+                        </a>
+                    </li>
+                @endif
 
-           
+                {{-- users --}}
+                @if (Auth::guard('admin')->user()->can('create_users', 'read_users', 'update_users', 'delete_users'))
+
+                    <li class="sidebar-header">
+                        {{ __('Users') }}
+                    </li>
+
+
+                    @if (Auth::guard('admin')->user()->can('read_users'))
+
+                        {{-- all users --}}
+                        <li class="sidebar-item @if (Request::is('admin/users*')) active @endif">
+                            <a class="sidebar-link" href="{{ route('admin.users.index') }}">
+                                <i class="align-middle" data-feather="user"></i> <span
+                                    class="align-middle">{{ __('All Users') }}</span>
+                            </a>
+                        </li>
+
+                         {{-- Add New User --}}
+                         <li class="sidebar-item @if (Request::is('admin/users*')) active @endif">
+                            <a class="sidebar-link" href="{{ route('admin.users.create') }}">
+                                <i class="align-middle" data-feather="user"></i> <span
+                                    class="align-middle">{{ __('Register User') }}</span>
+                            </a>
+                        </li>
+
+
+                    @endif
+
+                   
+
+
+                @endif
+
+
+
+
+
+
+            @endif
+
+
+
+
+
         </ul>
 
 

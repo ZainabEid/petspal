@@ -22,9 +22,9 @@ class ClinicsTableSeeder extends Seeder
         $clinics =[
             0=>[
                 'clinic'=>[
-                    'clinics_categrory_id' =>2,
-                    'name' =>  ['en' =>'PetClinic', 'ar' => 'PetClinicAr'],
-                    'description' =>  ['en' => 'Clinic For All Kind of Pets', 'ar' => 'Clinic For All Kind of Pets Ar'],
+                    'clinics_category_id' => 2,
+                    'name' =>  ['en' =>'PetClinic', 'ar' => 'عيادة'],
+                    'description' =>  ['en' => 'Clinic For All Kind of Pets', 'ar' => 'عيادو لجميع انواع الحيوانات الاليفة'],
                     'address' => 'Mansoura,DK',
                     'social' => json_encode(['facebook'=>'facebook link','twitter'=>'twitter link','instagram'=>'instagram link']),
                     

@@ -13,10 +13,13 @@
         "joedixon/laravel-translation": "^1.1",
         "lab2view/laravel-repository-generator": "^1.4",
         "laravel/framework": "^8.40",
+        "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "laravelcollective/html": "^6.2",
+        "livewire/livewire": "^2.5",
         "mcamara/laravel-localization": "^1.6",
+        "optix/media": "^0.5.0",
         "spatie/laravel-permission": "^4.2",
         "spatie/laravel-translatable": "^4.6",
         "spatie/opening-hours": "^2.10"

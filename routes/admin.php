@@ -17,11 +17,11 @@ Route::group([],function () {
     Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
     Route::post('register', 'Auth\RegisterController@register');
 
-    // Reset Password
-    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-    Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+    // // Reset Password
+    // Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    // Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    // Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    // Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
     // Confirm Password
     Route::get('password/confirm', 'Auth\ConfirmPasswordController@showConfirmForm')->name('password.confirm');
@@ -59,8 +59,34 @@ Route::middleware('admin.auth:admin')->group(function () {
 
     // pets-category
     Route::resource('pets-categories', 'PetsCategoryController');
+   
+   
+    // Users
+    Route::get('users/login/{user}', 'UserController@login')->name('users.login');
+    Route::resource('users', 'UserController');
+    Route::resource('users.accounts', 'AccountController');
+    // Route::resource('profiles', 'ProfileController');
+
+    // // posts
+    // Route::resource('posts', 'PostController');
+    
+    // // comments
+    // Route::resource('comments', 'CommentController');
+
+
+    // notification
+
+    //chat
+
+    //
+   
+    
+
+
+
 
     // Dashboard
+    Route::get('/', 'DashboardController@index')->name('dashboard');
     
     
 });
@@ -68,4 +94,3 @@ Route::middleware('admin.auth:admin')->group(function () {
 
 // lang
 Route::get('/{lang}', 'DashboardController@changeLanguage')->name('change-lang');
-Route::get('/', 'DashboardController@index')->name('dashboard');

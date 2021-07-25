@@ -35,6 +35,7 @@ class AdminRequest extends FormRequest
             }
         }
 
+        // for updating without password
         if($this->admin && request()->password === null ){
             return [
                 'name' => ['required', 'string', 'max:255'],
@@ -45,6 +46,8 @@ class AdminRequest extends FormRequest
                     ], 
             ];
         }
+
+        // update with password
       
         return [
             'name' => ['required', 'string', 'max:255'],

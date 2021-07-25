@@ -44,7 +44,7 @@ class AdminRepository extends BaseRepository implements AdminRepositoryInterface
         } catch(\Exception $e)
         {
             DB::rollback();
-            throw $e;
+            return back()->withError($e->getMessage());
         }
         
         DB::commit();
@@ -79,7 +79,7 @@ class AdminRepository extends BaseRepository implements AdminRepositoryInterface
         
         {
             DB::rollback();
-            throw $e->getMessage();
+            return back()->withError($e->getMessage());
         }
 
         

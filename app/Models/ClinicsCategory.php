@@ -21,6 +21,6 @@ class ClinicsCategory extends Model
 
     function clinics()
     {
-        return $this->hasMany(Clinic::class,'clinics_categrory_id');
+        return $this->hasMany(Clinic::class,'clinics_category_id');
     }
 }
