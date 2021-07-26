@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @push('styles')
-    @livewireStyles
+    @livewireStyles()
     <style>
         .display-none {
             display: none;
@@ -62,13 +62,11 @@
 
 
 
-
-
         </div>
     </main>
 
 @endsection
 
 @push('scripts')
-    @livewireScripts
+    @livewireScripts()
 @endpush

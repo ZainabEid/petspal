@@ -27,7 +27,7 @@ class RedirectIfNotAdmin
         $redirectToRoute="";
         if(! $request->expectsJson()){
 
-            if ($request->is('/') || $request->is('admin') || $request->is('admin/*') ) {
+            if ($request->is('admin') || $request->is('admin/*') ) {
                 $redirectToRoute = route('admin.login');
             }
         }

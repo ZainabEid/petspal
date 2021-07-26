@@ -19,7 +19,7 @@ class RedirectIfAdmin
     {
         if (Auth::guard($guard)->check()) {
 
-            if ($request->is('/') || $request->is('admin') || $request->is('admin/*') ) {
+            if ($request->is('admin') || $request->is('admin/*') ) {
                 return redirect()->route('admin.dashboard');
             }
         }

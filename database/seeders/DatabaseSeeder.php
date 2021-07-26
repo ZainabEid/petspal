@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminTableSeeder::class);
         
         $this->call(PetsCategoriesTableSeeder::class);
+        $this->call(PageTableSeeder::class);
+        $this->call(PostSeeder::class);
         
         // \App\Models\User::factory(10)->create();
     }
