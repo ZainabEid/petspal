@@ -55,6 +55,8 @@ class ClinicController extends Controller
 
         return redirect()->route('admin.clinics.index');
         
+
+      
     }// end of store
 
     
@@ -91,7 +93,7 @@ class ClinicController extends Controller
 
         session()->flash('success', __('deleted-successfuly'));
 
-        return redirect()->back();
+        return redirect()->route('admin.clinics.index');
 
     } // end of destroy
 
@@ -123,7 +125,7 @@ class ClinicController extends Controller
     // show Gallery modal
     public function showGallery(Clinic $clinic)
     {
-        $gallery = $clinic->gallery;
+        $gallery = $clinic->gallery();
 
         return view('admin.clinics.includes._gallery_card',compact('gallery'));
     }

@@ -3,7 +3,9 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Clinic;
 use App\Repositories\Eloquent\Contracts\ClinicInterface;
+use Exception;
 use Illuminate\Support\Facades\DB;
+use Optix\Media\MediaUploader;
 
 class ClinicRepository extends BaseRepository implements ClinicInterface
 {
@@ -18,15 +20,13 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
     public function create(array $attributes)
     {
 
-
         DB::beginTransaction();
 
         try {
-           
-            // create clinic model
+            
+            // create clinic record
             $model = $this->model->create( [
-
-                'clinics_categrory_id' => $attributes['category_id'],
+                'clinics_category_id' => $attributes['category_id'],
                 'name' =>  ['en' => $attributes['name'][0], 'ar' => $attributes['name'][1]],
                 'description' =>  ['en' => $attributes['description'][0], 'ar' => $attributes['description'][1]],
                 'address' => $attributes['address'],
@@ -42,6 +42,8 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
                 $model->phones()->create(['phone' => $phone]);
 
             } // end foreach
+
+
 
             // assign working hours
             if(isset($attributes['workDays'])){
@@ -65,42 +67,37 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
                         'date'=>  $off_day['date'],
                     ]);
     
-                    
                 }
             }
+
+
+
             
             // assign gallery
             //
-            // if no  photo
-            if(! isset($attributes['medias'])) {
-
-                $model->gallery()->create([
-                    'src'=> 'default.png',
-                    'type'=> 'gallery'
-                ]);
-
-            }else{
             // if photo
+            if( isset($attributes['medias'])) {
                 
                 foreach ($attributes['medias'] as $key => $photo) {
-    
-                   $image =  save_image('clinics', $photo);
-    
 
-                   // store in db if stored in disk
-                   if ($image) {
+                    // create & store image
+                    $media = MediaUploader::fromFile( $photo)
+                    ->useFileName($model->name.'-gallery-'.$key.'.'.$photo->extension())
+                    ->useName($model->name.'-gallery-'.$key)
+                    ->upload();
 
-                       $model->gallery()->create([
-                           'src'=> $photo->hashName(),
-                           'type'=> 'gallery'
-                       ]);
-                   }
+                       //attatch to account
+                    $model->attachMedia($media, 'gallery');
+    
+                  
                 } 
             }
 
         } catch(\Exception $e)
         {
             DB::rollback();
+            throw new Exception($e->getMessage());
+
             return back()->withError($e->getMessage());
         }
         
@@ -108,6 +105,40 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
         DB::commit();
 
         return $model->fresh();
+    }
+
+    public function updateAvatar(Clinic $clinic, $image)
+    {
+        DB::beginTransaction();
+
+
+        try {
+        
+            if( $clinic->getFirstMedia('avatar')){
+              
+                $clinic->getFirstMedia('avatar')->delete();
+            }
+
+
+            // create & store image
+            $media = MediaUploader::fromFile( $image)
+                ->useFileName($clinic->name.'-avatar.'.$image->extension())
+                ->useName($clinic->name.'-avatar')
+                ->upload();
+
+        
+            //attatch to clinic
+            $clinic->attachMedia($media, 'avatar');
+
+        } catch(\Exception $e){
+
+            DB::rollback();
+            return back()->withError($e->getMessage());
+        }
+
+        
+        DB::commit();
+        return $clinic;
     }
 
 
@@ -148,6 +179,7 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
                 } // end foreach
             }
 
+
             // assign working hours
             if(isset($attributes['workDays'])){
 
@@ -176,29 +208,22 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
                 }
             }
             
-            
+
+
             // assign gallery
             if( isset($attributes['medias'])) {
 
-                // 1.remove default if 
-                if( $clinic->gallery()->first()->src == 'default.png' ){
-                    $clinic->gallery()->first()->delete();
-                }
-
-                // 2. add new medias
                 foreach ($attributes['medias'] as $key => $photo) {
     
-                   $image =  save_image('clinics', $photo);
-    
+                    // create & store image
+                    $media = MediaUploader::fromFile( $photo)
+                        ->useFileName($clinic->name.'-gallery-'.$key.'.'.$photo->extension())
+                        ->useName($clinic->name.'-gallery-'.$key)
+                        ->upload();
 
-                   // store in db if stored in disk
-                   if ($image) {
-
-                       $clinic->gallery()->create([
-                           'src'=> $photo->hashName(),
-                           'type'=> 'gallery'
-                       ]);
-                   }
+                    //attatch to account
+                    $clinic->attachMedia($media, 'gallery');
+                  
                 } 
 
             }

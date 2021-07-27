@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Repositories\Eloquent\Contracts\AccountInterface;
 use Optix\Media\MediaUploader;
 use App\Models\Media;
+use Exception;
 
 class AccountRepository extends BaseRepository implements AccountInterface
 {
@@ -29,8 +30,8 @@ class AccountRepository extends BaseRepository implements AccountInterface
 
                 // delete the old one
                 // should be delete file
-                // $account->getFirstMedia('avatar')->delete();
-              Media::first()->delete();  
+                $account->getFirstMedia('avatar')->delete();
+            //   Media::first()->delete();  
             }
 
 
@@ -84,6 +85,7 @@ class AccountRepository extends BaseRepository implements AccountInterface
         } catch(\Exception $e){
 
             DB::rollback();
+            // throw new Exception($e->getMessage());
             return back()->withError($e->getMessage());
         }
 

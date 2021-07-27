@@ -14,7 +14,16 @@ class Post extends Model
         'body' , 'user_id'
     ];
 
-    
+    protected $appends =[
+        'first_media'
+    ];
+
+    public function getFirstMediaAttribute()
+    {
+        return ;
+    }
+
+
 
     public function author()
     {

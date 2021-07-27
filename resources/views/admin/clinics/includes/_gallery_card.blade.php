@@ -9,7 +9,8 @@
         @if ( count($gallery) > 0 )
             
             @foreach ($gallery as $media)
-                <img src="{{ get_image('clinics', $media->src) }}" alt="{{ $media->alt }}" img-thumbnail style="height: 50px; width:50px;">
+            
+                <img src="{{asset($media->getUrl())}}" alt="{{ $media->name }}" img-thumbnail style="height: 50px; width:50px;">
             @endforeach
 
                 

@@ -15,7 +15,7 @@ class BaseRepository  implements EloquentInterface
         $this->model = $model ;   
     }
 
-
+    
     public function all( array $columns =['*'] , array $relations = [] ){
         return $this->model->with($relations)->get($columns);
     }
@@ -26,6 +26,7 @@ class BaseRepository  implements EloquentInterface
         return $this->model->onlyTrashed()->get();
     }
     
+   
 
     public function findById(int $id , array $columns =['*'] , array $relations = [],  array $appends = [] ){
 

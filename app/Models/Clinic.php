@@ -5,21 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
+use Optix\Media\HasMedia;
 use Spatie\Translatable\HasTranslations;
 
 class Clinic extends Model
 {
     use HasFactory;
-    use HasTranslations;
+    use HasTranslations , HasMedia;
+    
 
     public $translatable = ['name', 'description'];
 
     protected $fillable =[
-        'name', 'description' , 'clinics_categrory_id' , 'address' ,'social', 'working_hours' , 'contacts', 'rate' , 'media'
+        'name', 'description' , 'clinics_category_id' , 'address' ,'social', 'working_hours' , 'contacts', 'rate' , 'media'
     ];
 
     protected $appends=[
-        'facebook', 'twitter','instagram'
+        'facebook', 'twitter','instagram' , 
     ];
 
 
@@ -43,8 +45,17 @@ class Clinic extends Model
         return json_decode($this->social)->instagram;
     }
 
-    
-   
+
+    public function gallery()
+    {
+      
+        if ( $this->getMedia('gallery') ) {
+           
+            return $this->getMedia('gallery') ;
+        }
+
+        return asset('/default.png');
+    }
 
     
     ######## Relations ########
@@ -72,12 +83,6 @@ class Clinic extends Model
         return $this->hasMany(OffDay::class);
     }// end of vacations
 
-
-    
-    public function gallery()
-    {
-        return $this->morphMany(Media::class,'mediable');
-    }
 
     // public function rate()
     // {

@@ -233,20 +233,17 @@
                 {{-- Gallery preview --}}
                 <div class="gallery d-flex">
                     @if (isset($clinic))
-                        @foreach ($clinic->gallery as $media)
+                        @foreach ($clinic->gallery() as $media)
 
-                            @if ($media->src != 'default.png')
-
-                                <div class="image-wrapper">
+                            <div class="image-wrapper">
 
 
-                                    <img src="{{ get_image('clinics', $media->src) }}" alt="{{ $media->alt }}"
-                                        class="img-thumbnail" style="height: 50px; width:50px;">
+                                <img src="{{asset($media->getUrl())}}" alt="{{ $media->name }}"
+                                    class="img-thumbnail" style="height: 50px; width:50px;">
 
-                                    <button class="delete delete-image" aria-label="close">x</button>
+                                <button class="delete delete-image" aria-label="close">x</button>
 
-                                </div>
-                            @endif
+                            </div>
                         @endforeach
                     @else
 
