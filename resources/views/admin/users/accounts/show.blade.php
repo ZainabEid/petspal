@@ -34,6 +34,8 @@
             <div class="row">
                 <div class="col-md-4 col-xl-3">
                     <div class="card mb-3">
+
+                        {{-- profile details header --}}
                         <div class="card-header d-flex justify-content-between">
 
                             <h5 class="card-title mb-0">{{ __('Profile Details') }}</h5>
@@ -42,9 +44,8 @@
                                 {{-- user --}}
                                 <li class="dropdown" style=" list-style-type: none;">
 
-                                    
-                                    <a class=" d-none d-sm-inline-block" href="#"
-                                        data-bs-toggle="dropdown">
+
+                                    <a class=" d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
                                         <i class="align-middle" data-feather="more-vertical"></i>
                                     </a>
 
@@ -56,8 +57,8 @@
                                             {{ __('Block') }}
                                         </a>
 
-                                         {{-- report --}}
-                                         <a class="dropdown-item" href="">
+                                        {{-- report --}}
+                                        <a class="dropdown-item" href="">
                                             {{ __('Report') }}
                                         </a>
 
@@ -75,6 +76,7 @@
                             </div>
                         </div>
 
+                        {{-- update account form open --}}
                         @if (Auth::guard('admin')->user()->can('update_accounts'))
 
                             {!! Form::model($account, ['id' => 'update-account-form', 'method' => 'post', 'files' => true, 'route' => ['admin.users.accounts.update', [$account->user->id, $account->id]]]) !!}
@@ -84,6 +86,7 @@
 
                         @endif
 
+                        {{-- editabel avatar - name - type - follow btn --}}
                         <div class="card-body text-center">
 
                             {{-- avatar --}}
@@ -117,13 +120,13 @@
 
                             {{-- follow --}}
                             <div>
-                                <a class="btn btn-primary btn-sm" href="#">{{ __('Follow') }}</a>
+                                <a class="btn btn-primary btn-sm" href="#">{{ __('Add Adaption Pet') }}</a>
                                 {{-- <a class="btn btn-primary btn-sm" href="#"><span
                                         data-feather="message-square"></span> {{ __('Message') }}</a> --}}
                             </div>
 
 
-                           
+
 
                         </div>
 
@@ -138,8 +141,8 @@
 
                                 <h5 class="h6 card-title">{{ __('Account Details') }}</h5>
 
-                                 {{-- show edit modal btn --}}
-                                 <span class="text-info show-modal" style="cursor: pointer;">
+                                {{-- show edit modal btn --}}
+                                <span class="text-info show-modal" style="cursor: pointer;">
                                     <i class=" text-info align-middle me-2" data-feather="edit"></i>
                                 </span>
 
@@ -165,14 +168,17 @@
                                 <div class="mb-1"><span data-feather="briefcase" class="feather-sm me-1"></span>
                                     {{ __('Category:') }} <span>{{ $account->category->name }}</span></div>
 
-                                </div>
+                            </div>
 
                         </div>
 
+                        {{-- form end --}}
                         @if (Auth::guard('admin')->user()->can('update'))
                             </form>
                         @endif
 
+
+                        {{-- recent 6 posts --}}
                         @if (isset($account->recent_posts))
 
                             <hr class="my-0" />
@@ -182,8 +188,9 @@
                                 <div class="row">
                                     @foreach ($account->recent_posts as $post)
                                         <div class="inline-flex">
-                                            <img src="{{ url($post->first_image) }}" class="img-fluid mb-2" width="50"
-                                                height="50" />
+                                            {{ $post->body }}
+                                            {{-- <img src="{{ url($post->first_image) }}" class="img-fluid mb-2" width="50"
+                                                height="50" /> --}}
                                         </div>
                                     @endforeach
                                 </div>
@@ -225,7 +232,7 @@
                                 <div class="mb-1"><span data-feather="briefcase" class="feather-sm me-1"></span>
                                     {{ __('Email:') }} <span>{{ $account->user->email }}</span></div>
 
-                                </div>
+                            </div>
 
                         </div>
 
@@ -264,97 +271,187 @@
                     </div>
                 </div>
 
+                {{-- right side activities and posts --}}
                 <div class="col-md-8 col-xl-9">
-                    <div class="card">
-                        <div class="card-header">
+                    {{-- activities --}}
+                    <div class="row">
 
-                            <h5 class="card-title mb-0">{{ __('Activities') }}</h5>
+                        <div class="card">
+                            <div class="card-header">
+
+                                <h5 class="card-title mb-0">{{ __('Activities') }}</h5>
+                            </div>
+                            <div class="card-body h-100">
+
+                                @if ($account->activities)
+                                    @foreach ($account->activities as $index => $activity)
+
+                                        {!! $index != 0 ?: '<hr />' !!}
+
+
+                                        <div class="d-flex align-items-start">
+                                            <img src="{{ $activity->author->avatar ?? 'img/avatars/avatar-5.jpg' }}"
+                                                width="36" height="36" class="rounded-circle me-2"
+                                                alt="{{ $activity->author->name ?? 'Vanessa Tucker' }}">
+                                            <div class="flex-grow-1">
+                                                <small
+                                                    class="float-end text-navy">{{ $activity->time ?? '5m ago' }}</small>
+                                                <strong>{{ $activity->author->name ?? 'Vanessa Tucker' }}</strong>
+                                                {{ $activity->action ?? 'started following' }}
+                                                <strong>{{ $activity->user ?? 'Christina Mason' }}</strong>
+                                                <br />
+                                                <small
+                                                    class="text-muted">{{ $activity->time ?? 'Today 7:51 pm' }}</small><br />
+
+                                            </div>
+                                        </div>
+
+
+
+                                    @endforeach
+                                @else
+                                    <div class="d-flex align-items-start">
+                                        {{ __('There is no data yet !') }}
+                                    </div>
+                                @endif
+
+
+                                {{-- <div class="d-flex align-items-start">
+                                    <img src="img/avatars/avatar.jpg" width="36" height="36" class="rounded-circle me-2"
+                                        alt="Charles Hall">
+                                    <div class="flex-grow-1">
+                                        <small class="float-end text-navy">30m ago</small>
+                                        <strong>Charles Hall</strong> posted something on <strong>Christina
+                                            Mason</strong>'s timeline<br />
+                                        <small class="text-muted">Today 7:21 pm</small>
+    
+                                        <div class="border text-sm text-muted p-2 mt-1">
+                                            Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem
+                                            quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam
+                                            nunc, blandit vel, luctus
+                                            pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt
+                                            tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis
+                                            ante.
+                                        </div>
+    
+                                        <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm"
+                                                data-feather="heart"></i> Like</a>
+                                    </div>
+                                </div>
+    
+                                <hr />
+    
+                                <div class="d-flex align-items-start">
+                                    <img src="img/avatars/avatar-4.jpg" width="36" height="36" class="rounded-circle me-2"
+                                        alt="Christina Mason">
+                                    <div class="flex-grow-1">
+                                        <small class="float-end text-navy">1h ago</small>
+                                        <strong>Christina Mason</strong> posted a new blog<br />
+    
+                                        <small class="text-muted">Today 6:35 pm</small>
+                                    </div>
+                                </div>
+    
+                                <hr />
+    
+                                <div class="d-flex align-items-start">
+                                    <img src="img/avatars/avatar-2.jpg" width="36" height="36" class="rounded-circle me-2"
+                                        alt="William Harris">
+                                    <div class="flex-grow-1">
+                                        <small class="float-end text-navy">3h ago</small>
+                                        <strong>William Harris</strong> posted two photos on <strong>Christina
+                                            Mason</strong>'s timeline<br />
+                                        <small class="text-muted">Today 5:12 pm</small>
+    
+                                        <div class="row g-0 mt-1">
+                                            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+                                                <img src="img/photos/unsplash-1.jpg" class="img-fluid pe-2" alt="Unsplash">
+                                            </div>
+                                            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+                                                <img src="img/photos/unsplash-2.jpg" class="img-fluid pe-2" alt="Unsplash">
+                                            </div>
+                                        </div>
+    
+                                        <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm"
+                                                data-feather="heart"></i> Like</a>
+                                    </div>
+                                </div>
+    
+                                <hr /> --}}
+
+                                {{-- <div class="d-grid">
+                                    <a href="#" class="btn btn-primary">Load more</a>
+                                </div> --}}
+
+                            </div>
                         </div>
-                        <div class="card-body h-100">
-                            {{-- <div class="d-flex align-items-start">
-                                <img src="img/avatars/avatar-5.jpg" width="36" height="36" class="rounded-circle me-2"
-                                    alt="Vanessa Tucker">
-                                <div class="flex-grow-1">
-                                    <small class="float-end text-navy">5m ago</small>
-                                    <strong>Vanessa Tucker</strong> started following <strong>Christina
-                                        Mason</strong><br />
-                                    <small class="text-muted">Today 7:51 pm</small><br />
+                    </div>
 
-                                </div>
+                    {{-- posts --}}
+
+                    <div class="row">
+                        <div class="card">
+
+                            <div class="card-header">
+
+                                <h5 class="card-title mb-0">{{ __('Posts') }}</h5>
+
                             </div>
 
-                            <hr />
+                            <div class="card-body h-100">
 
-                            <div class="d-flex align-items-start">
-                                <img src="img/avatars/avatar.jpg" width="36" height="36" class="rounded-circle me-2"
-                                    alt="Charles Hall">
-                                <div class="flex-grow-1">
-                                    <small class="float-end text-navy">30m ago</small>
-                                    <strong>Charles Hall</strong> posted something on <strong>Christina
-                                        Mason</strong>'s timeline<br />
-                                    <small class="text-muted">Today 7:21 pm</small>
+                                @if (isset($account->user->posts) && $account->user->posts->count() > 0)
 
-                                    <div class="border text-sm text-muted p-2 mt-1">
-                                        Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem
-                                        quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam
-                                        nunc, blandit vel, luctus
-                                        pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt
-                                        tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis
-                                        ante.
-                                    </div>
+                                    @foreach ($account->user->posts as $index => $post)
 
-                                    <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm"
-                                            data-feather="heart"></i> Like</a>
-                                </div>
-                            </div>
+                                        {!! $index != 0 ? '<hr />' : '' !!}
 
-                            <hr />
 
-                            <div class="d-flex align-items-start">
-                                <img src="img/avatars/avatar-4.jpg" width="36" height="36" class="rounded-circle me-2"
-                                    alt="Christina Mason">
-                                <div class="flex-grow-1">
-                                    <small class="float-end text-navy">1h ago</small>
-                                    <strong>Christina Mason</strong> posted a new blog<br />
+                                        {{-- post component --}}
+                                        <div class="d-flex align-items-start">
 
-                                    <small class="text-muted">Today 6:35 pm</small>
-                                </div>
-                            </div>
+                                            @if (isset($post->collection) && $post->collection->count() > 1)
 
-                            <hr />
+                                                @foreach ($post->collection as $media)
+                                                    {{-- if image --}}
+                                                    <img src="{{ url($media->file_name) }}" width="50" height="50"
+                                                        class="rounded-circle me-2">
 
-                            <div class="d-flex align-items-start">
-                                <img src="img/avatars/avatar-2.jpg" width="36" height="36" class="rounded-circle me-2"
-                                    alt="William Harris">
-                                <div class="flex-grow-1">
-                                    <small class="float-end text-navy">3h ago</small>
-                                    <strong>William Harris</strong> posted two photos on <strong>Christina
-                                        Mason</strong>'s timeline<br />
-                                    <small class="text-muted">Today 5:12 pm</small>
+                                                    {{-- if video show thumbnail and the play icon over it --}}
 
-                                    <div class="row g-0 mt-1">
-                                        <div class="col-6 col-md-4 col-lg-4 col-xl-3">
-                                            <img src="img/photos/unsplash-1.jpg" class="img-fluid pe-2" alt="Unsplash">
+                                                @endforeach
+
+                                            @endif
+
+                                            <div class="flex-grow-1">
+                                                <img src="{{ url($post->author->avatar) ?? 'img/avatars/avatar-5.jpg' }}"
+                                                    width="30" height="30" class="rounded-circle me-2"
+                                                    alt="{{ $post->author->name }}">
+                                                <small class="float-end text-navy">{{ $post->time ?? '5m ago' }}</small>
+                                                <strong>{{ $post->body }}</strong><br />
+                                                <small
+                                                    class="text-muted">{{ $post->time ?? 'Today 7:51 pm' }}</small><br />
+
+                                            </div>
                                         </div>
-                                        <div class="col-6 col-md-4 col-lg-4 col-xl-3">
-                                            <img src="img/photos/unsplash-2.jpg" class="img-fluid pe-2" alt="Unsplash">
-                                        </div>
+
+
+
+                                    @endforeach
+                                @else
+                                    <div class="d-flex align-items-start">
+                                        {{ __('There is no data yet !') }}
                                     </div>
+                                @endif
 
-                                    <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm"
-                                            data-feather="heart"></i> Like</a>
-                                </div>
+
+
                             </div>
-
-                            <hr /> --}}
-
-                            {{-- <div class="d-grid">
-                                <a href="#" class="btn btn-primary">Load more</a>
-                            </div> --}}
-
                         </div>
                     </div>
                 </div>
+
+
             </div>
 
 
@@ -382,9 +479,8 @@
 
             });
 
-            
+
 
         });
     </script>
 @endpush
-

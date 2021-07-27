@@ -31,8 +31,7 @@ class Account extends Model
 
     public function  getRecentPostsAttribute()
     {
-        // return  $this->posts->orderedBy('desc')->limit(6) ;
-        return null;
+        return  $this->user->posts()->latest()->take(6)->get(); 
     }
 
     public function  getAvatarAttribute()

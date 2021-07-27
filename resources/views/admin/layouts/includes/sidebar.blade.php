@@ -87,7 +87,7 @@
 
 
 
-            {{-- pets --}}
+            {{-- pets category --}}
             @if (Auth::guard('admin')->user()->can('create_petscategory', 'read_petscategory', 'update_petscategory', 'delete_petscategory'))
 
                 <li class="sidebar-header">
@@ -106,41 +106,37 @@
                     </li>
                 @endif
 
-                {{-- users --}}
-                @if (Auth::guard('admin')->user()->can('create_users', 'read_users', 'update_users', 'delete_users'))
 
-                    <li class="sidebar-header">
-                        {{ __('Users') }}
+            @endif
+
+            {{-- users --}}
+            @if (Auth::guard('admin')->user()->can('create_users', 'read_users', 'update_users', 'delete_users'))
+
+                <li class="sidebar-header">
+                    {{ __('Users') }}
+                </li>
+
+
+                @if (Auth::guard('admin')->user()->can('read_users'))
+
+                    {{-- all users --}}
+                    <li class="sidebar-item @if (Request::is('admin/users*')) active @endif">
+                        <a class="sidebar-link" href="{{ route('admin.users.index') }}">
+                            <i class="align-middle" data-feather="user"></i> <span
+                                class="align-middle">{{ __('All Users') }}</span>
+                        </a>
+                    </li>
+
+                    {{-- Add New User --}}
+                    <li class="sidebar-item @if (Request::is('admin/users*')) active @endif">
+                        <a class="sidebar-link" href="{{ route('admin.users.create') }}">
+                            <i class="align-middle" data-feather="user"></i> <span
+                                class="align-middle">{{ __('Register User') }}</span>
+                        </a>
                     </li>
 
 
-                    @if (Auth::guard('admin')->user()->can('read_users'))
-
-                        {{-- all users --}}
-                        <li class="sidebar-item @if (Request::is('admin/users*')) active @endif">
-                            <a class="sidebar-link" href="{{ route('admin.users.index') }}">
-                                <i class="align-middle" data-feather="user"></i> <span
-                                    class="align-middle">{{ __('All Users') }}</span>
-                            </a>
-                        </li>
-
-                         {{-- Add New User --}}
-                         <li class="sidebar-item @if (Request::is('admin/users*')) active @endif">
-                            <a class="sidebar-link" href="{{ route('admin.users.create') }}">
-                                <i class="align-middle" data-feather="user"></i> <span
-                                    class="align-middle">{{ __('Register User') }}</span>
-                            </a>
-                        </li>
-
-
-                    @endif
-
-                   
-
-
                 @endif
-
-
 
 
 

@@ -14,14 +14,16 @@ class Post extends Model
         'body' , 'user_id'
     ];
 
-    public function user()
+    
+
+    public function author()
     {
-        $this->belongsTo(User::class);
+       return $this->belongsTo(User::class , 'user_id');
     }
 
     public function comments()
     {
-        $this->hasMany(Comment::class);
+       return $this->hasMany(Comment::class);
     }
 
 

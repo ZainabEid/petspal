@@ -46,6 +46,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends =[
+        'avatar'
+    ];
+
+
+    public function getAvatarAttribute()
+    {
+        return $this->account()->avatar;
+    }
+
     public function account()
     {
         return $this->accounts()->first();
