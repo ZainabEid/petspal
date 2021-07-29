@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Optix\Media\hasMedia;
+use Optix\Media\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

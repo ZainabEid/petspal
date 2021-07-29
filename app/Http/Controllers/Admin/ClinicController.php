@@ -47,7 +47,6 @@ class ClinicController extends Controller
 
     public function store(ClinicRequest $request)
     {
-        // dd( $request->all() );
 
         $this->clinic->create($request->toArray() );
         

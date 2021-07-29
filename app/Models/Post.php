@@ -2,28 +2,59 @@
 
 namespace App\Models;
 
+use App\Contracts\Likeable ;
+use Optix\Media\HasMedia;
+use App\Models\Traits\Likes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Optix\Media\HasMedia;
 
-class Post extends Model
+class Post extends Model implements Likeable
 {
-    use HasFactory, HasMedia;
+    use HasFactory, HasMedia , Likes;
 
     protected $fillable = [
-        'body' , 'user_id'
+        'body' , 'user_id' 
     ];
 
     protected $appends =[
         'first_media'
     ];
 
+    // return first image from a post collection
     public function getFirstMediaAttribute()
     {
-        return ;
+        if ( $this->getFirstMediaUrl('collection') ) {
+
+            return $this->getFirstMediaUrl('collection');
+        }
+
+        return  asset('public/posts/default.png') ;
+    }
+    public function getTimeAgo($carbonObject) {
+        return str_ireplace(
+            [' seconds', ' second', ' minutes', ' minute', ' hours', ' hour', ' days', ' day', ' weeks', ' week'], 
+            ['s', 's', 'm', 'm', 'h', 'h', 'd', 'd', 'w', 'w'], 
+            $carbonObject->diffForHumans()
+        );
+    }
+
+    public function collection()
+    {
+        if ( $this->getMedia('collection') &&  $this->getMedia('collection')->count() > 0  ) {
+           
+            return $this->getMedia('collection');
+        }
+
+        return asset('public/posts/default.png') ;
     }
 
 
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class,'taggable');
+    }
+
+   
 
     public function author()
     {

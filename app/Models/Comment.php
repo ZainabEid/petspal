@@ -18,10 +18,17 @@ class Comment extends Model
         return $this->belongsTo(Post::class);
     }
 
-    public function user()
+    public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
+    public function getTimeAgo($carbonObject) {
+        return str_ireplace(
+            [' seconds', ' second', ' minutes', ' minute', ' hours', ' hour', ' days', ' day', ' weeks', ' week'], 
+            ['s', 's', 'm', 'm', 'h', 'h', 'd', 'd', 'w', 'w'], 
+            $carbonObject->diffForHumans()
+        );
+    }
 
 }

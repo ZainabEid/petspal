@@ -11,14 +11,12 @@
 
             <!-- form start -->
             {!! Form::model( $clinic , ['route'=> ['admin.clinics.update', $clinic->id ], 'role' => 'form', 'method' => 'PUT', 'files' => true]) !!}
-
                
                 @csrf
                 @method('PUT')
 
                 @include('admin.clinics.includes._form')
 
-                
 
                 
                 <div class="card-footer">

@@ -25,7 +25,6 @@ class Clinic extends Model
     ];
 
 
-
     ###### gettin attributes ######
 
     public function getFacebookAttribute()
@@ -46,12 +45,16 @@ class Clinic extends Model
     }
 
 
+    ###### Functions #####
+
+
+    // get all media
     public function gallery()
     {
       
         if ( $this->getMedia('gallery') ) {
            
-            return $this->getMedia('gallery') ;
+            return $this->getMedia('gallery');
         }
 
         return asset('/default.png');

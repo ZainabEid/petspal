@@ -1,7 +1,7 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="#">
-            <span class="align-middle">PetsPals :: {{ __('Dashboard') }}</span>
+            <span class="align-middle">{{ __('PetsPals ') }}:: {{ __('Dashboard') }}</span>
         </a>
 
         <ul class="sidebar-nav">
@@ -86,7 +86,6 @@
             @endif
 
 
-
             {{-- pets category --}}
             @if (Auth::guard('admin')->user()->can('create_petscategory', 'read_petscategory', 'update_petscategory', 'delete_petscategory'))
 
@@ -120,7 +119,7 @@
                 @if (Auth::guard('admin')->user()->can('read_users'))
 
                     {{-- all users --}}
-                    <li class="sidebar-item @if (Request::is('admin/users*')) active @endif">
+                    <li class="sidebar-item @if (Request::is('admin/users')) active @endif">
                         <a class="sidebar-link" href="{{ route('admin.users.index') }}">
                             <i class="align-middle" data-feather="user"></i> <span
                                 class="align-middle">{{ __('All Users') }}</span>
@@ -128,7 +127,7 @@
                     </li>
 
                     {{-- Add New User --}}
-                    <li class="sidebar-item @if (Request::is('admin/users*')) active @endif">
+                    <li class="sidebar-item @if (Request::is('admin/users/create')) active @endif">
                         <a class="sidebar-link" href="{{ route('admin.users.create') }}">
                             <i class="align-middle" data-feather="user"></i> <span
                                 class="align-middle">{{ __('Register User') }}</span>
@@ -139,11 +138,7 @@
                 @endif
 
 
-
-
             @endif
-
-
 
 
 

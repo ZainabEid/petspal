@@ -28,14 +28,25 @@ class AccountController extends Controller
        return view('admin.users.accounts.index',compact('user'));
     }
 
-   
+   public function create(User $user)
+   {
+    $pets_categories = PetsCategory::all();
+       return view('admin.users.accounts.create' ,compact('user','pets_categories'));
+   }
 
-  
+   public function store(User $user, Request $request)
+   {
+       $account = $this->account->create($request->all());
+
+       return redirect()->route('admin.users.accounts.show',[ $user->id , $account->id]);
+   }
+
   
     public function show(User $user, Account $account)
     {
         $pets_categories = PetsCategory::all();
-        return view('admin.users.accounts.show',compact('account','pets_categories'));
+        $posts = isset($user->posts) ? $user->posts()->paginate(5): null;
+        return view('admin.users.accounts.show',compact('account','pets_categories','posts'));
     }
 
    
@@ -55,6 +66,16 @@ class AccountController extends Controller
     
     public function destroy(User $user, Account $account)
     {
-        //
+        $this->account->delete();
+        return redirect()->route('admin.users.index');
+    }
+
+
+    public function switchAccount(Account $account)
+    {
+        $this->account->switchAccount($account);
+       
+        return redirect()->route('admin.users.accounts.show' ,[$account->user->id , $account->id]);
+
     }
 }

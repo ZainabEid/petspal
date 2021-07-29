@@ -19,6 +19,23 @@ class AccountRepository extends BaseRepository implements AccountInterface
     }// end of constructor
 
 
+
+    public function create( array $attributes)
+    {
+        $account =   $this->model->create([
+                'user_id' => $attributes['user_id'], 
+                'name' => $attributes['name'], 
+                'email' => $attributes['email'], 
+                'pets_category_id' => $attributes['pets_category_id'], 
+                'is_adoption' => 1, // adoption account 
+    
+            ]);
+
+        return  $account->fresh();
+
+    }
+
+
     public function updateAvatar(Account $account, $image)
     {
         DB::beginTransaction();
@@ -55,6 +72,9 @@ class AccountRepository extends BaseRepository implements AccountInterface
         DB::commit();
         return $account;
     }
+
+
+
 
     
 
@@ -93,6 +113,14 @@ class AccountRepository extends BaseRepository implements AccountInterface
         DB::commit();
         return  $account;
 
+    }
+
+    public function switchAccount(Account $account)
+    {
+       $account->update([
+           'is_adoption' => ! $account->is_adoption,
+       ]);
+       return $account;
     }
 
     

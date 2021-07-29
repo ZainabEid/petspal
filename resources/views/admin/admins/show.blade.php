@@ -17,7 +17,7 @@
                         <h5 class="card-title mb-0">{{ __('Profile Details') }}</h5>
                     </div>
                     <div class="card-body text-center">
-                        <img src="{{ asset('img/avatars/avatar.jpg') }}" alt="{{ $admin->name }}"
+                        <img src="http://lorempixel.com/128/128/people/1" alt="{{ $admin->name }}"
                             class="img-fluid rounded-circle mb-2" width="128" height="128" />
                         <h5 class="card-title mb-0">{{ $admin->name }}</h5>
 

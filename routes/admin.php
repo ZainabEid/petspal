@@ -64,14 +64,29 @@ Route::middleware('admin.auth:admin')->group(function () {
     // Users
     Route::get('users/login/{user}', 'UserController@login')->name('users.login');
     Route::resource('users', 'UserController');
+
+    // users / accounts
+    Route::get('users/accounts/switch-account/{account}', 'AccountController@switchAccount')->name('users.accounts.switch-account');
     Route::resource('users.accounts', 'AccountController');
+
     // Route::resource('profiles', 'ProfileController');
 
-    // // posts
-    // Route::resource('posts', 'PostController');
+    // posts
+    Route::resource('users.posts', 'PostController');
+
+    //change acted user
+    Route::get('users/posts/change-user', 'PostController@changeUser')->name('users.posts.change-user');
+
+    //likes
+    Route::get('users/{user}/posts/{post}/like','LikeController@like')->name('posts.like');
+    Route::get('users/{user}/posts/{post}/unlike','LikeController@unlike')->name('posts.unlike');
+
     
-    // // comments
-    // Route::resource('comments', 'CommentController');
+    // comments
+    Route::resource('posts.comments', 'CommentController');
+   
+    // tags
+    Route::resource('tags', 'TagController');
 
 
     // notification

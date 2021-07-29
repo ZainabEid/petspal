@@ -237,7 +237,6 @@
 
                             <div class="image-wrapper">
 
-
                                 <img src="{{asset($media->getUrl())}}" alt="{{ $media->name }}"
                                     class="img-thumbnail" style="height: 50px; width:50px;">
 

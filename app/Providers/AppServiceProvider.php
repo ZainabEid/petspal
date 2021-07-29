@@ -7,11 +7,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
+   
     public function register()
     {
         $this->app->register(RepositoryServiceProvider::class);
@@ -25,7 +21,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
        Relation::morphMap([
-           'clinic' => 'App\Models\Clinic'
+           'clinic' => 'App\Models\Clinic',
+           'post' => 'App\Models\Post'
        ]);
     }
 }
