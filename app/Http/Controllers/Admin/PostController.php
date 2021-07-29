@@ -12,7 +12,6 @@ use App\Repositories\Eloquent\Contracts\PostInterface;
 
 class PostController extends Controller
 {
-
     public $posts ;
     public $comments ;
 

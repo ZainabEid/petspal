@@ -20,7 +20,9 @@ class PermissionsTableSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // setting general permition for each model
-        $models = getModels();
+        $models = getModel();
+
+        // $models = ['admin','user','account','clinic','post'];
         $maps = ['create', 'read', 'update', 'delete'];
 
         $arrayOfPermissionNames = []; // ['create_categories' , 'create_admins',...]
@@ -41,21 +43,4 @@ class PermissionsTableSeeder extends Seeder
 
 
     
-    function getModels(){
-        $path = app_path() . "/Models";
-        
-        $out = [];
-        $results = scandir($path);
-        foreach ($results as $result) {
-
-            if ($result === '.' or $result === '..') continue;
-            $filename = $path . '/' . $result;
-            if (is_dir($filename)) {
-                $out = array_merge($out, getModels($filename));
-            }else{
-                $out[] = basename(substr($filename,0,-4));
-            }
-        }
-        return  array_map('strtolower', $out);;
-    }
 }

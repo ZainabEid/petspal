@@ -1,15 +1,28 @@
 <?php
 
-
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
+if (!function_exists('getModel')) {
+    function getModel(){
+        
+        $modelPath = app_path('Models');
+        $mofelFiles = File::allFiles($modelPath);
+        foreach ( $mofelFiles as $file) {
+
+            $models[] = $file->getFilenameWithoutExtension();
+        }
+       
+        return  array_map('strtolower', $models);
+    }
+}
 
 
 
 ###### GET MODELS HELPERS #####
 
-if (!function_exists('get_models')) {
-function getModels(){
+if (!function_exists('oldgetModels')) {
+function oldgetModels(){
 
     $path = app_path() . "/Models";
 
@@ -28,7 +41,7 @@ function getModels(){
 
         if (is_dir($filename)) {
 
-            $out = array_merge($out, getModels($filename));
+            $out = array_merge($out, oldgetModels($filename));
 
         }else{
 
