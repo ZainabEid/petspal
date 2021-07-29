@@ -1,14 +1,15 @@
+#  About PetsPals
 
-## About PetsPasl
-
-PetsPals is a social network mobile application for pets.
+PetsPals is a social network mobile application for pets with adminstraion dashboad.
 
 
-## Domain
-https://petspal.roqay.solutions/
-https://petspal.roqay.solutions/admin
+## Domains
+[Home : https://petspal.roqay.solutions/](https://petspal.roqay.solutions/) 
+
+[Admin : https://petspal.roqay.solutions/admin](https://petspal.roqay.solutions/admin)
 
 ## Credentials
 email: super_admin@petspals.com
+
 pass: qwertyuiop
 
