@@ -6,7 +6,6 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Tag;
 use App\Repositories\Eloquent\Contracts\CommentInterface;
 use App\Repositories\Eloquent\Contracts\PostInterface;
 
@@ -84,21 +83,35 @@ class PostController extends Controller
     }
 
    
-    public function edit(Post $post)
+    public function edit(User $user, Post $post)
     {
-        //
+        return view('admin.users.posts.edit',compact('user','post'));
     }
 
    
-    public function update(Request $request, Post $post)
+    public function update(User $user, Request $request, Post $post)
     {
-        //
+        // $request->validate([
+        //     'body' => 'nullable|string',
+        //     'medias' => 'required|array|min:1',
+        //     // 'medias.*' => 'mimetypes:image,video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi'
+        // ]);
+       
+
+        $post = $this->posts->update($post->id , $request->all() , $user);
+
+        return redirect()->route('admin.users.accounts.show',[$user->id , $user->account()->id]);
     }
 
     
-    public function destroy(Post $post)
+    public function destroy(User $user , Post $post)
     {
-        //
+        $this->posts->deleteById($post->id);
+
+        session()->flash('success', __('deleted-successfuly'));
+
+        return redirect()->route('admin.users.accounts.show',[ $user->id ,  $user->account()->id]);
+      
     }
 
     

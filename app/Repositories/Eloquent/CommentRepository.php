@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Eloquent;
 
+use App\Models\Comment;
 use Exception;
 use App\Models\Post;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +11,7 @@ class CommentRepository extends BaseRepository implements CommentInterface
 {
     protected $model;
 
-    public function __construct(Post $model)
+    public function __construct(Comment $model)
     {
         $this->model =  $model;   
         
@@ -31,8 +32,8 @@ class CommentRepository extends BaseRepository implements CommentInterface
 
         try {
             
-            // create post
-            $post = $post->comments()->create($attributes);
+            // create comme
+            $comment = $post->comments()->create($attributes);
 
 
         } catch(\Exception $e)
@@ -43,24 +44,24 @@ class CommentRepository extends BaseRepository implements CommentInterface
         
         DB::commit();
         
-        return  $post->fresh();
+        return  $comment->fresh();
     }// end of create funciton
 
 
-    public function update(int $postId = null, array $attributes, Post $post=null )
+    public function update(int $commentId = null, array $attributes, Post $post=null )
     {
         DB::beginTransaction();
 
-        $post =""; 
+        $comment =""; 
 
         try {
             
-            // create post
-            $postId = ($postId == null ) ? $this->model->id : $postId;
+            // create comment
+            $commentId = ($commentId == null ) ? $this->model->id : $commentId;
 
-            $post = $this->findById($postId);
+            $comment = $this->findById($commentId);
 
-            $post->comments->update($attributes);
+            $comment->update($attributes);
 
             
             
@@ -78,10 +79,6 @@ class CommentRepository extends BaseRepository implements CommentInterface
         return  $post;
     }
 
-    // use Spatie\Permission\Traits\HasRole   in Post post 
-    public function assignRole($roles)
-    { 
-        return $this->model->assignRole($roles);
-    }
+   
 }
 

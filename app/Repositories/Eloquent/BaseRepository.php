@@ -52,6 +52,7 @@ class BaseRepository  implements EloquentInterface
     public function deleteById(int $modelId ){
         return  $this->findById($modelId)->delete();
     }
+    
     public function delete(){
         return  $this->model->delete();
     }

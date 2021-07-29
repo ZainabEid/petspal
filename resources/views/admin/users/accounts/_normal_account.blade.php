@@ -40,7 +40,7 @@
                             <div class="dropdown-divider"></div>
 
                             {{-- deactivate --}}
-                            <a class="dropdown-item" href="">
+                            <a class="dropdown-item" href="{{ route('admin.users.destroy', [$account->user->id , $account->id]) }}">
                                 {{ __('Deactivate') }}
                             </a>
 

@@ -68,8 +68,7 @@
                                                         <img src="{{ url($account->avatar) }}"
                                                             class="img-fluid rounded-circle mb-2" width="30" height="30" />
 
-                                                        <a
-                                                            href="{{ route('admin.users.accounts.show', [$user->id, $account->id]) }}">{{ $account->name }}</a>
+                                                        <a href="{{ route('admin.users.accounts.show', [$user->id, $account->id]) }}">{{ $account->name }}</a>
 
                                                     </li>
 

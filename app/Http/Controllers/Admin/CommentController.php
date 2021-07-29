@@ -47,20 +47,31 @@ class CommentController extends Controller
     }
 
    
-    public function edit(Comment $comment)
+    public function edit(Post $post , Comment $comment)
     {
-        //
+        return  view('admin.users.posts.comments.edit',compact('post', 'comment'));
     }
 
     
-    public function update(Request $request, Comment $comment)
+    public function update(Post $post, Comment $comment,Request $request)
     {
-        //
+        // $request->validate([
+        //     'body' => 'nullable|string',
+        // ]);
+       
+
+        $comment = $this->comments->update($comment->id , $request->all() , $post);
+
+        return redirect()->route('admin.users.posts.show',[$post->author->id , $post->id]);
     }
 
    
-    public function destroy(Comment $comment)
+    public function destroy(Post $post , Comment $comment)
     {
-        //
+        $this->comments->deleteById($comment->id);
+
+        session()->flash('success', __('deleted-successfuly'));
+
+        return redirect()->route('admin.users.posts.show',[ $post->author->id ,  $post->id]);
     }
 }

@@ -97,10 +97,10 @@ class PostRepository extends BaseRepository implements PostInterface
         
     
         /* Add all matches to array */
-    
+        $keywords=[];
         foreach ($matches[1] as $match) {
     
-        $keywords[] = $match;
+            $keywords[] = $match;
     
         }
     
@@ -125,6 +125,29 @@ class PostRepository extends BaseRepository implements PostInterface
             $post = $this->findById($postId);
 
             $post->update($attributes);
+
+           
+            // handling tags
+
+            //get hashtags
+            $hashatgs = $this->get_hashtags($post->body);
+           
+            
+            if( count($hashatgs) >  0){
+                
+                // create tag
+                foreach ($hashatgs as  $index => $tag) {
+                  
+                    $tags[] = Tag::firstOrCreate(['tag_name' => $tag]);
+                }
+
+              
+                // attach post's tags
+                $post->tags()->detach();
+                $post->tags()->saveMany($tags);
+              
+            };
+        
 
             
             // assign collection
@@ -165,4 +188,3 @@ class PostRepository extends BaseRepository implements PostInterface
 
   
 }
-

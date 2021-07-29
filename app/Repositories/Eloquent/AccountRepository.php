@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Repositories\Eloquent\Contracts\AccountInterface;
 use Optix\Media\MediaUploader;
 use App\Models\Media;
+use App\Models\User;
 use Exception;
 
 class AccountRepository extends BaseRepository implements AccountInterface
@@ -121,6 +122,22 @@ class AccountRepository extends BaseRepository implements AccountInterface
            'is_adoption' => ! $account->is_adoption,
        ]);
        return $account;
+    }
+
+    public function delete(User $user=null , Account $account=null )
+    {
+        // check if main user account
+        if ($user->account()->id === $account->id) {
+
+            // deactivate user
+            $user->deactivate();
+            return ;
+        }
+
+        // delete the account
+        $account->delete();
+
+        return ;
     }
 
     

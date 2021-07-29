@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-use App\Contracts\Likeable ;
+
 use Optix\Media\HasMedia;
-use App\Models\Traits\Likes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-class Post extends Model implements Likeable
-{
-    use HasFactory, HasMedia , Likes;
-
+class Post extends Model {
+    use HasFactory , HasMedia , SoftDeletes ;
+    
+    
     protected $fillable = [
         'body' , 'user_id' 
     ];
@@ -49,13 +50,12 @@ class Post extends Model implements Likeable
     }
 
 
-    public function tags()
+    public function tags(): MorphToMany
     {
-        return $this->morphToMany(Tag::class,'taggable');
+        return $this->morphToMany(Tag::class,'taggable')->withTimestamps();
     }
 
    
-
     public function author()
     {
        return $this->belongsTo(User::class , 'user_id');
