@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contracts\Likeable;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,39 +11,22 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use SoftDeletes;
     use HasFactory, Notifiable;
     use HasApiTokens;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+  
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'status',
+        'name', 'email', 'password', 'status',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+   
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -57,29 +41,28 @@ class User extends Authenticatable
         return $this->account()->avatar;
     }
 
+    // user's main account
     public function account()
     {
         return $this->accounts()->first();
     }
 
 
-    // likes related functions
+    #### likes functions #####
 
-    public function likes()
+    public function like(Likeable $likeable): self // likable is post or comment or else
     {
-        return $this->hasMany(Like::class);
-    }
-
-    public function like(Likeable $likeable): self
-    {
+        
         if ($this->hasLiked($likeable)) {
             return $this;
         }
 
-        (new Like())
-            ->user()->associate($this)
-            ->likeable()->associate($likeable)
-            ->save();
+        $this->likes->associate($likeable);
+
+        // (new Like())
+        //     ->user()->associate($this)
+        //     ->likeable()->associate($likeable)
+        //     ->save();
 
         return $this;
     }
@@ -90,11 +73,14 @@ class User extends Authenticatable
             return $this;
         }
 
-        $likeable->likes()
-            ->whereHas('user', function($q) { 
-                return $q->whereId($this->id);
-            })
-            ->delete();
+
+        $likeable->likes()->where('user_id',$this->id)->delete;
+
+        // $likeable->likes()
+        //     ->whereHas('user', function($q) { 
+        //         return $q->whereId($this->id);
+        //     })
+        //     ->delete();
 
         return $this;
     }
@@ -105,14 +91,22 @@ class User extends Authenticatable
             return false;
         }
 
-        return $likeable->likes()
-            ->whereHas('user', function($q){
-                  $q->whereId($this->id);
-            })
-            ->exists();
+        return   $likeable->likes()->where('user_id',$this->id)->exists();
+
+        // return $likeable->likes()
+        //     ->whereHas('user', function($q){
+        //           $q->whereId($this->id);
+        //     })
+        //     ->exists();
     }
+
+    #### End likes functions #####
     
-    
+
+
+
+
+
     ##### RELATIONS #####
 
     public function accounts()
@@ -139,6 +133,11 @@ class User extends Authenticatable
     // users that follow this user
     public function followers() {
         return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id');
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 
     ##### END RELATIONS #####

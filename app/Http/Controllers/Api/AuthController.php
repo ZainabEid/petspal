@@ -28,8 +28,9 @@ class AuthController extends Controller
             'is_adoption' => 'required|boolean',
         ]);
 
-
         $user = $this->user->create($request->toArray());
+
+        $user->sendEmailVerificationNotification();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -45,6 +46,7 @@ class AuthController extends Controller
     {
        
         if (!Auth::attempt($request->only('email', 'password'))) {
+
             return response()->json([
                 'message' => 'Invalid login details'
             ], 401);
@@ -65,9 +67,10 @@ class AuthController extends Controller
     
     public function me(Request $request)
     {
-        dd('me');
+       
         return $request->user();
     }
+    
     public function test(Request $request)
     {
         dd('test');

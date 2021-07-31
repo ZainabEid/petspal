@@ -40,8 +40,9 @@
                             <div class="dropdown-divider"></div>
 
                             {{-- deactivate --}}
-                            <a class="dropdown-item" href="{{ route('admin.users.destroy', [$account->user->id , $account->id]) }}">
-                                {{ __('Deactivate') }}
+
+                            <a class="dropdown-item" href="{{ route('admin.users.accounts.destroy', [$account->user->id , $account->id]) }}">
+                                {{ $account->user->account()->id === $account->id ?  __('Deactivate') : __('Remove') }}
                             </a>
 
                         </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -114,6 +115,30 @@ Route::middleware('admin.auth:admin')->group(function () {
     
     
 });
+
+
+
+Route::get('/chat', function(){
+    return view('chat');
+})->name('chat');
+
+
+
+Route::post('/send-message', function(Request $request){
+    // dd($request->all());
+    event(
+        new Message(
+            $request->input('username') ,
+            $request->input('message')
+        )  
+    );    
+
+    return ["success"=>true];
+});
+
+
+
+
 
 
 // lang

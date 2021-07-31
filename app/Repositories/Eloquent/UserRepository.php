@@ -49,6 +49,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         }
         
         DB::commit();
+
+        
         
         return  $user->fresh();
     }

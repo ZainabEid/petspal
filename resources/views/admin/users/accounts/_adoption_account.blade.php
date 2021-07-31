@@ -23,16 +23,19 @@
 
                            
 
-                            {{-- report --}}
-                            <a class="dropdown-item" href="{{ route('admin.users.accounts.switch-account', [ $account->id]) }}">
-                                {{ __('switch to normal account') }}
-                            </a>
+                            {{-- switch account --}} {{-- if main account for user --}}
+                            @if ($account->user->account()->id === $account->id )
+                                
+                                <a class="dropdown-item" href="{{ route('admin.users.accounts.switch-account', [ $account->id]) }}">
+                                    {{ __('switch to normal account') }}
+                                </a>
+                                <div class="dropdown-divider"></div>
+                            @endif
 
-                            <div class="dropdown-divider"></div>
 
                             {{-- deactivate --}}
-                            <a class="dropdown-item" href="">
-                                {{ __('Deactivate') }}
+                            <a class="dropdown-item" href="{{ route('admin.users.accounts.destroy', [$account->user->id , $account->id]) }}">
+                                {{ $account->user->account()->id === $account->id ?  __('Deactivate') : __('Remove') }}
                             </a>
 
                         </div>
@@ -139,6 +142,38 @@
 
 
             <hr class="my-0" />
+
+
+            {{-- User Data --}}
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <h5 class="h6 card-title">{{ __('User') }}</h5>
+
+                    <a href="{{ route('admin.users.edit', $account->user->id) }}" style="text-decoration: none; ">
+                        <i class=" text-info align-middle me-2" data-feather="edit"></i>
+                    </a>
+
+
+                </div>
+
+
+
+                <div class="list-unstyled mb-0">
+
+                    <div class="mb-1"><span data-feather="home" class="feather-sm me-1"></span>
+                        {{ __('Name:') }}
+                        <span>{{ $account->user->name }}</span>
+                    </div>
+
+                    <div class="mb-1"><span data-feather="briefcase" class="feather-sm me-1"></span>
+                        {{ __('Email:') }} <span>{{ $account->user->email }}</span></div>
+
+                </div>
+
+            </div>
+
 
            
 
