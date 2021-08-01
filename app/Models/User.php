@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contracts\Likeable;
+use App\Notifications\VerifyAccount;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -19,7 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
   
     protected $fillable = [
-        'name', 'email', 'password', 'status',
+        'name', 'email', 'password', 'status','code', 'code_expires_at'
     ];
 
    
@@ -29,11 +30,40 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'code_expires_at' => 'datetime',
     ];
 
     protected $appends =[
         'avatar'
     ];
+
+
+    // verification Code Methods 
+    public function generateCode()
+    {
+        $this->timestamps =false;
+        $this->code = rand(1000,9999);
+        $this->code_expires_at = now()->addMinute(10);
+        $this->save();
+    }
+
+    public function resetCode()
+    {
+        $this->timestamps =false;
+        $this->code = null;
+        $this->code_expires_at = null;
+        $this->save();
+    }
+
+    public function sendEmailVerificationCode(){
+        $this->generateCode();
+        $this->notify(new VerifyAccount());
+    }
+
+    public function verified(){
+        $this->email_verified_at = now();
+        $this->save();
+    }
 
 
     public function getAvatarAttribute()
@@ -102,10 +132,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     #### End likes functions #####
     
-
-
-
-
 
     ##### RELATIONS #####
 

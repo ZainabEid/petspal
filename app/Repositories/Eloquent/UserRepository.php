@@ -30,7 +30,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
                 'password' => bcrypt( $attributes['password']), 
             ]);
 
-
             // create user account
             $account =  $user->accounts()->create([
                 'name' => $attributes['name'], 

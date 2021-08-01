@@ -12,15 +12,16 @@ Route::group([],function () {
     Route::post('login', 'AuthController@login');
 
     // verification
-    Route::get('email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify'); 
-    Route::get('email/resend', 'VerificationController@resend')->name('verification.resend');
+    Route::get('email/verify-code/', 'VerificationController@verifyCode')->name('verification.verify-code'); 
+    Route::get('email/verify/index', 'VerificationController@index')->name('verification.index'); 
+    Route::get('email/resend-code', 'VerificationController@resendCode')->name('verification.resend-code');
 
     
 });
 
 
 // authenticated routs
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum','verified_by_code'])->group(function () {
     Route::get('me', 'AuthController@me');
     Route::get('test', 'AuthController@test');
 });

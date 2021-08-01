@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\VerifyAccount;
 use App\Repositories\Eloquent\Contracts\UserRepositoryInterface;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,9 +20,9 @@ class AuthController extends Controller
         $this->user = $user;
     }
 
+   
     public function register(Request $request)
     {
-        
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -28,9 +31,10 @@ class AuthController extends Controller
             'is_adoption' => 'required|boolean',
         ]);
 
-        $user = $this->user->create($request->toArray());
+        // event(new Registered( $user = $this->user->create( $request->all() ) ));
+        $user = $this->user->create( $request->all() );
 
-        $user->sendEmailVerificationNotification();
+        $user->sendEmailVerificationCode();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -44,7 +48,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-       
         if (!Auth::attempt($request->only('email', 'password'))) {
 
             return response()->json([
@@ -54,7 +57,13 @@ class AuthController extends Controller
 
         $user = User::where('email', $request['email'])->firstOrFail();
 
+        // is_authenticated() need to be handeled
+        if(! $user->is_authenticated() ){
+            $user->sendEmailVerificationNotification();
+        }
+
         $token = $user->createToken('auth_token')->plainTextToken;
+        // $accessToken = auth()->user()->createToken('authToken')->accessToken;
 
         return response()->json([
                 'access_token' => $token,

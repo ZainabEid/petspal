@@ -42,7 +42,7 @@
     </script> --}}
 
     {{-- pusher --}}
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    {{-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script> --}}
    
 </head>
 
@@ -75,6 +75,7 @@
 
     {{-- jqurey  --}}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
     {{-- bootstrap --}}
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
