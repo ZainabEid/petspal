@@ -192,18 +192,18 @@
 
                 </div>
 
-
+            <!--
                 {{-- create comment --}}
                 <div class="card-body">
                     <div class="media mt-4 col-md-12 text-center">
-                        {!! Form::open(['route' => ['admin.posts.comments.store', $post->id], 'role' => 'form']) !!}
+                        {{-- {!! Form::open(['route' => ['admin.posts.comments.store', $post->id], 'role' => 'form']) !!} --}}
 
                         {{-- comment author --}}
 
                         {{-- choose comment auther from users --}}
                         <div class="align-self-stretch p-2 m-1">
 
-                            {!! Form::label('user_id', __('Comment Writer:'), ['class' => 'boldfont']) !!}
+                            {{-- {!! Form::label('user_id', __('Comment Writer:'), ['class' => 'boldfont']) !!} --}}
 
                             <select name="user_id" class="form-select" aria-label="select example">
                                 <option selected value="{{ null }}">
@@ -221,15 +221,16 @@
                         {{-- body --}}
                         <div class="media-body">
 
-                            {!! Form::text('body', null) !!}
+                            {{-- {!! Form::text('body', null) !!} --}}
 
                         </div>
 
-                        {!! Form::submit(__('Add'), ['class' => 'btn btn-info']) !!}
-                        {!! Form::close() !!}
-                    </div>
-                </div>
+                        {{-- {!! Form::submit(__('Add'), ['class' => 'btn btn-info']) !!} --}}
+                        {{-- {!! Form::close() !!} --}}
 
+                    </div>
+                </div> 
+            -->
                 {{-- comments --}}
                 <div class="row ml-5 " id="comments-area-{{ $post->id }}">
 

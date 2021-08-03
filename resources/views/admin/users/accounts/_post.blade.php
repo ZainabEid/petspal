@@ -26,11 +26,13 @@
             {{-- author --}}
             <div>
 
-                    <img style="float: left;" src="{{ url($post->author->avatar) ?? 'img/avatars/avatar-5.jpg' }}"
-                        width="30" height="30" class="rounded-circle me-2" alt="{{ $post->author->name }}">
-                    <h5 style="float: left;">{{ $post->author->name }}</h5>
+                <img style="float: left;" src="{{ url($post->author->avatar) }}"
+                    width="30" height="30" class="rounded-circle me-2" alt="{{ $post->author->name }}">
+                <h5 style="float: left;">{{ $post->author->name }}</h5>
             </div>
-            <i class="align-middle" data-feather="more-horizontal"></i>
+            <a href="{{ route('admin.users.posts.show', [$post->author->id, $post->id]) }}" class="card-title mb-0">{{ __('show post') }}</a>
+
+            {{-- <i class="align-middle" data-feather="more-horizontal"></i> --}}
 
         </div>
 
@@ -129,7 +131,7 @@
             {{-- time --}}
             <div class="">
 
-                <span><small class="float-end text-navy">{{ $post->time ?? '5m ago' }}</small></span>
+                <span><small class="float-end text-navy">{{ $post->time }}</small></span>
 
             </div>
 

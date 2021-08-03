@@ -320,7 +320,7 @@
 
                     <h5 class="card-title mb-0">{{ __('Posts') }}</h5>
                     
-                    <a href="{{ route('admin.users.posts.create', $account->user->id )}}" class="card-title mb-0">{{ __('add post') }}</a>
+                    {{-- <a href="{{ route('admin.users.posts.create', $account->user->id )}}" class="card-title mb-0">{{ __('add post') }}</a> --}}
 
                 </div>
 
