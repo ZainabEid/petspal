@@ -104,7 +104,7 @@
 
                                 {!! Form::label('body', __('Content:'), ['class' => 'boldfont']) !!}
                                 {!! Form::textarea('body[ar]', $page->getTranslation('body', 'ar'), ['class' => 'ckeditor editor form-control', 'id' => 'editor2', 'placeholder' => __('Enter user body'), 'required' => 'required']) !!}
-                                
+
                                 @error('body') <span class="text-danger error">{{ $message }}</span>@enderror
                             </div>
                         </div>
@@ -134,19 +134,39 @@
 @push('scripts')
 
     <!-- ck editor JS-->
-   
+
     <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
     <script>
         ClassicEditor
-            .create( document.querySelector( '.editor' ),{
+            .create(document.querySelector('#editor1'), {
                 language: {
-                    ui:"{{ app()->getLocale() }}",
+                    ui: "{{ app()->getLocale() }}",
+                    content: 'en'
+                },
+                ckfinder: {
+                    uploadUrl: 'http://localhost:8000/storage/ck-editor/images'
                 }
-            } )
-            .catch( error => {
-                console.error( error );
-            } );
+            })
+            .catch(error => {
+                console.error(error);
+            });
     </script>
- 
-   
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor2'), {
+                language: {
+                    ui: "{{ app()->getLocale() }}",
+                    content: 'ar'
+                },
+                ckfinder: {
+                    uploadUrl: 'http://localhost:8000/storage/ck-editor/images'
+                }
+
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+
 @endpush
