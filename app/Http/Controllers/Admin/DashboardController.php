@@ -33,6 +33,7 @@ class DashboardController extends Controller
 
     public function updatePages(Page $page , Request $request)
     {
+        dd($request->body);
         // update data in that page
         $page->update([
             'title' => $request->title,

@@ -57,19 +57,34 @@ class AuthController extends Controller
 
         $user = User::where('email', $request['email'])->firstOrFail();
 
-        // is_authenticated() need to be handeled
-        if(! $user->is_authenticated() ){
-            $user->sendEmailVerificationNotification();
+        
+        if(! $user->is_verified() ){
+            return response()->json([ 'msg' => "you need to verify your email"]);
+        }
+
+        // activate user if it is in active
+        $activated_notice = '';
+        if(! $user->is_active()){
+            $user->activate();
+            $activated_notice = 'welcom back , your account is activated';
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
         // $accessToken = auth()->user()->createToken('authToken')->accessToken;
 
         return response()->json([
+                'notice' => $activated_notice ,
                 'access_token' => $token,
                 'token_type' => 'Bearer',
         ]);
 
+    }
+    public function logout(Request $request){
+        Auth::user()->tokens()->logout();
+
+        return [
+            'message'=>'Logged out'
+        ];
     }
 
 

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -38,7 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
-    // verification Code Methods 
+    ##### verification Code Methods #####
     public function generateCode()
     {
         $this->timestamps =false;
@@ -65,17 +66,59 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->save();
     }
 
+    public function is_verified()
+    {
+        if(! $this->email_verified_at){
+            return false;
+        }
+       
+        return true;
+    }
+     ##### end verification #####
 
+
+
+
+    ######   Getting Attributes  ######
     public function getAvatarAttribute()
     {
         return $this->account()->avatar;
     }
+
+    ######  End Getting Attributes  ######
+
 
     // user's main account
     public function account()
     {
         return $this->accounts()->first();
     }
+
+
+    #####  Activation functions  #####
+    public function deactivate()
+    {
+        $this->status = 0;
+        $this->save();
+    }
+
+    public function activate()
+    {
+        $this->status = 1;
+        $this->save();
+    }
+
+    public function is_active()
+    {
+        return (Boolean)$this->status;
+        
+    }
+
+    ##### End Activation functions  #####
+
+
+
+
 
 
     #### likes functions #####
@@ -132,6 +175,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     #### End likes functions #####
     
+
+
+
 
     ##### RELATIONS #####
 

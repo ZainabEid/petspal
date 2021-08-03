@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Optix\Media\HasMedia;
 use Spatie\Translatable\HasTranslations;
 
@@ -18,15 +19,26 @@ class Clinic extends Model
     public $translatable = ['name', 'description'];
 
     protected $fillable =[
-        'name', 'description' , 'clinics_category_id' , 'address' ,'social', 'working_hours' , 'contacts', 'rate' , 'media'
+        'name', 'description' , 'clinics_category_id' , 'address' ,'social', 'working_hours' , 'contacts' 
     ];
 
     protected $appends=[
-        'facebook', 'twitter','instagram' , 
+        'facebook', 'twitter','instagram' , 'rate'
+    ];
+
+    protected $cast =[
+        'rate' => 'float'
     ];
 
 
     ###### gettin attributes ######
+
+    public function getRateAttribute()
+    {
+    //    $rate = $this->rates()->avg('rate');
+       $rate = $this->rates()->select(DB::raw('SUM(rate)/COUNT(user_id)  AS rate'))->first();
+      return number_format($rate->rate, 1);
+    }
 
     public function getFacebookAttribute()
     {
@@ -88,11 +100,10 @@ class Clinic extends Model
     }// end of vacations
 
 
-    // public function rate()
-    // {
-    //     return 4.5;
-    //     // return $this->hasMany(Rate::class);
-    // }
+    public function rates()
+    {
+        return $this->hasMany(Rate::class);
+    }
 
 
 

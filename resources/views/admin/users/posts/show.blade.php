@@ -30,74 +30,66 @@
 
 @section('content')
     <main class="content">
-
-        <div class="row">
+        <div class="row card d-flex justify-content-center align-items-center" style="width: 80%">
             <div class="col-md-12">
 
+                {{-- post header --}}
+                <div class="mt-2 d-flex flex-row justify-content-between align-items-center ">
 
-                <div class="card p-4 text-center d-flex align-items-center">
+                    {{-- author --}}
+                    <div>
+                        <img style="float: left;" src="{{ url($post->author->avatar) }}" width="30" height="30" class="rounded-circle me-2"
+                            alt="{{ $post->author->name }}">
 
-                    {{-- post header --}}
-                    <div class=" d-flex flex-row justify-content-between align-items-center ">
+                        <h5 style="float: left;">{{ $post->author->name }}</h5>
 
-                        {{-- author --}}
-                        <div>
-                            <img src="{{ url($post->author->avatar) }}" width="30" height="30" class="rounded-circle me-2"
-                                alt="{{ $post->author->name }}">
+                    </div>
 
-                            <h5>{{ $post->author->name }}</h5>
+                    {{-- 3dots menue --}}
+                    <div class="3dots-menue">
 
-                        </div>
+                        <div class="float-end text-navy">
+                            <li class="dropdown" style=" list-style-type: none;">
 
 
-                        {{-- 3dots menue --}}
-                        <div class="3dots-menue">
+                                <a class=" d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                                    <i class="align-middle" data-feather="more-horizontal"></i>
+                                </a>
 
-                            <div class="float-end text-navy">
-                                <li class="dropdown" style=" list-style-type: none;">
-    
-    
-                                    <a class=" d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                                        <i class="align-middle" data-feather="more-horizontal"></i>
+
+                                <div class="dropdown-menu dropdown-menu-end">
+
+                                    {{-- edit post --}}
+                                    <a class="dropdown-item"
+                                        href="{{ route('admin.users.posts.edit', [$post->author->id, $post->id]) }}">
+                                        {{ __('Edit Post') }}
                                     </a>
-    
-    
-                                    <div class="dropdown-menu dropdown-menu-end">
-    
-                                        {{-- edit post --}}
-                                        <a class="dropdown-item"
-                                            href="{{ route('admin.users.posts.edit', [$post->author->id, $post->id]) }}">
-                                            {{ __('Edit Post') }}
-                                        </a>
-    
-                                        <form id="post-delete-form" action="{{ route('admin.users.posts.destroy', [$post->author->id, $post->id]) }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            {{-- delete post --}}
-                                            <button type="submit" class="dropdown-item"
-                                                onclick="document.getElementById('post-delete-form').submit()"
-                                                href="{{ route('admin.users.posts.destroy', [$post->author->id, $post->id]) }}">
-                                                {{ __('Delete Post') }}
-                                            </button>
-                                        </form>
-    
-    
-    
-                                    </div>
-                                </li>
-                            </div>
+
+                                    <form id="post-delete-form"
+                                        action="{{ route('admin.users.posts.destroy', [$post->author->id, $post->id]) }}"
+                                        method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        {{-- delete post --}}
+                                        <button type="submit" class="dropdown-item"
+                                            onclick="document.getElementById('post-delete-form').submit()"
+                                            href="{{ route('admin.users.posts.destroy', [$post->author->id, $post->id]) }}">
+                                            {{ __('Delete Post') }}
+                                        </button>
+                                    </form>
+
+
+
+                                </div>
+                            </li>
                         </div>
-
-
-
-
-
                     </div>
 
                 </div>
 
                 {{-- post content --}}
                 <div class="row">
+
 
                     {{-- post images --}}
                     <div id="postImage" class="carousel slide" data-ride="carousel" data-interval="false">
@@ -120,7 +112,7 @@
                             @foreach ($post->collection() as $index => $image)
                                 <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
 
-                                    <img class="d-block" width="100px" height="100px" style="width:100,height:100"
+                                    <img class="d-block" width="200" height="200" style="width:100,height:100"
                                         src="{{ url($image->getUrl()) }}">
 
                                     {{-- if video show thumbnail and the play icon over it --}}
@@ -145,9 +137,14 @@
                         </a>
                     </div>
 
+
+
                     {{-- post body --}}
                     <p>
-                        {!! $post->body !!}
+
+                        {!!  $post->body !!}
+
+
                     </p>
 
                 </div>
@@ -194,8 +191,8 @@
                     </div>
 
                 </div>
-                <hr class="my-0" />
-                
+
+
                 {{-- create comment --}}
                 <div class="card-body">
                     <div class="media mt-4 col-md-12 text-center">
@@ -233,35 +230,19 @@
                     </div>
                 </div>
 
-
-
-
                 {{-- comments --}}
-                <div class="row " id="comments-area-{{ $post->id }}">
+                <div class="row ml-5 " id="comments-area-{{ $post->id }}">
 
+                    <h5>{{ __('Comments') }}</h5>
                     @include('admin.users.posts._comments')
 
                     {{-- appendig comments from js goes here --}}
 
                 </div>
 
-
-
-
-
-
-
-
-
-
             </div>
 
-
         </div>
-        </div>
-
-
-
     </main>
 @endsection
 

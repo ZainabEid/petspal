@@ -8,14 +8,28 @@ use Illuminate\Validation\Rule;
 class UserRequest extends FormRequest
 {
     
+
     public function authorize()
     {
+        // if api only this user is authorized
+        if(request()->is('api/*')){
+            return $this->user->id === auth()->user()->id;
+        }
+
         return true;
     }
+
+
 
     
     public function rules()
     {
+       
+        // // if api redirect to json
+        // if( request()->is('api/*') || request()->expectsJson() ){
+        //     $this->redirectAction;
+        // }
+        
         $rules =[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user)],
@@ -34,6 +48,7 @@ class UserRequest extends FormRequest
                 'password' => ['sometimes','required', 'string', 'min:8', 'confirmed'],
             ];
         }
+       
 
         return $rules;
     }

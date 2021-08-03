@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent\Contracts;
 interface EloquentInterface
 {
    public function all(array $columns =['*'] , array $relations = [] );
+   public function allPaginated( int $pagination=10 );
    public function allTrashed();
    public function findById(int $id , array $columns =['*'] , array $relations = [],  array $appends = [] );
 

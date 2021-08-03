@@ -8,6 +8,7 @@ use Optix\Media\MediaUploader;
 use App\Models\Media;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class AccountRepository extends BaseRepository implements AccountInterface
 {
@@ -19,19 +20,29 @@ class AccountRepository extends BaseRepository implements AccountInterface
         
     }// end of constructor
 
+    // 
+    public function allNormalPaginated(int $pagination=0)
+    { 
+        return $this->model->where('is_adoption',false)->latest()->paginate($pagination);
+    }
+
+    public function allAdoptionPaginated(int $pagination=0)
+    {
+       return $this->model->where('is_adoption',true)->latest()->paginate($pagination);
+    }
 
 
     public function create( array $attributes)
     {
+      
         $account =   $this->model->create([
-                'user_id' => $attributes['user_id'], 
+                'user_id' => isset($attributes['user_id']) ? $attributes['user_id'] : Auth::id(), 
                 'name' => $attributes['name'], 
                 'email' => $attributes['email'], 
                 'pets_category_id' => $attributes['pets_category_id'], 
                 'is_adoption' => 1, // adoption account 
-    
             ]);
-
+            
         return  $account->fresh();
 
     }
@@ -75,10 +86,6 @@ class AccountRepository extends BaseRepository implements AccountInterface
     }
 
 
-
-
-    
-
     public function update(int $accountId = null, array $attributes)
     {
         
@@ -94,19 +101,17 @@ class AccountRepository extends BaseRepository implements AccountInterface
             $account = $this->findById($accountId);
 
 
-            // update  account
+            // update account
             $account->update([
-            'name' => $attributes['name'], 
-            'email' => $attributes['email'], 
-            'pets_category_id' => $attributes['pets_category_id'], 
-            'is_adoption' => $attributes['is_adoption'], 
-
+                'name' => $attributes['name'], 
+                'email' => $attributes['email'], 
+                'pets_category_id' => $attributes['pets_category_id'], 
+                'is_adoption' => $attributes['is_adoption'], 
             ]);
 
         } catch(\Exception $e){
 
             DB::rollback();
-            // throw new Exception($e->getMessage());
             return back()->withError($e->getMessage());
         }
 
@@ -118,26 +123,36 @@ class AccountRepository extends BaseRepository implements AccountInterface
 
     public function switchAccount(Account $account)
     {
-       $account->update([
-           'is_adoption' => ! $account->is_adoption,
-       ]);
+         // check if not main user account then cant switch
+        if ($account->user->account()->id !== $account->id) {
+            
+            return $account;
+        }
+
+        $account->update([
+            'is_adoption' => ! $account->is_adoption,
+        ]);
+      
        return $account;
     }
 
-    public function delete(User $user=null , Account $account=null )
+    public function deleteOrDeactivate(User $user , Account $account)
     {
+        dd($user->account());
+
         // check if main user account
         if ($user->account()->id === $account->id) {
 
             // deactivate user
             $user->deactivate();
-            return ;
+            
+            return $user;
         }
 
         // delete the account
         $account->delete();
 
-        return ;
+        return $user;
     }
 
     

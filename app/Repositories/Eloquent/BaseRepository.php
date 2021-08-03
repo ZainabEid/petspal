@@ -20,6 +20,9 @@ class BaseRepository  implements EloquentInterface
         return $this->model->with($relations)->get($columns);
     }
 
+    public function allPaginated( int $pagination=10 ){
+        return $this->model->latest()->paginate($pagination);
+    }
 
     public function allTrashed(){
 

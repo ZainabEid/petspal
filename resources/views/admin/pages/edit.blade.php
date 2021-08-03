@@ -67,7 +67,7 @@
                             <div class="form-group mb-3">
 
                                 {!! Form::label('body', __('Content:'), ['class' => 'boldfont']) !!}
-                                {!! Form::textarea('body[en]', $page->getTranslation('body', 'en'), ['class' => 'ckeditor form-control', 'id' => 'editor1', 'placeholder' => __('Enter user body'), 'required' => 'required']) !!}
+                                {!! Form::textarea('body[en]', $page->getTranslation('body', 'en'), ['class' => 'ckeditor editor form-control', 'id' => 'editor1', 'placeholder' => __('Enter user body'), 'required' => 'required']) !!}
 
                                 @error('body') <span class="text-danger error">{{ $message }}</span>@enderror
                             </div>
@@ -103,8 +103,8 @@
                             <div class="form-group mb-3">
 
                                 {!! Form::label('body', __('Content:'), ['class' => 'boldfont']) !!}
-                                {!! Form::textarea('body[ar]', $page->getTranslation('body', 'ar'), ['class' => 'ckeditor form-control', 'id' => 'editor1', 'placeholder' => __('Enter user body'), 'required' => 'required']) !!}
-
+                                {!! Form::textarea('body[ar]', $page->getTranslation('body', 'ar'), ['class' => 'ckeditor editor form-control', 'id' => 'editor2', 'placeholder' => __('Enter user body'), 'required' => 'required']) !!}
+                                
                                 @error('body') <span class="text-danger error">{{ $message }}</span>@enderror
                             </div>
                         </div>
@@ -134,16 +134,19 @@
 @push('scripts')
 
     <!-- ck editor JS-->
-    <script src="https://cdn.ckeditor.com/4.14.1/standard-all/ckeditor.js"></script>
-
+   
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
     <script>
-        // editor direction
-        CKEDITOR.config.language = "{{ app()->getLocale() }}";
-        CKEDITOR.replace('editor2', {
-            filebrowserBrowseUrl: '/ckfinder/ckfinder.html',
-            filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
-        });
-        var editor = CKEDITOR.replace('ckfinder');
-        CKFinder.setupCKEditor(editor);
+        ClassicEditor
+            .create( document.querySelector( '.editor' ),{
+                language: {
+                    ui:"{{ app()->getLocale() }}",
+                }
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
     </script>
+ 
+   
 @endpush

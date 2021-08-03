@@ -2,6 +2,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Clinic;
+use App\Models\User;
 use App\Repositories\Eloquent\Contracts\ClinicInterface;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -31,9 +32,6 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
                 'description' =>  ['en' => $attributes['description'][0], 'ar' => $attributes['description'][1]],
                 'address' => $attributes['address'],
                 'social' => json_encode($attributes['social']),
-                
-                'rate' => 4.5 ,
-    
             ]);
 
             // assign phones
@@ -161,9 +159,6 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
                 'description' =>  ['en' => $attributes['description'][0], 'ar' => $attributes['description'][1]],
                 'address' => $attributes['address'],
                 'social' => json_encode($attributes['social']),
-                
-                'rate' => 4.5 ,
-    
             ]);
 
           
@@ -237,6 +232,16 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
        
         DB::commit();
 
+        return $clinic;
+    }
+
+    public function rate(Clinic $clinic , int $rate ,int $user_id)
+    { 
+        // update clinic model
+        $clinic->rates()->updateOrCreate(
+            ['user_id' => $user_id],
+            ['rate' => $rate]);
+        
         return $clinic;
     }
 

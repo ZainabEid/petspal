@@ -268,7 +268,7 @@
     <div class="col-md-8 col-xl-9">
 
         {{-- activities --}}
-        <div class="row">
+        <div >
             <div class="card">
                 <div class="card-header">
 
@@ -307,84 +307,19 @@
                     @endif
 
 
-                    {{-- <div class="d-flex align-items-start">
-                                    <img src="img/avatars/avatar.jpg" width="36" height="36" class="rounded-circle me-2"
-                                        alt="Charles Hall">
-                                    <div class="flex-grow-1">
-                                        <small class="float-end text-navy">30m ago</small>
-                                        <strong>Charles Hall</strong> posted something on <strong>Christina
-                                            Mason</strong>'s timeline<br />
-                                        <small class="text-muted">Today 7:21 pm</small>
-    
-                                        <div class="border text-sm text-muted p-2 mt-1">
-                                            Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem
-                                            quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam
-                                            nunc, blandit vel, luctus
-                                            pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt
-                                            tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis
-                                            ante.
-                                        </div>
-    
-                                        <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm"
-                                                data-feather="heart"></i> Like</a>
-                                    </div>
-                                </div>
-    
-                                <hr />
-    
-                                <div class="d-flex align-items-start">
-                                    <img src="img/avatars/avatar-4.jpg" width="36" height="36" class="rounded-circle me-2"
-                                        alt="Christina Mason">
-                                    <div class="flex-grow-1">
-                                        <small class="float-end text-navy">1h ago</small>
-                                        <strong>Christina Mason</strong> posted a new blog<br />
-    
-                                        <small class="text-muted">Today 6:35 pm</small>
-                                    </div>
-                                </div>
-    
-                                <hr />
-    
-                                <div class="d-flex align-items-start">
-                                    <img src="img/avatars/avatar-2.jpg" width="36" height="36" class="rounded-circle me-2"
-                                        alt="William Harris">
-                                    <div class="flex-grow-1">
-                                        <small class="float-end text-navy">3h ago</small>
-                                        <strong>William Harris</strong> posted two photos on <strong>Christina
-                                            Mason</strong>'s timeline<br />
-                                        <small class="text-muted">Today 5:12 pm</small>
-    
-                                        <div class="row g-0 mt-1">
-                                            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
-                                                <img src="img/photos/unsplash-1.jpg" class="img-fluid pe-2" alt="Unsplash">
-                                            </div>
-                                            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
-                                                <img src="img/photos/unsplash-2.jpg" class="img-fluid pe-2" alt="Unsplash">
-                                            </div>
-                                        </div>
-    
-                                        <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm"
-                                                data-feather="heart"></i> Like</a>
-                                    </div>
-                                </div>
-    
-                                <hr /> --}}
-
-                    {{-- <div class="d-grid">
-                                    <a href="#" class="btn btn-primary">Load more</a>
-                                </div> --}}
 
                 </div>
             </div>
         </div>
 
         {{-- posts --}}
-        <div class="row" id="all-posts">
+        <div id="all-posts">
             <div class="card">
 
                 <div class="card-header d-flex justify-content-between">
 
                     <h5 class="card-title mb-0">{{ __('Posts') }}</h5>
+                    
                     <a href="{{ route('admin.users.posts.create', $account->user->id )}}" class="card-title mb-0">{{ __('add post') }}</a>
 
                 </div>

@@ -70,7 +70,7 @@ class ClinicRequest extends FormRequest
             'phones.0' => ['required'],
             // 'phones.*' => 'regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:16',
             'social' =>'' ,
-            'rate' =>'' ,
+            
             
             'workDays.*.open_at' =>'date_format:H:i' ,
             'workDays.*.close_at' =>'date_format:H:i' ,

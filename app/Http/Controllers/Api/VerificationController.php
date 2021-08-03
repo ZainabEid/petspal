@@ -57,7 +57,7 @@ class VerificationController extends Controller
 
             $user->resetCode();
             $user->verified();
-            // event(new Verified($user));
+            event(new Verified($user));
             return response()->json(["msg" => __("verified")], 400);
         }
 

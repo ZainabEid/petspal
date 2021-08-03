@@ -66,7 +66,7 @@ class AccountController extends Controller
     
     public function destroy(User $user, Account $account)
     {
-        $this->account->delete();
+        $this->account->deleteOrDeactivate($user,$account);
         return redirect()->route('admin.users.index');
     }
 

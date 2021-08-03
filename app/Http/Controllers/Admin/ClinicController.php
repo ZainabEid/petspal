@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Clinic;
 use Illuminate\Http\Request;
-use App\Models\ClinicsCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClinicRequest;
 use App\Repositories\Eloquent\Contracts\ClinicInterface;
+use App\Repositories\Eloquent\Contracts\ClinicsCategoryInterface;
 
 class ClinicController extends Controller
 {
@@ -15,7 +15,7 @@ class ClinicController extends Controller
     protected $clinic; 
     protected $categories; 
 
-    public function __construct(ClinicInterface $clinic , ClinicsCategory $categories)
+    public function __construct(ClinicInterface $clinic , ClinicsCategoryInterface $categories)
     {
         $this->clinic = $clinic;
         $this->categories = $categories;
@@ -38,7 +38,7 @@ class ClinicController extends Controller
 
     public function create()
     {
-        $categories = $this->categories->all('id','name');
+        $categories = $this->categories->all($columns =['id','name']);
        
         return view('admin.clinics.create',compact('categories'));
 
@@ -68,7 +68,7 @@ class ClinicController extends Controller
    
     public function edit(Clinic $clinic)
     {
-        $categories = $this->categories->all('id','name');
+        $categories = $this->categories->all($columns =['id','name']);
         $clinic->phones = $clinic->phones->pluck('phone');
         return view('admin.clinics.edit', compact('clinic','categories'));
 
