@@ -85,32 +85,42 @@ class AccountController extends Controller
         
         return new AccountResource($account);
     }
-   
+
+    public function updateAvatar(User $user,Account $account, Request $request )
+    {
+            $validator = Validator::make($request->all(),[
+            
+                'image' => 'image'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['msg' => $validator->errors()->all()], 422);
+            } 
+            
+            if($request->hasFile('image')){
+
+                $account = $this->account->updateAvatar($account, $request->image);
+            }   
+
+            return new AccountResource($account);
+    }
     
     public function update(User $user,Account $account, Request $request )
     {
-        dd($request->all());
         
         $this->checkAuthorization($user);
         
         $validator = Validator::make($request->all(),[
             'name' => 'required',
             'email' => 'required|email',
-            'pet_category' => 'required',
-            // 'image' => 'nullable|image'
+            'pets_category_id' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['msg' => $validator->errors()->all()], 422);
         } 
-        
 
-        if($request->hasFile('image')){
-
-            $this->account->updateAvatar($account, $request->image);
-        }   
-
-        $this->account->update( $account->id , $request->toArray() );
+        $account = $this->account->update( $account->id , $request->all() );
 
         return new AccountResource($account);
     }
@@ -122,10 +132,11 @@ class AccountController extends Controller
 
         $user = $this->account->deleteOrDeactivate($user,$account);
 
-        // if addional account is deleted
+        
+        // if addional account is deleted 
         if ($user->is_active()){
 
-            return new AccountResource($user->account);
+            return new AccountResource($user->account());
         }
 
 
@@ -157,5 +168,8 @@ class AccountController extends Controller
        
         return new AccountResource($account);
     }
+
+
+   
 
 }

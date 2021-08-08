@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use App\Repositories\Eloquent\Contracts\CommentInterface;
 use App\Repositories\Eloquent\Contracts\PostInterface;
 
@@ -33,7 +34,7 @@ class PostController extends Controller
 
   
     
-    public function store(User $user , Request $request)
+    public function store(User $user , PostRequest $request)
     {
         
         $request->validate([
@@ -53,9 +54,8 @@ class PostController extends Controller
     public function show(User $user , Post $post)
     {
        
-        $users = User::all();
+        $users = User::all(); // for creating  new post
         $comments = $this->comments->paginateFive($post);
-        $post->body = $this->hashtag_links($post->body);
         
         return view('admin.users.posts.show',compact('post','users','comments'));
 
@@ -67,21 +67,7 @@ class PostController extends Controller
         return $user;
     }
 
-    function hashtag_links($string) {
-        preg_match_all('/#(\w+)/', $string, $matches);
-        if($matches){
-            if(array_key_exists(0, $matches)){
-                $array = $matches[0];
-                foreach ($array as $key => $match) {
-                    // $route = route('admin.tags.show',$match);
-                    $route = $match;
-                    $string= str_replace("$match" ,"<a class='text-danger' href='$route'>$match</a>", $string);
-                }
-            }
-        }
-        return $string;
-    }
-
+  
    
     public function edit(User $user, Post $post)
     {
@@ -89,15 +75,9 @@ class PostController extends Controller
     }
 
    
-    public function update(User $user, Request $request, Post $post)
+    public function update(User $user, PostRequest $request, Post $post)
     {
-        // $request->validate([
-        //     'body' => 'nullable|string',
-        //     'medias' => 'required|array|min:1',
-        //     // 'medias.*' => 'mimetypes:image,video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi'
-        // ]);
        
-
         $post = $this->posts->update($post->id , $request->all() , $user);
 
         return redirect()->route('admin.users.accounts.show',[$user->id , $user->account()->id]);

@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-
+use App\Contracts\Likeable;
+use App\Models\Traits\Likes;
 use Optix\Media\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-class Post extends Model {
-    use HasFactory , HasMedia , SoftDeletes ;
+class Post extends Model implements Likeable {
+    use HasFactory , HasMedia , SoftDeletes ,Likes;
     
     
     protected $fillable = [
@@ -18,9 +19,30 @@ class Post extends Model {
     ];
 
     protected $appends =[
-        'first_media'
+        'first_media' ,'time_ago','body_with_linked_tags'
     ];
 
+    // make post's body's tags looks in links
+    public function getBodyWithLinkedTagsAttribute()
+    {
+        return $this->hashtag_links($this->body);
+    }
+
+    function hashtag_links($string) {
+        preg_match_all('/#(\w+)/', $string, $matches);
+        if($matches){
+            if(array_key_exists(0, $matches)){
+                $array = $matches[0];
+                foreach ($array as $key => $match) {
+                    // $route = route('admin.tags.show',$match);
+                    $route = $match;
+                    $string= str_replace("$match" ,"<a class='text-danger' href='$route'>$match</a>", $string);
+                }
+            }
+        }
+        return $string;
+    }
+    
     // return first image from a post collection
     public function getFirstMediaAttribute()
     {
@@ -31,6 +53,12 @@ class Post extends Model {
 
         return  asset('public/posts/default.png') ;
     }
+
+    public function getTimeAgoAttribute()
+    {
+        return  $this->getTimeAgo($this->created_at) ;
+    }
+
     public function getTimeAgo($carbonObject) {
         return str_ireplace(
             [' seconds', ' second', ' minutes', ' minute', ' hours', ' hour', ' days', ' day', ' weeks', ' week'], 

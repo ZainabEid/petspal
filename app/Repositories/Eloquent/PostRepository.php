@@ -21,7 +21,6 @@ class PostRepository extends BaseRepository implements PostInterface
         
     }// end of constructor
 
-    
     public function create(array $attributes, User $user=null )
     {
         DB::beginTransaction();
@@ -110,29 +109,32 @@ class PostRepository extends BaseRepository implements PostInterface
     
     }
 
-
+   
     public function update(int $postId = null, array $attributes, User $user=null )
     {
         DB::beginTransaction();
 
         $post =""; 
-
+        
         try {
             
-            // create post
+            // find post
             $postId = ($postId == null ) ? $this->model->id : $postId;
+            $post = Post::findOrFail($postId);
+            
 
-            $post = $this->findById($postId);
 
+            // update post
             $post->update($attributes);
 
-           
+
+
             // handling tags
 
-            //get hashtags
+            // 1. get hashtags
             $hashatgs = $this->get_hashtags($post->body);
            
-            
+            // 2. create new tag if not exist
             if( count($hashatgs) >  0){
                 
                 // create tag
@@ -150,9 +152,9 @@ class PostRepository extends BaseRepository implements PostInterface
         
 
             
-            // assign collection
+            // assign collection medias
             //
-            // if photo
+            // if there is media
             if( isset($attributes['medias'])) {
                 
                 foreach ($attributes['medias'] as $key => $photo) {

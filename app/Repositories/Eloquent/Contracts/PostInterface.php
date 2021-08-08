@@ -5,7 +5,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Repositories\Eloquent\Contracts\EloquentInterface;
 
-interface PostInterface
+interface PostInterface extends EloquentInterface
 {
     public function __construct(Post $admin);
     public function create(array $attributes , User $user=null);

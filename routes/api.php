@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,44 +37,56 @@ Route::middleware(['auth:sanctum','verified_by_code'])->group(function () {
 
     //users
     Route::apiResource('users', 'UserController')->except('index','store');
+
+    // followers / follwing  follow / unfollow
+    Route::get('users/{user}/following', 'FollowController@following');
+    Route::get('users/{user}/followers', 'FollowController@followers');
+    Route::get('users/{user}/following-trigger', 'FollowController@followingTrigger');
  
     // users / accounts
     Route::put('users/{user}/accounts/{account}/switch', 'AccountController@switch');
+    Route::put('users/{user}/accounts/{account}/update-avatar', 'AccountController@updateAvatar');
     Route::get('accounts/adoption-accounts', 'AccountController@adoptionAccounts');
     Route::get('accounts/normal-accounts', 'AccountController@NormalAccounts');
     Route::apiResource('users.accounts', 'AccountController');
 
 
-    // //pages
-    // Route::get('/support', 'WebsiteController@support');
-    // Route::get('/help', 'WebsiteController@help');
-    // Route::get('/privace', 'WebsiteController@privace');
-    // Route::get('/terms', 'WebsiteController@terms');
+    //pages
+    Route::get('/support', 'PageController@support');
+    Route::get('/about', 'PageController@about');
+    // Route::get('/privacy', 'PageController@privacy');
+    // Route::get('/terms', 'PageController@terms');
    
     
+    // pets_categories
+    Route::get('/pets-categories', 'PetsCategoryController@index');
+
+    // clinics_categories
+    Route::get('/clinics-categories', 'ClinicsCategoryController@index');
+
+    
+    // timeline [all categories] [ recent posts]
+    Route::get('/timeline', 'TimelineController@index');
     
 
-    //  // timeline [all categories] [ recent posts]
-    //  Route::get('timeline', 'TimelineController');
-    
-    //  // posts
-    //  Route::resource('users.posts', 'PostController');
+    // posts
+    Route::apiResource('user.posts', 'PostController');
  
-    //  //likes
-    //  Route::get('users/{user}/posts/{post}/like','LikeController@like')->name('posts.like');
-    //  Route::get('users/{user}/posts/{post}/unlike','LikeController@unlike')->name('posts.unlike');
- 
+    // comments
+    Route::resource('posts.comments', 'CommentController')->except('show');
+
+    //likes
+    Route::get('/posts/{post}/like','LikeController@likePost');
+    Route::get('/comments/{comment}/like','LikeController@likeComment');
      
-    //  // comments
-    //  Route::resource('posts.comments', 'CommentController');
     
-    //  // tags
-    //  Route::resource('tags', 'TagController');
+    // tags
+    Route::apiResource('tags', 'TagController')->only('index','show');
  
  
-    //  // notification
- 
-    
+    // notification
+    Route::get('/send-user-follow-notification/{user}', [NotificationController::class, 'sendUserFollowNotification']);
+    Route::get('/users/{user}/notificatins', [NotificationController::class, 'notifications']);
     
      
    

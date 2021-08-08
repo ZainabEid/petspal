@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Eloquent\Contracts\CommentInterface;
+use Illuminate\Support\Facades\Auth;
 
 class CommentRepository extends BaseRepository implements CommentInterface
 {
@@ -24,31 +25,35 @@ class CommentRepository extends BaseRepository implements CommentInterface
     }// end of constructor
 
     
-    public function create(array $attributes, Post $post=null )
+    public function createComment(array $attributes, Post $post )
     {
         DB::beginTransaction();
 
-        // $post =""; 
+        $comment =""; 
 
         try {
-            
-            // create comme
+
+            $attributes['user_id'] = Auth::id() ?:  $attributes['user_id'];
+
+            // create comment
             $comment = $post->comments()->create($attributes);
 
 
         } catch(\Exception $e)
         {
             DB::rollback();
-            return back()->withError($e->getMessage());
+            
+            report($e);
+
+            return false;
         }
         
         DB::commit();
-        
         return  $comment->fresh();
     }// end of create funciton
 
 
-    public function update(int $commentId = null, array $attributes, Post $post=null )
+    public function update(int $commentId = null, array $attributes )
     {
         DB::beginTransaction();
 
@@ -70,13 +75,15 @@ class CommentRepository extends BaseRepository implements CommentInterface
         
         {
             DB::rollback();
-            throw  new Exception($e->getMessage());
-            return back()->withError($e->getMessage());
+            
+            report($e);
+
+            return false;
         }
 
         
         DB::commit();
-        return  $post;
+        return   $comment;
     }
 
    

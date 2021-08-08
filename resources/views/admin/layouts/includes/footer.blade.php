@@ -10,17 +10,17 @@
             <div class="col-6 text-end">
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <a class="text-muted" href="{{ route('admin.support') }}" target="_blank">Support</a>
+                        <a class="text-muted" href="{{ route('admin.support') }}" target="_blank">{{ __('Support') }}</a>
                     </li>
                     <li class="list-inline-item">
-                        <a class="text-muted" href="{{ route('admin.help') }}" target="_blank">Help Center</a>
+                        <a class="text-muted" href="{{ route('admin.about') }}" target="_blank">{{ __('About') }}</a>
                     </li>
-                    <li class="list-inline-item">
+                    {{-- <li class="list-inline-item">
                         <a class="text-muted" href="{{ route('admin.privace') }}" target="_blank">Privacy</a>
                     </li>
                     <li class="list-inline-item">
                         <a class="text-muted" href="{{ route('admin.terms') }}" target="_blank">Terms</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>

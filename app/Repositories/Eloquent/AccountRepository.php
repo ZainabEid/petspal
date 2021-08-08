@@ -106,8 +106,8 @@ class AccountRepository extends BaseRepository implements AccountInterface
                 'name' => $attributes['name'], 
                 'email' => $attributes['email'], 
                 'pets_category_id' => $attributes['pets_category_id'], 
-                'is_adoption' => $attributes['is_adoption'], 
             ]);
+            
 
         } catch(\Exception $e){
 
@@ -115,7 +115,6 @@ class AccountRepository extends BaseRepository implements AccountInterface
             return back()->withError($e->getMessage());
         }
 
-        
         DB::commit();
         return  $account;
 
@@ -136,9 +135,9 @@ class AccountRepository extends BaseRepository implements AccountInterface
        return $account;
     }
 
+    // handle if account is already deleted
     public function deleteOrDeactivate(User $user , Account $account)
     {
-        dd($user->account());
 
         // check if main user account
         if ($user->account()->id === $account->id) {

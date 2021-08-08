@@ -14,6 +14,11 @@ class Comment extends Model implements Likeable
 
     protected $fillable =[
         'body' , 'user_id' , 'post_id'
+
+    ];
+
+    protected $appends =[
+        'time_ago'
     ];
 
     public function post()
@@ -24,6 +29,12 @@ class Comment extends Model implements Likeable
     public function author()
     {
         return $this->belongsTo(User::class,'user_id');
+    }
+
+    
+    public function getTimeAgoAttribute()
+    {
+        return  $this->getTimeAgo($this->created_at) ;
     }
 
     public function getTimeAgo($carbonObject) {

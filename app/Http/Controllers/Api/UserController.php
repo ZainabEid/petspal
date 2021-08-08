@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Http\Resources\SimpleUserResource;
 use App\Http\Resources\UserResource;
 use App\Models\PetsCategory;
 use App\Models\User;
@@ -42,6 +43,7 @@ class UserController extends Controller
 
     public function update(User $user, Request $request)
     {
+
         $this->checkAuthorization($user);
         
 
@@ -72,6 +74,11 @@ class UserController extends Controller
             'msg' => 'your account is deactivated'
         ]);
     }
+
+ 
+
+   
+
 
     
 }

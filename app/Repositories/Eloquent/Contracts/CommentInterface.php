@@ -6,12 +6,12 @@ use App\Models\Post;
 use App\Models\User;
 use App\Repositories\Eloquent\Contracts\EloquentInterface;
 
-interface CommentInterface
+interface CommentInterface extends EloquentInterface
 {
     public function __construct(Comment $admin);
     public function paginateFive( Post $post);
-    public function create(array $attributes , Post $post=null);
-    public function update(int $commentId = null, array $attributes, Post $post=null);
+    public function createComment(array $attributes , Post $post);
+    public function update(int $commentId = null, array $attributes);
    
 
 }

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Boolean;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -130,12 +131,10 @@ class User extends Authenticatable implements MustVerifyEmail
             return $this;
         }
 
-        $this->likes->associate($likeable);
-
-        // (new Like())
-        //     ->user()->associate($this)
-        //     ->likeable()->associate($likeable)
-        //     ->save();
+        (new Like())
+            ->user()->associate($this)
+            ->likeable()->associate($likeable)
+            ->save();
 
         return $this;
     }
@@ -146,14 +145,13 @@ class User extends Authenticatable implements MustVerifyEmail
             return $this;
         }
 
+        // $likeable->likes()->where('user_id',$this->id)->delete;
 
-        $likeable->likes()->where('user_id',$this->id)->delete;
-
-        // $likeable->likes()
-        //     ->whereHas('user', function($q) { 
-        //         return $q->whereId($this->id);
-        //     })
-        //     ->delete();
+        $likeable->likes()
+            ->whereHas('user', function($q) { 
+                return $q->whereId($this->id);
+            })
+            ->delete();
 
         return $this;
     }
@@ -174,6 +172,41 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     #### End likes functions #####
+    
+
+
+    
+    #### Following functions #####
+
+    public function follow(User $user): self // likable is post or comment or else
+    {
+        
+        if ($this->hasFollowed($user)) {
+            return $this;
+        }
+
+        $this->followers()->attach($user);
+
+        return $this;
+    }
+
+    public function unFollow(User $user): self
+    {
+        if (! $this->hasFollowed($user)) {
+            return $this;
+        }
+
+        $this->followers()->detach($user);
+
+        return $this;
+    }
+
+    public function hasFollowed(User $user): bool
+    {
+        return  $this->followers()->where('follower_id',$user->id)->exists();
+    }
+
+    #### End Following functions #####
     
 
 

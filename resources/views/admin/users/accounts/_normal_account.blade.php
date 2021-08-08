@@ -183,7 +183,7 @@
                     <div class="row">
                         @foreach ($account->recent_posts as $post)
                             <div class="inline-flex">
-                                {{ $post->body }}
+                                {{ $post->body_with_linked_tags }}
                                 {{-- <img src="{{ url($post->first_image) }}" class="img-fluid mb-2" width="50"
                                                 height="50" /> --}}
                             </div>

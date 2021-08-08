@@ -142,7 +142,7 @@
                     {{-- post body --}}
                     <p>
 
-                        {!!  $post->body !!}
+                        {!!  $post->body_with_linked_tags!!}
 
 
                     </p>

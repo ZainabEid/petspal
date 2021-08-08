@@ -106,9 +106,9 @@ Route::middleware('admin.auth:admin')->group(function () {
 
     //pages
     Route::get('/support', 'DashboardController@support')->name('support');
-    Route::get('/help', 'DashboardController@help')->name('help');
-    Route::get('/privace', 'DashboardController@privace')->name('privace');
-    Route::get('/terms', 'DashboardController@terms')->name('terms');
+    Route::get('/about', 'DashboardController@about')->name('about');
+    // Route::get('/privace', 'DashboardController@privace')->name('privace');
+    // Route::get('/terms', 'DashboardController@terms')->name('terms');
     
     Route::get('/pages/edit/{page}', 'DashboardController@editPage')->name('pages.edit');
     Route::put('/pages/update/{page}', 'DashboardController@updatePages')->name('pages.update');
