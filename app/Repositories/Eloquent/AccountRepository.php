@@ -20,9 +20,19 @@ class AccountRepository extends BaseRepository implements AccountInterface
         
     }// end of constructor
 
-    // 
+    
     public function allNormalPaginated(int $pagination=0)
     { 
+        if(Auth::guard('api')->check() && request()->is('api/*')){
+
+            return $this->model->where('is_adoption',false)
+                ->whereNotIn('id', DB::table('blocks')
+                        ->select('blocked_user_id')
+                        ->where('user_id', '=', Auth::id())
+                        ->get()->toArray()
+                )->latest()->paginate($pagination);
+        }
+
         return $this->model->where('is_adoption',false)->latest()->paginate($pagination);
     }
 

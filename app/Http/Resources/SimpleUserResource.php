@@ -10,8 +10,9 @@ class SimpleUserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'avatar' => $this->account()->avatar,
+            'id' =>  $this->account()->id,
             'name' => $this->account()->name,
+            'avatar' => $this->account()->avatar,
         ];
         // return parent::toArray($request);
     }

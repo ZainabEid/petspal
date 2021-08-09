@@ -91,7 +91,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
 
-    // user's main account
+    // User's main account
     public function account()
     {
         return $this->accounts()->first();
@@ -180,7 +180,7 @@ class User extends Authenticatable implements MustVerifyEmail
     
     #### Following functions #####
 
-    public function follow(User $user): self // likable is post or comment or else
+    public function follow(User $user): self 
     {
         
         if ($this->hasFollowed($user)) {
@@ -209,6 +209,40 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     #### End Following functions #####
+
+
+    
+    #### Block functions #####
+
+    public function block(User $user): self 
+    {
+        
+        if ($this->hasblocked($user)) {
+            return $this;
+        }
+
+        $this->blocks()->attach($user);
+
+        return $this;
+    }
+
+    public function unBlock(User $user): self
+    {
+        if (! $this->hasblocked($user)) {
+            return $this;
+        }
+
+        $this->blocks()->detach($user);
+
+        return $this;
+    }
+
+    public function hasblocked(User $user): bool
+    {
+        return  $this->blocks()->where('blocked_user_id',$user->id)->exists();
+    }
+
+    #### End Block functions #####
     
 
 
@@ -242,10 +276,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id');
     }
 
+    public function blocks() {
+        return $this->belongsToMany(User::class, 'blocks', 'user_id', 'blocked_user_id');
+    }
+
     public function likes()
     {
         return $this->hasMany(Like::class);
     }
+
 
     ##### END RELATIONS #####
 }

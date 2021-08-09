@@ -42,6 +42,12 @@ Route::middleware(['auth:sanctum','verified_by_code','change_lang'])->group(func
     Route::get('users/{user}/following', 'FollowController@following');
     Route::get('users/{user}/followers', 'FollowController@followers');
     Route::get('users/{user}/following-trigger', 'FollowController@followingTrigger');
+
+    
+    // block / unblock / block list
+    Route::get('/block-list', 'BlockController@blockList');
+    Route::get('users/{user}/block', 'BlockController@block');
+    Route::get('users/{user}/unblock', 'BlockController@unblock');
  
     // users / accounts
     Route::put('users/{user}/accounts/{account}/switch', 'AccountController@switch');
