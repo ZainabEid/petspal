@@ -79,6 +79,7 @@ class AuthController extends Controller
         ]);
 
     }
+    
     public function logout(Request $request){
         Auth::user()->tokens()->logout();
 

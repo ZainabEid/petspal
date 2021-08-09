@@ -114,7 +114,7 @@ class VerificationController extends Controller
     public function resendVerificationWithEmail(Request $request)
     {
         
-        
+        $user = User::findOrFail($request->user);
         
         if ($user->hasVerifiedEmail()) {
             return response()->json(["msg" => __("Already verified.")], 400);

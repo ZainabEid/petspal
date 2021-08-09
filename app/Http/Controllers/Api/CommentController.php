@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\User;
+use App\Notifications\UserCommentPostNotification;
 use App\Repositories\Eloquent\commentRepository;
 use App\Repositories\Eloquent\Contracts\CommentInterface;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -35,6 +36,8 @@ class CommentController extends Controller
     {
         
         $comment = $this->comments->createComment($request->all() ,  $post);
+
+        $post->author->notify(new UserCommentPostNotification(Auth::user(),$post ));
 
         if(! $comment){
 

@@ -183,9 +183,8 @@
                     <div class="row">
                         @foreach ($account->recent_posts as $post)
                             <div class="inline-flex">
-                                {{ $post->body_with_linked_tags }}
-                                {{-- <img src="{{ url($post->first_image) }}" class="img-fluid mb-2" width="50"
-                                                height="50" /> --}}
+                                <img src="{{ url( $post->thumbnail ) }}" class="img-fluid mb-2" width="50"
+                                                height="50" />
                             </div>
                         @endforeach
                     </div>
@@ -264,53 +263,8 @@
         </div>
     </div>
 
-    {{-- right side activities and posts --}}
+    {{-- right side posts --}}
     <div class="col-md-8 col-xl-9">
-
-        {{-- activities --}}
-        <div >
-            <div class="card">
-                <div class="card-header">
-
-                    <h5 class="card-title mb-0">{{ __('Activities') }}</h5>
-                </div>
-                <div class="card-body h-100">
-
-                    @if ($account->activities)
-                        @foreach ($account->activities as $index => $activity)
-
-                            {!! $index != 0 ?: '<hr />' !!}
-
-
-                            <div class="d-flex align-items-start">
-                                <img src="{{ $activity->author->avatar ?? 'img/avatars/avatar-5.jpg' }}" width="36"
-                                    height="36" class="rounded-circle me-2"
-                                    alt="{{ $activity->author->name ?? 'Vanessa Tucker' }}">
-                                <div class="flex-grow-1">
-                                    <small class="float-end text-navy">{{ $activity->time ?? '5m ago' }}</small>
-                                    <strong>{{ $activity->author->name ?? 'Vanessa Tucker' }}</strong>
-                                    {{ $activity->action ?? 'started following' }}
-                                    <strong>{{ $activity->user ?? 'Christina Mason' }}</strong>
-                                    <br />
-                                    <small class="text-muted">{{ $activity->time ?? 'Today 7:51 pm' }}</small><br />
-
-                                </div>
-                            </div>
-
-
-
-                        @endforeach
-                    @else
-                        <div class="d-flex align-items-start">
-                            {{ __('There is no data yet !') }}
-                        </div>
-                    @endif
-
-
-
-                </div>
-            </div>
-        </div>
 
         {{-- posts --}}
         <div id="all-posts">

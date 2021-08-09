@@ -11,12 +11,15 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\PostLikesResource;
 use App\Http\Resources\PostResource;
 use App\Models\Comment;
+use App\Notifications\UserLikedPostNotification;
 
 class LikeController extends Controller
 {
     public function likePost(Post $post)
     {
-       return new PostResource($post->like());
+      $post->author->notify(new UserLikedPostNotification(Auth::user(),$post ));
+
+      return new PostResource($post->like());
     }
 
     public function likeComment(Comment $comment)

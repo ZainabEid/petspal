@@ -22,7 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
   
     protected $fillable = [
-        'name', 'email', 'password', 'status','code', 'code_expires_at'
+        'name', 'email', 'password', 'status','code', 'code_expires_at', 'device_token'
     ];
 
    
@@ -87,6 +87,8 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     ######  End Getting Attributes  ######
+
+
 
 
     // user's main account

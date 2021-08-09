@@ -19,7 +19,7 @@ class Post extends Model implements Likeable {
     ];
 
     protected $appends =[
-        'first_media' ,'time_ago','body_with_linked_tags'
+        'first_media' ,'time_ago','body_with_linked_tags','thumbnail'
     ];
 
     // make post's body's tags looks in links
@@ -45,6 +45,15 @@ class Post extends Model implements Likeable {
     
     // return first image from a post collection
     public function getFirstMediaAttribute()
+    {
+        if ( $this->getFirstMediaUrl('collection') ) {
+
+            return $this->getFirstMediaUrl('collection');
+        }
+
+        return  asset('public/posts/default.png') ;
+    }
+    public function getThumbnailAttribute()
     {
         if ( $this->getFirstMediaUrl('collection') ) {
 

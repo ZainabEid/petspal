@@ -95,6 +95,8 @@ return [
 
     'fallback_locale' => 'en',
 
+    'supported_languages' => ['en' => 'English', 'ar' => 'Arabic'],
+
     /*
     |--------------------------------------------------------------------------
     | Faker Locale

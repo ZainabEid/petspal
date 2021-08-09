@@ -86,7 +86,7 @@
             {{-- post body --}}
             <p>
 
-                {{ $post->body_with_linked_tags }}
+                {!!  $post->body_with_linked_tags!!}
 
 
             </p>

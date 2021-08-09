@@ -29,7 +29,7 @@ class AccountResource extends JsonResource
             'type' => $this->type,
             'category' => $this->category->name,
             'user' => $this->user,
-            'accounts' => $this->user->accounts,
+            'accounts' => AccountResource::collection( $this->user->accounts),
             'followers' => $this->user->followers,
             'following' => $this->user->following,
             'posts' =>  $posts,

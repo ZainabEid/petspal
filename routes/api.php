@@ -23,7 +23,7 @@ Route::group([],function () {
 
 
 // authenticated routes
-Route::middleware(['auth:sanctum','verified_by_code'])->group(function () {
+Route::middleware(['auth:sanctum','verified_by_code','change_lang'])->group(function () {
 
     // user loggout
     Route::post('logout', 'AuthController@logout');
@@ -85,8 +85,10 @@ Route::middleware(['auth:sanctum','verified_by_code'])->group(function () {
  
  
     // notification
-    Route::get('/send-user-follow-notification/{user}', [NotificationController::class, 'sendUserFollowNotification']);
-    Route::get('/users/{user}/notificatins', [NotificationController::class, 'notifications']);
+    Route::get('send-user-follow-notification/{user}', [NotificationController::class, 'sendUserFollowNotification']);
+    Route::get('/notifications', [NotificationController::class, 'notifications']);
+    Route::get('/notifications/read-all', [NotificationController::class, 'readAllNotifications']);
+    Route::put('/notifications/update-token', [NotificationController::class, 'updateToken']);
     
      
    

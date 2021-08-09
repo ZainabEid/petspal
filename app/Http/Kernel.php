@@ -78,6 +78,8 @@ class Kernel extends HttpKernel
 
         'verified_by_code' => \App\Http\Middleware\UserMailVerificationWithCode::class,
 
+        'change_lang' => \App\Http\Middleware\ChangeLanguage::class,
+
 
         // /**** OTHER MIDDLEWARE ****/
         // 'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
