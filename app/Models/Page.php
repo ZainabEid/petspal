@@ -22,9 +22,6 @@ class Page extends Model
         'name'
     ];
 
-    public function getNameAttribute()
-    {
-        return $this->page;
-    }
+   
 
 }
