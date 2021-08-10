@@ -11,10 +11,10 @@ class UserRequest extends FormRequest
 
     public function authorize()
     {
-        // if api only this user is authorized
-        if(request()->is('api/*')){
-            return $this->user->id === auth()->user()->id;
-        }
+        // // if api only this user is authorized
+        // if(request()->is('api/*')){
+        //     return $this->user->id === auth()->user()->id;
+        // }
 
         return true;
     }

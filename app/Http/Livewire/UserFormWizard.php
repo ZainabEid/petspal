@@ -51,7 +51,7 @@ class UserFormWizard extends Component
 
     public function submitForm()
     {
-        $this->authorize('create_user');
+        // $this->authorize('create_user');
 
         $this->user = App::make('App\Repositories\Eloquent\Contracts\UserRepositoryInterface');
 

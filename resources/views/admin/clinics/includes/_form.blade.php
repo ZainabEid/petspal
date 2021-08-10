@@ -1,5 +1,5 @@
 <div class="card-body">
-
+    @csrf
     <div class="inline-flex">
 
         {{-- Category --}}
@@ -136,17 +136,13 @@
 
                     <div class="phone-validation form-group mb-3 @error('phones.0') 'has-error' @enderror">
 
-                        {!! Form::text('phones[]',"", ['placeholder' => 'Enter clinic phone', 'class' => 'phone w-50 form-control d-inline-flex ']) !!}
+                        {!! Form::text('phones[]', '', ['placeholder' => 'Enter clinic phone', 'class' => 'phone w-50 form-control d-inline-flex ']) !!}
 
                         <span style="cursor: pointer;" id="add-phone"
                             data-url="{{ route('admin.clinics.add-phone') }}">
                             <i class="align-middle" data-feather="plus"></i>
                         </span>
-                        @error('phones.0')
-                        <span class="text-danger">
-                            {{ $message }}
-                        </span>
-                    @enderror
+                        @error('phones.0') <span class="text-danger"> {{ $message }} </span> @enderror
 
                     </div>
 
@@ -237,7 +233,7 @@
 
                             <div class="image-wrapper">
 
-                                <img src="{{asset($media->getUrl())}}" alt="{{ $media->name }}"
+                                <img src="{{ asset($media->getUrl()) }}" alt="{{ $media->name }}"
                                     class="img-thumbnail" style="height: 50px; width:50px;">
 
                                 <button class="delete delete-image" aria-label="close">x</button>
@@ -327,6 +323,11 @@
                     // find the tr counts of same day
                     var period_index = $('#working-hours-table tr.' + day).length;
 
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
                     $.ajax({
                         type: "get",
                         url: url,
@@ -419,6 +420,11 @@
 
                 var url = $(this).data('url');
 
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     type: "get",
                     url: url,

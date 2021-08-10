@@ -68,7 +68,6 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
                 }
             }
 
-            dd($attributes['medias']);
 
             
             // assign gallery

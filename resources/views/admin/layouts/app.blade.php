@@ -9,10 +9,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-    <meta name="author" content="AdminKit">
+    <meta name="description" content="Social Network For Pets">
+    <meta name="author" content="Zainab Eid">
     <meta name="keywords"
-        content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+        content="laravel, bootstrap, bootstrap 5, admin, dashboard, api, livewire, mySql , css, sass, html, ">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -44,6 +44,7 @@
     {{-- pusher --}}
     {{-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script> --}}
    
+
 </head>
 
 <body dir="{{ Lang::locale() == 'ar' ? 'rtl' : '' }}">

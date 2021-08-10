@@ -47,22 +47,17 @@ class ClinicController extends Controller
 
     public function store(ClinicRequest $request)
     {
-
         $this->clinic->create($request->toArray() );
         
         session()->flash('success', __('added-successfuly'));
 
         return redirect()->route('admin.clinics.index');
-        
-
-      
     }// end of store
 
     
     public function show(Clinic $clinic)
     {
         return view('admin.clinics.show',compact('admin'));
-        
     } // end of show
 
    
@@ -124,6 +119,7 @@ class ClinicController extends Controller
     // show Gallery modal
     public function showGallery(Clinic $clinic)
     {
+        dd('gallery');
         $gallery = $clinic->gallery();
 
         return view('admin.clinics.includes._gallery_card',compact('gallery'));

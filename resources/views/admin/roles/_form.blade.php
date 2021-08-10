@@ -14,9 +14,12 @@
         
     </div>
     
-    <div class="d-flex flex-nowrap">
+    <div class="d-flex flex-wrap">
 
-        @foreach (getModels() as $index => $model)
+        @php
+            $models = ['account','admin','clinic','clinicscategory','comment','page','petscategory','post','user']
+        @endphp
+        @foreach ($models as $index => $model)
         
             <div class="border align-self-stretch p-2 m-1">
 

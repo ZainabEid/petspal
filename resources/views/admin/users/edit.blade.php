@@ -6,7 +6,7 @@
         <div class="card">
 
             <div class="card-header">
-                <h5 class="card-title mb-0">{{ __('Edit Admin') }}</h5>
+                <h5 class="card-title mb-0">{{ __('Edit User') }}</h5>
             </div>
 
             <!-- form start -->

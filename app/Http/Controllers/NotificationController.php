@@ -37,7 +37,7 @@ class NotificationController extends Controller
 
         $auth_user->update([
             // 'device_id' => $request->device_id,
-            'device_token' => json_decode($request->device_token)
+            'device_token' => $request->device_token
         ]);
 
         return response()->json([

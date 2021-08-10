@@ -23,12 +23,13 @@
         "sass": "^1.32.11",
         "sass-loader": "^11.0.1",
         "vue": "^2.6.14",
-        "vue-loader": "^15.9.7",
-        "vue-template-compiler": "^2.6.12"
+        "vue-loader": "^15.9.5",
+        "vue-template-compiler": "^2.6.14"
     },
     "dependencies": {
         "medium-editor": "^5.23.3",
         "numeral": "^2.0.6",
+        "vue-form-wizard": "^0.8.4",
         "vue-resource": "^1.5.3",
         "vue-sweetalert2": "^5.0.2"
     }

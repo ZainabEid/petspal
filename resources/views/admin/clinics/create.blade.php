@@ -13,6 +13,7 @@
             {!! Form::open(['route' => 'admin.clinics.store', 'role' => 'form' ,'files' => true ]) !!}
 
                 @include('admin.clinics.includes._form')
+                {{-- @include('admin.clinics.includes._form_wizard') --}}
 
                 
             <div class="card-footer">

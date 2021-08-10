@@ -191,15 +191,23 @@
 
 @push('scripts')
     <script type='text/javascript'>
+       
         $(document).ready(function() {
 
             $('body').on('click', '.show-modal', function() {
 
                 var url = $(this).data('url');
 
+                console.log(url);
+                 $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     url: url,
                     success: function(modal_card) {
+
                         $('#to-append').append(modal_card);
                         $('.modal').addClass('is-active');
                     }
