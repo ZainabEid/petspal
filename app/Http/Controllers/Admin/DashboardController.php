@@ -23,6 +23,7 @@ class DashboardController extends Controller
     public function __call($method,$arameters)
     {
         $page = Page::where('page->en' ,$method)->first();
+        dd($page->page);
         return view('admin.pages.page',compact('method','page'));
     }
 
