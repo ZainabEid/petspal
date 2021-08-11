@@ -119,7 +119,6 @@ class ClinicController extends Controller
     // show Gallery modal
     public function showGallery(Clinic $clinic)
     {
-        dd('gallery');
         $gallery = $clinic->gallery();
 
         return view('admin.clinics.includes._gallery_card',compact('gallery'));

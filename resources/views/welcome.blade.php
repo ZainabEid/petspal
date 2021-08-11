@@ -411,28 +411,14 @@
 
         <h1>WELCOME TO PETS PALS</h1>
 
-        <span data-url="{{ route('test') }}" class="click" style="cursor: pointer;"> click</span>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('body').on('click', '.click', function() {
-                var url = $(this).data('url');
-                console.log(url);
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    url: url,
-                    success: function(response) {
-                        console.log('success');
-                    }
-                });
-            });
-        });
-    </script>
+    
 </body>
 
 </html>
+
+
+Route::get('/test',function(){
+    return;
+})->name('test');

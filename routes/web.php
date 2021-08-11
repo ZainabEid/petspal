@@ -10,5 +10,5 @@ Route::get('/{lang}', 'HomeController@changeLanguage')->name('change-lang');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/test', function(){
-    dd('test');
+   return;
 })->name('test');
