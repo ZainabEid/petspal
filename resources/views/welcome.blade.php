@@ -417,8 +417,3 @@
 </body>
 
 </html>
-
-
-Route::get('/test',function(){
-    return;
-})->name('test');

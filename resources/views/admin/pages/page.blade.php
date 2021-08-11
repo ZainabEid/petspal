@@ -8,7 +8,7 @@
         {{-- page Header --}}
         <div class="d-flex justify-content-between mb-2 ">
 
-            <h1 class="h3 mb-3"><strong>{{ $page->name . ' ' . __('Page') }}</strong> </h1>
+            <h1 class="h3 mb-3"><strong>{{ $page->page . ' ' . __('Page') }}</strong> </h1>
 
             <a href="{{ route('admin.pages.edit', $page->id) }}" class="text-info show-modal" style="cursor: pointer;">
                 <i class=" text-info align-middle me-2" data-feather="edit"></i>

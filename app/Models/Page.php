@@ -18,10 +18,6 @@ class Page extends Model
         'page' , 'title' , 'body'
     ];
 
-    protected $appends =[
-        'name'
-    ];
-
    
 
 }
