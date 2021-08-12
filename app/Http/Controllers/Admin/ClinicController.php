@@ -6,8 +6,10 @@ use App\Models\Clinic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClinicRequest;
+use App\Models\Media;
 use App\Repositories\Eloquent\Contracts\ClinicInterface;
 use App\Repositories\Eloquent\Contracts\ClinicsCategoryInterface;
+use GrahamCampbell\ResultType\Success;
 
 class ClinicController extends Controller
 {
@@ -122,6 +124,17 @@ class ClinicController extends Controller
         $gallery = $clinic->gallery();
 
         return view('admin.clinics.includes._gallery_card',compact('gallery'));
+    }
+
+    // delete image modal
+    public function deleteImage(Media $media, Request $request)
+    {
+        $deleted = $this->clinic->deleteImage($media); 
+       
+
+        return response()->json([
+            'Success' => 'deleted successfully'
+        ]);
     }
 
       

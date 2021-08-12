@@ -223,31 +223,52 @@
             <div class="form-group mb-3">
 
                 {!! Form::label('medias', __('choose Photos:'), ['class' => 'boldfont']) !!}
-                {!! Form::file('medias[]', ['id' => 'photo-uploader', 'class' => 'photo-uploader', 'multiple' => true]) !!}
+                {!! Form::file('medias[]', ['id' => 'photo-uploader', 'class' => 'photo-uploader form-control', 'multiple' => true]) !!}
                 <span class="text-danger" id="photo_error"></span>
 
-                {{-- Gallery preview --}}
-                <div class="gallery d-flex">
-                    @if (isset($clinic))
-                        @foreach ($clinic->gallery() as $media)
+                <div class="appended-gallery  d-flex mt-3">
+                    {{-- js: append images here --}}
 
-                            <div class="image-wrapper">
-
-                                <img src="{{ asset($media->getUrl()) }}" alt="{{ $media->name }}"
-                                    class="img-thumbnail" style="height: 50px; width:50px;">
-
-                                <button class="delete delete-image" aria-label="close">x</button>
-
-                            </div>
-                        @endforeach
-                    @else
-
-                        {{-- js: append images here --}}
-
-                    @endif
                 </div>
 
 
+
+
+            </div>
+            <hr>
+
+            <div class="form-group mb-3 ">
+
+                {{-- Gallery preview --}}
+                <p>{{ __('Clinic\'s Images:') }}</p>
+                
+                
+                @if (isset($clinic))
+                @foreach ($clinic->gallery() as $media)
+                <div class=" d-inline-flex m-1">
+
+                            <div class="image-wrapper " style="position: relative;">
+
+                                {{-- delete image --}}
+                                <span style="cursor: pointer; position: absolute; fill: #fff;"
+                                    class=" text-danger delete delete-image " data-is_stored="true"
+                                    data-url="{{ route('admin.clinics.delete-image', $media->id) }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-x">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </span>
+
+                                {{-- preview image --}}
+                                <img src="{{ asset($media->getUrl()) }}" alt="{{ $media->name }}"
+                                    class="img-thumbnail" style="height: 50px; width:50px;">
+
+                            </div>
+                        </div>
+                        @endforeach
+                    @endif
             </div>
 
         </div>
@@ -262,6 +283,11 @@
 
 @push('scripts')
     <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         $(document).ready(function() {
 
             /* Working Hours Table */
@@ -274,19 +300,26 @@
                 $.each(days, function(i, day) {
                     var count = $('#working-hours-table tr.' + day).length;
                     $('.dayname-' + day).attr('rowspan', count);
+
+                    var checked = $('#working-hours-table tr.' + day).find('.checked-day').prop(
+                        'checked');
+                    handleWorkingHours(checked, day)
                 });
             });
 
-
-            //handle checkebox
+            // checkebox changed
             $('body').on('change', '.checked-day', function(e) {
                 e.preventDefault();
 
                 var checked = $(this).prop('checked');
+                var day = $(this).data('day');
+                handleWorkingHours(checked, day)
 
+            });
+
+            //disable & enable working hours
+            function handleWorkingHours(checked, day) {
                 if (!checked) {
-
-                    var day = $(this).data('day');
 
                     $('tr.' + day).find('.open-at,.close-at,.add-work-period ').attr('disabled', true);
                     $(this).closest('tr').find('.add-work-period ')
@@ -295,20 +328,17 @@
                             'cursor': ''
                         });
                     $('table').children('tr .' + day + ':not(:first)').remove();
+                    return;
 
-                } else {
-
-                    $(this).closest('tr').find('.open-at,.close-at,.add-work-period ').attr('disabled',
-                        false);
-                    $(this).closest('tr').find('.add-work-period ')
-                        .removeClass('text-secondary disabled')
-                        .css({
-                            'cursor': 'prointer'
-                        });
                 }
 
-            });
-
+                $('tr.' + day).find('.open-at,.close-at,.add-work-period ').attr('disabled', false);
+                $(this).closest('tr').find('.add-work-period ')
+                    .removeClass('text-secondary disabled')
+                    .css({
+                        'cursor': 'prointer'
+                    });
+            }
 
             // add extra period
             $('body').on('click', '.add-work-period', function(e) {
@@ -323,14 +353,11 @@
                     // find the tr counts of same day
                     var period_index = $('#working-hours-table tr.' + day).length;
 
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
+
                     $.ajax({
                         type: "get",
                         url: url,
+                        async: false,
                         data: {
                             day,
                             period_index
@@ -344,7 +371,6 @@
                                     rs = parseInt(rs);
                                     return rs + 1;
                                 });
-
                         }
                     });
                 }
@@ -360,9 +386,9 @@
                 var day = $(this).data('day');
                 var period_index = $(this).data('period_index');
 
-
                 // remove the row
-                $('tr#' + day + period_index).remove();
+                // $('tr#' + day + period_index).remove();
+                $(this).closest('tr').remove();
 
                 // decrement first cell (Day Name) rowspan
                 $('#working-hours-table')
@@ -371,7 +397,10 @@
                         rs = parseInt(rs);
                         return rs - 1;
                     });
+
             }); // end of cancel period
+
+
 
 
 
@@ -445,7 +474,10 @@
 
             // preview uploaded photo when new photo is uploaded
             $('body').on('change', '#photo-uploader', function() {
-                imagesPreview($('#photo-uploader')[0], 'div.gallery');
+                console.log($('#photo-uploader')[0].files); // to remove the file from file uploader
+                $('.appended-gallery').empty();
+                imagesPreview($('#photo-uploader')[0], 'div.appended-gallery');
+                // cleare image previo
 
             });
 
@@ -461,13 +493,16 @@
 
                         reader.onload = function(event) {
                             var html = `
-                            <div class="image-wrapper">
+                            <div class=" d-inline-flex m-1">
+                            <div class="image-wrapper"style="position: relative;">
+
 
                                 <img src="${event.target.result}"
                                     class="img-thumbnail" style="height: 50px; width:50px;">
 
-                                <button class="delete delete-image" aria-label="close"></button>
+                                
 
+                            </div>
                             </div>
                             `
                             $(placeToInsertImagePreview).append(html);
@@ -484,7 +519,28 @@
             $('body').on('click', '.delete-image', function(e) {
                 e.preventDefault();
 
-                $(this).closest('div.image-wrapper').remove;
+                var image_wrapper = $(this).closest('div.image-wrapper');
+
+                if (!$(this).data('is_stored')) {
+                    var reader = new FileReader();
+                    console.log($(this).data('file'));
+                    image_wrapper.remove();
+                    return;
+                }
+
+                var url = $(this).data('url');
+
+                // delete image from db and file system
+                $.ajax({
+                    url: url,
+                    type: "DELETE",
+                    success: function(response) {
+
+                        image_wrapper.remove();
+
+                    }
+                });
+
 
             });
         });

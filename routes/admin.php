@@ -53,6 +53,7 @@ Route::middleware('admin.auth:admin')->group(function () {
     Route::get('/clinics/add-work-period', 'ClinicController@addWorkPeriod')->name('clinics.add-work-period');
     Route::get('/clinics/add-off-day', 'ClinicController@addOffDay')->name('clinics.add-off-day');
     Route::get('/clinics/add-phone', 'ClinicController@addPhone')->name('clinics.add-phone');
+    Route::delete('/clinics/delete-image/{media}', 'ClinicController@deleteImage')->name('clinics.delete-image');
     Route::resource('clinics', 'ClinicController');
 
     // clincis-category

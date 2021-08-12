@@ -2,6 +2,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Clinic;
+use App\Models\Media;
 use App\Models\User;
 use App\Repositories\Eloquent\Contracts\ClinicInterface;
 use Exception;
@@ -143,7 +144,7 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
     {
         DB::beginTransaction();
 
-        // dd( $attributes);
+       
         try {
             $clinicId  = ($clinicId  == null ) ? $this->model->id : $clinicId ;
 
@@ -242,6 +243,19 @@ class ClinicRepository extends BaseRepository implements ClinicInterface
             ['rate' => $rate]);
         
         return $clinic;
+    }
+
+    public function deleteImage( Media $media)
+    {
+        
+        $is_deleted = $media->delete();
+        
+        if(!  $is_deleted ){
+            return false;
+        }
+        
+        return true;
+       
     }
 
 }
