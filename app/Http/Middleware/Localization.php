@@ -20,6 +20,7 @@ class Localization
     
             return $next($request);
         }
+        
 
         return $next($request);
 

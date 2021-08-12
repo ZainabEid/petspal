@@ -12,3 +12,15 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/test', function(){
    return;
 })->name('test');
+
+
+
+Route::get('/chat/chat', function () {
+   return view('index');
+});
+
+Route::post('/send-message', function (Request $request) {
+   event( new Message($request->username , $request->message));
+   return ['success'=>true]; 
+});
+
