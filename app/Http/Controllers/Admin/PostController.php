@@ -28,12 +28,14 @@ class PostController extends Controller
         $tags = Tag::all();
         if ($request->ajax()) {
 
-            dd($request->all());
-
+            
             if($request->tag ){
-                
-                $posts = Post::with('tags')->where('tag_name',$request->tag)->paginate(5);
-                
+                $tagName =$request->tag;
+                $posts = Post::whereHas('tags', function($query) use ($tagName) {
+                    $query->where('tag_name', $tagName);
+                  })->get();
+
+                  
                 return view('admin.users.accounts._posts_rows',compact('posts'));
             }
 

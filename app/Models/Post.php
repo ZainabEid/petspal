@@ -34,9 +34,9 @@ class Post extends Model implements Likeable {
             if(array_key_exists(0, $matches)){
                 $array = $matches[0];
                 foreach ($array as $key => $match) {
-                    // $route = route('admin.tags.show',$match);
-                    $route = $match;
-                    $string= str_replace("$match" ,"<a class='text-danger' href='$route'>$match</a>", $string);
+                    // $route = route('admins.posts.index', ['tag'=> str_replace("#",'',$match)]);
+                    // $route = $match;
+                    $string= str_replace("$match" ,"<a class='tag text-danger' data-tag=".str_replace("#",'',$match)." >$match</a>", $string);
                 }
             }
         }

@@ -31,25 +31,25 @@
 @section('content')
     <main class="content">
 
-        <form id="tags_form" action="{{ route('admin.posts.index') }}">
+        {{-- <form id="tags_form" action="{{ route('admin.posts.index') }}"> --}}
 
         
 
         @foreach ($tags as $tag)
 
-            <input type="hidden" name="tag" value="{{ $tag->tag_name }}">
-            <span style="cursor: pointer" onclick="getElementById('tags_form').submit()" class="badge bg-success">{{ $tag->tag_name }}</span>
+            {{-- <input type="hidden" name="tag" value="{{ $tag->tag_name }}"> --}}
+            <span style="cursor: pointer" class="tag badge bg-success" data-tag="{{ $tag->tag_name }}">{{ $tag->tag_name }}</span>
            
         @endforeach
-        
-        </form>
+
+        {{-- </form> --}}
 
         <div class="row card d-flex justify-content-center align-items-center" >
             <div class="col-md-12">
 
                 <div id="data-wrapper">
 
-                    <!-- Data  -->
+                    <!-- Data -->
                 </div>
 
                 <!-- Data Loader -->
@@ -69,6 +69,21 @@
         </div>
     </main>
     @push('scripts')
+    <script>
+        $('body').on('click','.tag',function(e){
+            e.preventDefault();
+
+            var tag =$(this).data('tag');
+
+            $.ajax({
+                url: window.location.href+ "?tag=" + tag,
+                success: function (response) {
+                    $('#data-wrapper').empty();
+                    $("#data-wrapper").append(response);
+                }
+            });
+        })
+    </script>
         <script src="{{ asset('js/load-more.js') }}"></script>
     @endpush
 @endsection
