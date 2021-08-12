@@ -45,7 +45,7 @@
 
                                         {{-- name --}}
                                         <td>
-                                            <span> {{ $pets_category->name }} </span>
+                                            <span> {{ $pets_category->name  }}  </span>
                                         </td>
 
                                         {{-- description --}}
@@ -55,10 +55,11 @@
 
                                         {{-- pets --}}
                                         <td>
-                                            {{-- <span >{{ $pets_category->pets->count() }}</span> --}}
+                                            <span >{{ $pets_category->accounts()->count() }}</span>
                                         </td>
 
                                         {{-- action --}}
+                                       
                                         <td class="d-none d-md-table-cell">
                                             @if (Auth::guard('admin')->user()->can('eidt_petscategory'))
                                                 

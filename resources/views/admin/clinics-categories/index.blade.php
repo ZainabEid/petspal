@@ -54,8 +54,8 @@
                                         </td>
 
                                         {{-- clinics --}}
-                                        <td>0
-                                            {{-- <span >{{ $clinic_category->clinics->count() }}</span> --}}
+                                        <td>
+                                            <span >{{ $clinic_category->clinics()->count() }}</span>
                                         </td>
 
                                         {{-- action --}}
