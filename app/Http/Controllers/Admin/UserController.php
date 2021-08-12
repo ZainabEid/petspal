@@ -8,6 +8,7 @@ use App\Models\PetsCategory;
 use App\Models\Report;
 use App\Models\User;
 use App\Repositories\Eloquent\Contracts\UserRepositoryInterface;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -25,12 +26,17 @@ class UserController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->user->all();
 
-       return view('admin.users.index', compact('users'));
+        if ($request->ajax()) {
+           $users = $this->user->allPaginated(10);
+            return view('admin.users._users_rows',compact('users')) ;
+        }
+        
+       return view('admin.users.index');
     }
+
 
     
     public function create()

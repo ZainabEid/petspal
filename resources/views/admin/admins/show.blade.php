@@ -13,8 +13,12 @@
         <div class="row">
             <div class="col-md-12 col-xl-12">
                 <div class="card mb-3">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between">
                         <h5 class="card-title mb-0">{{ __('Profile Details') }}</h5>
+                        <a href="{{ route('admin.admins.edit', $admin->id) }}" class="text-info show-modal" style="cursor: pointer;">
+                            <i class=" text-info align-middle me-2" data-feather="edit"></i>
+                        </a>
+                       
                     </div>
                     <div class="card-body text-center">
                         <img src="http://lorempixel.com/128/128/people/1" alt="{{ $admin->name }}"

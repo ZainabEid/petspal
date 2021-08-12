@@ -140,6 +140,31 @@
 
             @endif
 
+            {{-- posts --}}
+            @if (Auth::guard('admin')->user()->can('read_posts', 'update_posts', 'delete_users'))
+
+                <li class="sidebar-header">
+                    {{ __('Posts') }}
+                </li>
+
+
+                @if (Auth::guard('admin')->user()->can('read_posts'))
+
+                    {{-- all posts --}}
+                    <li class="sidebar-item @if (Request::is('admin/posts')) active @endif">
+                        <a class="sidebar-link" href="{{ route('admin.posts.index') }}">
+                            <i class="align-middle" data-feather="user"></i> <span
+                                class="align-middle">{{ __('All Posts') }}</span>
+                        </a>
+                    </li>
+
+                @endif
+
+
+            @endif
+
+
+
 
 
         </ul>

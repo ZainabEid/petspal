@@ -39,75 +39,28 @@
                                 </tr>
                             </thead>
 
-                            <tbody>
+                            <tbody id="data-wrapper">
 
-                                @foreach ($users as $user)
-
-                                    <tr>
-
-                                        {{-- name --}}
-                                        <td><span>{{ $user->name }}</span></td>
-
-                                        {{-- Email --}}
-                                        <td><span> {{ $user->email }} </span> </td>
-
-                                        {{-- Type --}}
-                                        <td><span> {{ $user->account()->type }} </span> </td>
-
-                                        {{-- Category --}}
-                                        <td><span>{{ $user->account()->category->name }}</span> </td>
-
-                                        {{-- Accounts --}}
-                                        <td>
-                                            @foreach ($user->accounts as $account)
-
-                                                <ul class="list-unstyled mb-0">
-
-                                                    <li class="mb-1">
-
-                                                        <img src="{{ url($account->avatar) }}"
-                                                            class="img-fluid rounded-circle mb-2" width="30" height="30" />
-
-                                                        <a href="{{ route('admin.users.accounts.show', [$user->id, $account->id]) }}">{{ $account->name }}</a>
-
-                                                    </li>
-
-                                                </ul>
-
-                                            @endforeach
-
-                                        </td>
-
-
-
-                                        {{-- Delete --}}
-                                        <td class="d-flex  d-md-table-cell">
-
-                                            @if (Auth::guard('admin')->user()->can('delete_user'))
-
-                                                <button type="submit" class="text-danger"
-                                                    onclick="Document.getElementById('DeleteUser').submit()"
-                                                    style=" border:none; background: none; text-decoration: none; ">
-                                                    <i class="align-middle me-2" data-feather="trash-2"></i>
-                                                </button>
-                                            @endif
-
-                                            {!! Form::open(['route' => ['admin.users.destroy', $user->id], 'method' => 'post', 'class' => 'delete', 'id' => 'DeleteUser']) !!}
-                                            @csrf
-                                            @method('DELETE')
-
-
-                                            {!! Form::close() !!}
-
-                                        </td>
-                                    </tr>
-
-                                @endforeach
-
+                                <!-- Results -->
+                        
+                               
 
 
                             </tbody>
+                             
                         </table>
+
+                        <!-- Data Loader -->
+                        <div class="auto-load text-center">
+                            <svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                x="0px" y="0px" height="60" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+                                <path fill="#000"
+                                    d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s"
+                                        from="0 50 50" to="360 50 50" repeatCount="indefinite" />
+                                </path>
+                            </svg>
+                        </div>
 
                     </div>
 
@@ -119,4 +72,14 @@
     </main>
 
 
+    @push('scripts')
+    {{-- load more scripts  --}}
+    <script>
+        var ENDPOINT = "{{ url('/admin/users') }}";
+        
+    </script>
+
+    <script src="{{ asset('js/load-more.js') }}"></script>
+
+    @endpush
 @endsection

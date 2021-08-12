@@ -25,12 +25,12 @@ class AccountController extends Controller
     public function index(User $user)
     {
         $accounts = $this->account->all();
-       return view('admin.users.accounts.index',compact('user'));
+        return view('admin.users.accounts.index',compact('user'));
     }
 
    public function create(User $user)
    {
-    $pets_categories = PetsCategory::all();
+       $pets_categories = PetsCategory::all();
        return view('admin.users.accounts.create' ,compact('user','pets_categories'));
    }
 
@@ -42,11 +42,15 @@ class AccountController extends Controller
    }
 
   
-    public function show(User $user, Account $account)
+    public function show(User $user, Account $account , Request $request)
     {
+        if ($request->ajax()) {
+            $posts = isset($user->posts) ? $user->posts()->paginate(5): null;
+             return view('admin.users.accounts._posts_rows',compact('posts')) ;
+         }
+
         $pets_categories = PetsCategory::all();
-        $posts = isset($user->posts) ? $user->posts()->paginate(5): null;
-        return view('admin.users.accounts.show',compact('account','pets_categories','posts'));
+        return view('admin.users.accounts.show',compact('account','pets_categories'));
     }
 
    

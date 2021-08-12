@@ -39,6 +39,8 @@
         {{-- post content --}}
         <div class="row">
 
+        
+
             {{-- post images --}}
             <div id="postImage" class="carousel slide" data-ride="carousel" data-interval="false">
 
@@ -55,7 +57,7 @@
 
 
                 {{-- slider images --}}
-                <div class="carousel-inner">
+                <div class="carousel-inner d-flex">
 
                     @foreach ($post->collection() as $index => $image)
                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
@@ -82,6 +84,7 @@
                     <span class="sr-only">{{ __('Next') }}</span>
                 </a>
             </div>
+          
 
             {{-- post body --}}
             <p>
@@ -103,7 +106,7 @@
                 <span class="likes-icon" data-post="{{ $post->id }}">
 
                     <i class="align-middle" data-feather="heart"></i>
-                    <small>{{ $post->likes ? $post->likes->count() : 0 }}</small>
+                    <small>{{ $post->likes ? $post->likes->count() : 0 }} {{__('likes')  }}</small>
                 </span>
 
                 {{-- comments count --}}
@@ -111,7 +114,7 @@
                     href="{{ route('admin.users.posts.show', [$post->author->id, $post->id]) }}">
 
                     <i class="align-middle" data-feather="message-square"></i>
-                    <small>{{ $post->comments ? $post->comments->count() : 0 }}</small>
+                    <small>{{ $post->comments ? $post->comments->count() : 0 }}  {{ __('comments') }}</small>
                 </a>
 
                 {{-- <span class="comments-icon" style="cursor: pointer;"

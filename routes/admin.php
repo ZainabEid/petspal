@@ -75,7 +75,8 @@ Route::middleware('admin.auth:admin')->group(function () {
     // Route::resource('profiles', 'ProfileController');
 
     // posts
-    Route::resource('users.posts', 'PostController');
+    Route::get('posts/index','PostController@index')->name('posts.index');
+    Route::resource('users.posts', 'PostController')->except('index');
 
     //change acted user
     Route::get('users/posts/change-user', 'PostController@changeUser')->name('users.posts.change-user');

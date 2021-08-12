@@ -182,9 +182,10 @@
 
                     <div class="row">
                         @foreach ($account->recent_posts as $post)
-                            <div class="inline-flex">
-                                <img src="{{ url( $post->thumbnail ) }}" class="img-fluid mb-2" width="50"
-                                                height="50" />
+                        <div class="col-4">
+                            <a href="{{ route('admin.users.posts.show', [$post->author->id, $post->id])  }}">
+                                    <img src="{{ url( $post->thumbnail ) }}" class="img-fluid mb-2 img-thumbnail" width="50" height="50" />
+                                </a>
                             </div>
                         @endforeach
                     </div>
@@ -206,10 +207,6 @@
                     <a href="{{ route('admin.users.edit', $account->id) }}" style="text-decoration: none; ">
                         <i class=" text-info align-middle me-2" data-feather="edit"></i>
                     </a>
-
-
-
-
 
 
                 </div>
@@ -280,32 +277,22 @@
 
                 <div class="card-body h-100">
 
-                    @if (isset($posts) && $posts->count() > 0)
+                    <div id="data-wrapper">
+                        <!-- posts goes here -->
+                    </div>
 
-                        @foreach ($posts as $index => $post)
-
-                            {!! $index != 0 ? '<hr />' : '' !!}
-
-
-                            {{-- post component --}}
-                            <div class="d-flex align-items-start">
-                                <div class="flex-grow-1">
-
-                                    {{-- post component --}}
-                                  @include('admin.users.accounts._post')
-
-                                
-                                </div>
-                            </div>
-
-                        @endforeach
-
-                        {{ $posts->links() }}
-                    @else
-                        <div class="d-flex align-items-start">
-                            {{ __('There is no data yet !') }}
-                        </div>
-                    @endif
+                     <!-- Data Loader -->
+                     <div class="auto-load text-center">
+                        <svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            x="0px" y="0px" height="60" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+                            <path fill="#000"
+                                d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                                <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s"
+                                    from="0 50 50" to="360 50 50" repeatCount="indefinite" />
+                            </path>
+                        </svg>
+                    </div>
+                   
 
 
 
@@ -314,5 +301,5 @@
         </div>
     </div>
 
-
+   
 </div>

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
+use App\Models\Tag;
 use App\Repositories\Eloquent\Contracts\CommentInterface;
 use App\Repositories\Eloquent\Contracts\PostInterface;
 
@@ -22,9 +23,26 @@ class PostController extends Controller
     }
    
 
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $tags = Tag::all();
+        if ($request->ajax()) {
+
+            dd($request->all());
+
+            if($request->tag ){
+                
+                $posts = Post::with('tags')->where('tag_name',$request->tag)->paginate(5);
+                
+                return view('admin.users.accounts._posts_rows',compact('posts'));
+            }
+
+            $posts = Post::paginate(5);
+
+            return view('admin.users.accounts._posts_rows',compact('posts')) ;
+        }
+
+        return view('admin.users.posts.index',compact('tags'));
     }
 
     public function create(User $user)

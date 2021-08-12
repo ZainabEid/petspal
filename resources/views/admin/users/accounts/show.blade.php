@@ -43,37 +43,41 @@
         </div>
     </main>
 
+
+    @push('scripts')
+        {{-- load more script --}}
+        <script src="{{ asset('js/load-more.js') }}"></script>
+
+
+        <script type='text/javascript'>
+            $(document).ready(function() {
+
+                // append form to model
+                $('body').on('click', '.show-modal', function() {
+
+                    $('.modal').addClass('is-active');
+
+                });
+
+                // submit model
+                $('body').on('click', '.show-modal', function() {
+
+                    $('.modal').addClass('is-active');
+
+                });
+
+
+
+                $('body').on('click', '.delete', function() {
+
+                    $('.modal').removeClass('is-active');
+
+                });
+
+
+
+            });
+        </script>
+    @endpush
+
 @endsection
-
-
-@push('scripts')
-    <script type='text/javascript'>
-        $(document).ready(function() {
-
-            // append form to model
-            $('body').on('click', '.show-modal', function() {
-
-                $('.modal').addClass('is-active');
-
-            });
-
-            // submit model
-            $('body').on('click', '.show-modal', function() {
-
-                $('.modal').addClass('is-active');
-
-            });
-
-
-
-            $('body').on('click', '.delete', function() {
-
-                $('.modal').removeClass('is-active');
-
-            });
-
-
-
-        });
-    </script>
-@endpush
