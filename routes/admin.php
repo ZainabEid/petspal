@@ -64,7 +64,8 @@ Route::middleware('admin.auth:admin')->group(function () {
    
    
     // Users
-    Route::get('users/login/{user}', 'UserController@login')->name('users.login');
+    Route::get('users/{user}/block-list', 'UserController@blockList')->name('users.block-list');
+    Route::get('users/{user}/report-list', 'UserController@reportList')->name('users.report-list');
     Route::resource('users', 'UserController');
 
     // users / accounts

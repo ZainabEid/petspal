@@ -28,13 +28,13 @@
                             </a>
 
                             {{-- block --}}
-                            <a class="dropdown-item" href="">
-                                {{ __('Block') }}
+                            <a class="dropdown-item" href="{{ route('admin.users.block-list',$account->user->id) }}">
+                                {{ __('Blocklist') }}
                             </a>
 
                             {{-- report --}}
-                            <a class="dropdown-item" href="">
-                                {{ __('Report') }}
+                            <a class="dropdown-item" href="{{ route('admin.users.report-list',$account->user->id) }}">
+                                {{ __('Reportlist') }}
                             </a>
 
                             <div class="dropdown-divider"></div>

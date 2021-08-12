@@ -10,7 +10,7 @@
             
             @foreach ($gallery as $media)
             
-                <img src="{{asset($media->getUrl())}}" alt="{{ $media->name }}" img-thumbnail style="height: 50px; width:50px;">
+                <img src="{{url($media->getUrl())}}" alt="{{ $media->name }}" img-thumbnail style="height: 50px; width:50px;">
             @endforeach
 
                 

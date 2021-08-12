@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\PetsCategory;
+use App\Models\Report;
 use App\Models\User;
 use App\Repositories\Eloquent\Contracts\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
@@ -75,13 +76,21 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function login(User $user)
+    public function blockList(User $user)
     {
-        Auth::guard('web')->loginUsingId($user->id, $remember = true);
-        
-        return redirect()->back();
-        
+        $users = $user->blocks()->get();
+
+        return view('admin.users.block-list',compact('users'));
     }
 
+    public function reportList(User $user)
+    {
+
+        $reports = Report::where('reporter_id' , $user->id )->get();
+
+        return view('admin.users.report-list',compact('reports'));
+    }
+
+  
     
 }
