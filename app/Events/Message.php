@@ -30,6 +30,6 @@ class Message implements ShouldBroadcast
 
     public function broadcatAs()
     {
-            return 'message';
+            return 'App\Events\message';
     }
 }
