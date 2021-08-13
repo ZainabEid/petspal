@@ -35,5 +35,6 @@ message_form.on('submit',function(e){
 window.Echo.channel('chat')
     .listen('Message', (e) => {
         console.log('success');
-        console.log(e);
+        console.log(e.message);
+        messages_el.innerHTML +=  `<div class="message"><strong>${e.message}</strong></div>`
     });
