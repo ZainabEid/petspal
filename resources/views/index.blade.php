@@ -14,7 +14,6 @@
     <div class="app">
         <header>
             <h1>chat</h1>
-            <input type="text" name="username" id="username" placeholder="please enter a username...">
             <div id="messages">
 
             </div>

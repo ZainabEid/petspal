@@ -9,16 +9,6 @@ Route::get('/{lang}', 'HomeController@changeLanguage')->name('change-lang');
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/test/test', function(){
-   return view('test');
-})->name('test');
-
-Route::get('/test/chat', function(){
-   event(new Message('Zainab','hello world'));
-   return ['success'=>true]; 
-})->name('test.chat');
-
-
 
 Route::get('/chat/chat', function () {
    return view('index');

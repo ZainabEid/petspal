@@ -25518,17 +25518,11 @@ var __webpack_exports__ = {};
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var messages_el = $('#messages');
-var username_input = $('#username');
 var message_input = $('#message_input');
 var message_form = $('#message_form');
 message_form.on('submit', function (e) {
   e.preventDefault();
   var has_errors = false;
-
-  if (username_input.val() == '') {
-    alert('please enter username');
-    has_errors = true;
-  }
 
   if (message_input.val() == '') {
     alert('please enter message');
