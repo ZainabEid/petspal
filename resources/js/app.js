@@ -33,7 +33,7 @@ message_form.on('submit',function(e){
 });
 
 window.Echo.channel('chat')
-    .listen('message', (e) => {
+    .listen('Message', (e) => {
         console.log('success');
         console.log(e);
     });

@@ -25542,7 +25542,7 @@ message_form.on('submit', function (e) {
   };
   axios(options);
 });
-window.Echo.channel('chat').listen('message', function (e) {
+window.Echo.channel('chat').listen('Message', function (e) {
   console.log('success');
   console.log(e);
 });

@@ -28,8 +28,8 @@ class Message implements ShouldBroadcast
         return new Channel('chat');
     }
 
-    public function broadcatAs()
-    {
-            return 'App\Events\message';
-    }
+    // public function broadcatAs()
+    // {
+    //         return 'App\Events\message';
+    // }
 }
