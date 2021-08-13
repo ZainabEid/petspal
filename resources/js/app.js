@@ -29,7 +29,6 @@ message_form.on('submit',function(e){
         method: 'post',
         url: '/send-message',
         data:{
-            username:username_input.val(),
             message: message_input.val(),
         }
     }
