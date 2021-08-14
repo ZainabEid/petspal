@@ -25523,6 +25523,7 @@ var html = '';
 message_form.on('submit', function (e) {
   e.preventDefault();
   var message_input = $('#message_input');
+  alert(message_input.val());
   var has_errors = false;
   var url = $(this).data('url');
 
