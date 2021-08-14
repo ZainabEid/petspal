@@ -79,7 +79,7 @@
                 return;
             }
             $('.auto-load').hide();
-            $("#messages").append(response);
+            $("#messages").prepend(response);
         })
         .fail(function (jqXHR, ajaxOptions, thrownError) {
             console.log('Server error occured');
