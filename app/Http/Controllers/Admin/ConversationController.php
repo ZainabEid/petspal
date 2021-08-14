@@ -73,7 +73,7 @@ class ConversationController extends Controller
             
             if($conversation->messages()->count() > 0){
 
-                $messages = $conversation->messages()->latest()->paginate(5);
+                $messages = $conversation->messages()->latest()->paginate(5)->sortBy('created_at');
                 return view('admin.conversations._messages',compact('messages'));
             }
 
