@@ -25518,11 +25518,11 @@ var __webpack_exports__ = {};
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var messages_el = $('#messages');
-var message_input = $('#message_input');
 var message_form = $('#message_form');
 var html = '';
 message_form.on('submit', function (e) {
   e.preventDefault();
+  var message_input = $('#message_input');
   var has_errors = false;
   var url = $(this).data('url');
 
@@ -25543,10 +25543,8 @@ message_form.on('submit', function (e) {
     },
     success: function success(response) {
       html = response;
-      console.log('message is stored');
     }
   });
-  console.log(html);
 });
 window.Echo.channel(channel).listen('Message', function (e) {
   messages_el.append(html); // messages_el.append(`<div class="message"><strong>${e.message.message_content}</strong></div>`);

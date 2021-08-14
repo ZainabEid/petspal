@@ -1,13 +1,13 @@
 require('./bootstrap');
 
 var messages_el = $('#messages');
-var message_input = $('#message_input');
 var message_form = $('#message_form');
 var html ='';
 
 message_form.on('submit',function(e){
     e.preventDefault();
-
+    
+    var message_input = $('#message_input');
     
     let has_errors = false;
     var url = $(this).data('url');
@@ -30,10 +30,8 @@ message_form.on('submit',function(e){
         },
         success:function(response){
             html = response;
-            console.log('message is stored');
         }
     });
-    console.log( html);
 
     
 });
