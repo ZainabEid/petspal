@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Message as ModelsMessage;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -17,7 +18,7 @@ class Message implements ShouldBroadcast
     public $message;
 
    
-    public function __construct($message)
+    public function __construct(ModelsMessage $message)
     {
         $this->message = $message;
     }
@@ -25,7 +26,7 @@ class Message implements ShouldBroadcast
    
     public function broadcastOn()
     {
-        return new Channel('chat');
+        return new Channel( $this->message->conversation->channel_name);
     }
 
     // public function broadcatAs()

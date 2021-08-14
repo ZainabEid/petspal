@@ -14,8 +14,8 @@ Route::get('/chat/chat', function () {
    return view('index');
 });
 
-Route::post('/send-message', function (Request $request) {
-   event( new Message($request->message));
-   return ['success'=>true]; 
-});
+// Route::post('/send-message', function (Request $request) {
+//    event( new Message($request->message));
+//    return ['success'=>true]; 
+// });
 

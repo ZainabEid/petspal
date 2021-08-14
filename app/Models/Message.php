@@ -11,7 +11,7 @@ class Message extends Model
     use HasFactory;
 
     protected $fillable =[
-        'sender_id','reciever_id','message_content','message_type',
+        'sender_id','reciever_id','message_content','message_type','conversation_id'
     ];
 
     public function sender()
@@ -23,4 +23,10 @@ class Message extends Model
     {
         return $this->belongsTo(Admin::class);
     }
+
+    public function conversation()
+    {
+        return $this->belongsTo(Conversation::class);
+    }
+
 }

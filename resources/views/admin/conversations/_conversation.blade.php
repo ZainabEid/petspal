@@ -15,13 +15,17 @@
         </ul>
 
         <div class="form-group mt-3 mb-0 float-bottom">
+
             <form action="" id="message_form" data-url="{{ route('admin.conversations.messages.store',$conversation->id) }}">
 
                 <div class="row">
+
                     <div class="col-10">
+
                         <textarea class="form-control" rows="3" name="message" id="message_input" placeholder="Type your message here..."></textarea>
 
                     </div>
+
                     <div class="col-2">
 
                         <button type="submit" id="message_send" class="form-control btn btn-info btn-block "  style="text-align: center; line-height: 60px;" >
@@ -29,13 +33,11 @@
                         </button>
 
                     </div>
+
                 </div>
                 
-                <div class="mb-2">
-
-                    
-                </div>
             </form>
+
         </div>
 
     </div>
@@ -44,7 +46,6 @@
 
 {{-- onload get the conversation messages and load first five --}}
 <script>
-    // var CONVERSATION = '{{ $conversation->id }}'
     var ENDPOINT = '{{ route("admin.conversations.show",$conversation->id) }}'; 
     var page = 1;
 
@@ -59,14 +60,6 @@
         }
     });
 
-
-    // $('.chatContainerScroll').scroll(function () {
-    //     alert('chat container scrolled');
-    //     if ($('.chatContainerScroll').scrollTop() + $('.chatContainerScroll').height() >= $('.messages-container').height()) {
-    //         page++;
-    //         infinteLoadMore(page);
-    //     }
-    // });
 
     function infinteLoadMore(page) {
         $.ajax({

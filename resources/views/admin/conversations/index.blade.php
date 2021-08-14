@@ -144,13 +144,23 @@
         $(document).ready(function () {
             
             // {{-- on load show messages of the last conversatoin --}}
+            var url = '{{ route("admin.conversations.index") }}';
+            var conversation_id = '{{ $conversations->last()->id }}';
+            loadConversation(conversation_id,url);
             
+
             // {{-- on click show messages of this conversatoin --}}
             $('body').on('click','.person',function(e){
                 e.preventDefault();
 
                 var url = $(this).data('url');
                 var conversation_id = $(this).data('chat');
+                loadConversation(conversation_id,url);
+
+            });
+
+
+            function loadConversation(conversation_id,url){
                 $.ajax({
                     url: url,
                     data:{
@@ -161,8 +171,7 @@
                         $('#conversation-container').append(response);
                     }
                 });
-
-            });
+            }
         });
     </script>
    

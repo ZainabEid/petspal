@@ -29,11 +29,11 @@ class ConversationController extends Controller
         }
 
 
+
         // conversations where auth_admin is one of talker
         $conversations = Conversation::where('admin_id' , Auth::guard('admin')->id())
                             ->orWhere('to_admin_id' , Auth::guard('admin')->id())->get();
 
-                            // dd( $conversations );
         return view('admin.conversations.index', compact('conversations'));
     }
 
