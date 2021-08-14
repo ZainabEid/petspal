@@ -6,11 +6,14 @@
     </div>
 
     {{-- messages  --}}
-    <div class="chat-container">
+    <div class="chat-container" id="chat-container">
 
-        <ul class="chat-box chatContainerScroll" id="messages">
+        <ul class="chat-box chatContainerScroll" id="messages" style="overflow-y: scroll; height:400px;">
 
-            <!-- appended messages goes here -->
+            <div class="messages-container">
+
+                <!-- appended messages goes here -->
+            </div>
         
         </ul>
 
@@ -53,11 +56,9 @@
     var page = 1;
 
     infinteLoadMore(page);
-
     
-    $(window).scroll(function () {
-        
-        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+    $('.chatContainerScroll').scroll(function () {
+        if ($('.chatContainerScroll').scrollTop() + $('.chatContainerScroll').height() >= $('.chatContainerScroll')[0].scrollHeight) {
             page++;
             infinteLoadMore(page);
         }

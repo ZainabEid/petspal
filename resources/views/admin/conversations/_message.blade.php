@@ -14,10 +14,10 @@
 
      <div class="chat-hour">
 
-         {{  $message->time_ago ?? '08:55' }}
+        {{  $message->time_ago ?? '08:55' }}
 
-         {{-- seen  --}}
-         {{-- <span class="fa fa-check-circle"></span> --}}
+        {{-- seen  --}}
+        {{-- <span class="fa fa-check-circle"></span> --}}
 
      </div>
  </li>
