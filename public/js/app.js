@@ -25546,6 +25546,7 @@ message_form.on('submit', function (e) {
       console.log('message is stored');
     }
   });
+  console.log(html);
 });
 window.Echo.channel(channel).listen('Message', function (e) {
   messages_el.append(html); // messages_el.append(`<div class="message"><strong>${e.message.message_content}</strong></div>`);

@@ -32,8 +32,8 @@ message_form.on('submit',function(e){
             html = response;
             console.log('message is stored');
         }
-       
     });
+    console.log( html);
 
     
 });
