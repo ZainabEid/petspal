@@ -20,6 +20,6 @@ class MessageController extends Controller
         ]);
 
         event( new Message($message));
-        return ['success'=>true]; 
+        return view('admin.conversations._message',compact( $message)); 
     }
 }
