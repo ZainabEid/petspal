@@ -37,6 +37,14 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // chatting methods
+    public function lastNewMessages()
+    {
+        return null;
+    }
+
+
+
   
     public function sendPasswordResetNotification($token)
     {
@@ -57,5 +65,12 @@ class Admin extends Authenticatable
         return $this->getRoleNames()->first();
     }
 
+
+    ##### Relations #####
+   
+    // public function conversations()
+    // {
+    //     return $this->hasMany(conversation::class,['admin_id','to_admin_id']);
+    // }
 
 }

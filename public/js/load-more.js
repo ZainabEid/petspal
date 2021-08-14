@@ -4,7 +4,7 @@ var page = 1;
 infinteLoadMore(page);
 
 $(window).scroll(function () {
-    console.log('scroll');
+    
     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
         page++;
         infinteLoadMore(page);

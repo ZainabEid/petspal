@@ -91,13 +91,15 @@ Route::middleware('admin.auth:admin')->group(function () {
    
     // tags
     Route::resource('tags', 'TagController');
-
-
+    
+    
     // notification
-
+    
     //chat
+    Route::resource('conversations', 'ConversationController');
+    Route::resource('conversations.messages', 'MessageController');
 
-    //
+    
    
     
 
