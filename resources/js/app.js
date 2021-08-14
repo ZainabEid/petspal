@@ -38,7 +38,7 @@ message_form.on('submit',function(e){
     
 });
 
-window.Echo.channel('chat')
+window.Echo.channel('{{ $conversation->channel_name}}')
     .listen('Message', (e) => {
         messages_el.append(html);
         // messages_el.append(`<div class="message"><strong>${e.message.message_content}</strong></div>`);
