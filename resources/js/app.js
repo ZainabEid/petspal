@@ -8,11 +8,11 @@ var message_form = $('#message_form');
 message_form.on('submit',function(e){
     e.preventDefault();
 
-    alert('submit');
-
+    
     let has_errors = false;
     var url = $(this).data('url');
-
+    
+    alert(url);
 
     if(message_input.val()==''){
         alert('please enter message');
