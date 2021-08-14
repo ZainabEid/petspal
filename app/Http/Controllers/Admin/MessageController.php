@@ -12,7 +12,7 @@ class MessageController extends Controller
 {
     public function store(Conversation $conversation,Request $request)
     {
-        // dd('store in db');
+        dd('store in db');
        $message =  $conversation->messages()->create([
             'sender_id' => auth()->guard('admin')->id(),
             'reciever_id' => $conversation->talked_admin->id,
