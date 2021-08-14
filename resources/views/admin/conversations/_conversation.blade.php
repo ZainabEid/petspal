@@ -87,44 +87,6 @@
 
     
 
-var messages_el = $('#messages');
-var message_input = $('#message_input');
-var message_form = $('#message_form');
-
-message_form.on('submit',function(e){
-    e.preventDefault();
-
-    
-    let has_errors = false;
-    var url = $(this).data('url');
-    
-    alert(url);
-
-    if(message_input.val()==''){
-        alert('please enter message');
-        has_errors = true;
-    }
-
-    if(has_errors){
-        return;
-    }
-
-
-    $.ajax({
-        type: "post",
-        url: url,
-        data:{
-            message: message_input.val(),
-        },
-        success:function(){
-
-            console.log('message is stored');
-        }
-       
-    });
-
-    
-});
 
     
 </script>

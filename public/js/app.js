@@ -25517,8 +25517,38 @@ var __webpack_exports__ = {};
   \*****************************/
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+var messages_el = $('#messages');
+var message_input = $('#message_input');
+var message_form = $('#message_form');
+var html = '';
+message_form.on('submit', function (e) {
+  e.preventDefault();
+  var has_errors = false;
+  var url = $(this).data('url');
+
+  if (message_input.val() == '') {
+    alert('please enter message');
+    has_errors = true;
+  }
+
+  if (has_errors) {
+    return;
+  }
+
+  $.ajax({
+    type: "post",
+    url: url,
+    data: {
+      message: message_input.val()
+    },
+    success: function success(response) {
+      html = response;
+      console.log('message is stored');
+    }
+  });
+});
 window.Echo.channel('chat').listen('Message', function (e) {
-  messages_el.append("<div class=\"message\"><strong>".concat(e.message, "</strong></div>"));
+  messages_el.append(html); // messages_el.append(`<div class="message"><strong>${e.message.message_content}</strong></div>`);
 });
 })();
 
