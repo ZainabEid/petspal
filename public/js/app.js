@@ -25522,6 +25522,7 @@ var message_input = $('#message_input');
 var message_form = $('#message_form');
 message_form.on('submit', function (e) {
   e.preventDefault();
+  alert('submit');
   var has_errors = false;
   var url = $(this).data('url');
 

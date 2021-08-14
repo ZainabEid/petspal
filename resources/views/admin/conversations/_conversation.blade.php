@@ -16,8 +16,9 @@
 
         <div class="form-group mt-3 mb-0 float-bottom">
 
-            <form action="" id="message_form" data-url="{{ route('admin.conversations.messages.store',$conversation->id) }}">
-
+            <form action="" id="message_form" method="post" data-url="{{ route('admin.conversations.messages.store',$conversation->id) }}">
+                @csrf
+                @method('post')
                 <div class="row">
 
                     <div class="col-10">
