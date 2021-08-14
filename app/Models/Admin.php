@@ -24,7 +24,7 @@ class Admin extends Authenticatable
     
 
     protected $appends =[
-        'role'
+        'role' , 'avatar'
     ];
 
    
@@ -41,6 +41,17 @@ class Admin extends Authenticatable
     public function lastNewMessages()
     {
         return null;
+    }
+
+    public function getAvatarAttribute()
+    {
+        if($this->role == 'super_admin'){
+            
+            return asset('img/avatars/avatar.jpg');
+        }
+
+        return 'https://picsum.photos/200/300';
+
     }
 
 

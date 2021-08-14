@@ -9,6 +9,7 @@ message_form.on('submit',function(e){
     e.preventDefault();
 
     let has_errors = false;
+    var url = $(this).data('url');
 
 
     if(message_input.val()==''){
@@ -22,7 +23,7 @@ message_form.on('submit',function(e){
 
     const options = {
         method: 'post',
-        url: '/send-message',
+        url:  url,
         data:{
             message: message_input.val(),
         }

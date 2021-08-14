@@ -11,14 +11,14 @@
         {{-- messages  --}}
         <div class="chat-container">
 
-            <ul class="chat-box chatContainerScroll data-wrapper " id="messages">
+            <ul class="chat-box chatContainerScroll" id="messages">
 
                 <!-- appended messages goes here -->
             
             </ul>
 
             <div class="form-group mt-3 mb-0 float-bottom">
-                <form action="" id="message_form">
+                <form action="" id="message_form" data-url="{{ route('admin.conversations.messages.store',$conversation->id) }}">
 
                     <div class="row">
                         <div class="col-10">
@@ -76,7 +76,7 @@
                     return;
                 }
                 $('.auto-load').hide();
-                $("#data-wrapper").append(response);
+                $("#messages").append(response);
             })
             .fail(function (jqXHR, ajaxOptions, thrownError) {
                 console.log('Server error occured');

@@ -25523,6 +25523,7 @@ var message_form = $('#message_form');
 message_form.on('submit', function (e) {
   e.preventDefault();
   var has_errors = false;
+  var url = $(this).data('url');
 
   if (message_input.val() == '') {
     alert('please enter message');
@@ -25535,7 +25536,7 @@ message_form.on('submit', function (e) {
 
   var options = {
     method: 'post',
-    url: '/send-message',
+    url: url,
     data: {
       message: message_input.val()
     }
@@ -25543,8 +25544,6 @@ message_form.on('submit', function (e) {
   axios(options);
 });
 window.Echo.channel('chat').listen('Message', function (e) {
-  console.log('success');
-  console.log(e.message);
   messages_el.append("<div class=\"message\"><strong>".concat(e.message, "</strong></div>"));
 });
 })();

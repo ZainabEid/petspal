@@ -71,11 +71,10 @@ class ConversationController extends Controller
         if ( $request->expectsJson() ) {
 
             
-            if($conversation->messages){
+            if($conversation->messages()->count() > 0){
 
-                dd('show conversation messages');
-                $conversation = $conversation->messages()->paginate(5);
-                return view('admin.conversations._messages',compact('conversation'));
+                $messages = $conversation->messages()->paginate(10);
+                return view('admin.conversations._messages',compact('messages'));
             }
 
             return response()->json([ 'error' => 'there is no messages' ]);

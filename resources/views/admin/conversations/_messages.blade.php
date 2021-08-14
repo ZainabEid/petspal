@@ -1,16 +1,20 @@
-@isset($conversation->messages)
+@isset($messages)
     
-@foreach ($conversation->messages as $message)
+@foreach ($messages as $message)
                                                                     
     {{-- message from auth_user --}}
-    @if ( $message->auther->id === Auth::guard('admin')->id())
+    @if ( $message->sender->id === Auth::guard('admin')->id())
 
         <li class="chat-left">
+
             <div class="chat-avatar">
-                <img src="{{ $message->auther->avatar ?? 'https://www.bootdey.com/img/Content/avatar/avatar3.png' }}" alt="{{ $message->auther->name }}">
-                <div class="chat-name">{{ $message->auther->name }}</div>
+                <img src="{{ $message->sender->avatar ?? 'https://www.bootdey.com/img/Content/avatar/avatar3.png' }}" alt="{{ $message->sender->name }}">
+                <div class="chat-name">{{ $message->sender->name }}</div>
+                
             </div>
-            <div class="chat-text">{!! $message->content !!}</div>
+
+            <div class="chat-text">{!! $message->message_content !!}</div>
+
             <div class="chat-hour">
 
                 {{  $message->time_ago ?? '08:55' }}
@@ -35,8 +39,8 @@
             </div>
             <div class="chat-text">{!! $message->content !!}</div>
             <div class="chat-avatar">
-                <img src="{{ $message->auther->avatar  ?? 'https://www.bootdey.com/img/Content/avatar/avatar3.png' }}" alt="{{ $message->auther->name }}">
-                <div class="chat-name">{{ $message->auther->name }}</div>
+                <img src="{{ $message->sender->avatar  ?? 'https://www.bootdey.com/img/Content/avatar/avatar3.png' }}" alt="{{ $message->sender->name }}">
+                <div class="chat-name">{{ $message->sender->name }}</div>
             </div>
         </li>
     @endif

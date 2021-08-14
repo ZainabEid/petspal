@@ -107,11 +107,13 @@
 
                                 {{-- right side massenger --}}
                                 <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9">
-                                {{-- sellected admin conversation  --}}
-                                <div id="conversation-container">
-                                    <!-- appended conversation goes here -->
 
-                                </div>
+                                    {{-- sellected admin conversation  --}}
+                                    <div id="conversation-container">
+
+                                        <!-- appended conversation goes here -->
+
+                                    </div>
                                 </div>
                               
 
@@ -137,7 +139,6 @@
 </main>
 
 @push('scripts')
-    <script src="{{ asset('js/app.js') }}"></script>
 
     <script>
         $(document).ready(function () {

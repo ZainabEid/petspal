@@ -39,7 +39,7 @@ class Conversation extends Model
 
     public function LastMessageTime()
     {
-        if($this->messages){
+        if($this->messages->count() > 0){
 
             return $this->messages->last()->created_at;
         }
@@ -72,6 +72,11 @@ class Conversation extends Model
     public function recipient()
     {
         return $this->belongsTo(Admin::class,'to_admin_id');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 
     ##### End Relations #####

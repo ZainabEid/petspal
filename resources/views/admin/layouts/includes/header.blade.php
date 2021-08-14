@@ -78,7 +78,7 @@
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                     data-bs-toggle="dropdown">
-                    <img src="{{ asset('img/avatars/avatar.jpg') }}" class="avatar img-fluid rounded me-1"
+                    <img src="{{Auth::guard('admin')->user()->avatar }}" class="avatar img-fluid rounded me-1"
                         alt="Charles Hall" />
                         
                         <span class="text-dark">{{ Auth::guard('admin')->user()->name }} </span>
