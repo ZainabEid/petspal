@@ -14,6 +14,21 @@ class Message extends Model
         'sender_id','reciever_id','message_content','message_type','conversation_id'
     ];
 
+    protected $appends =[
+        'time_ago'
+    ];
+
+    public function getTimeAgoAttribute()
+    {
+        return str_ireplace(
+            [' seconds', ' second', ' minutes', ' minute', ' hours', ' hour', ' days', ' day', ' weeks', ' week'], 
+            ['s', 's', 'm', 'm', 'h', 'h', 'd', 'd', 'w', 'w'], 
+            $this->created_at->diffForHumans()
+        );
+    }
+
+  
+
     public function sender()
     {
         return $this->belongsTo(Admin::class);
@@ -28,5 +43,7 @@ class Message extends Model
     {
         return $this->belongsTo(Conversation::class);
     }
+
+    
 
 }

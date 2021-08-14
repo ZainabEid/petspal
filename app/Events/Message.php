@@ -29,6 +29,8 @@ class Message implements ShouldBroadcast
         return new Channel( $this->message->conversation->channel_name);
     }
 
+   
+
     // public function broadcatAs()
     // {
     //         return 'App\Events\message';
