@@ -47,6 +47,9 @@
 
 {{-- onload get the conversation messages and load first five --}}
 <script>
+    var channel = '{{ $conversation->channel_name}}';
+    alert(channel);
+    
     var ENDPOINT = '{{ route("admin.conversations.show",$conversation->id) }}'; 
     var page = 1;
 
@@ -85,10 +88,6 @@
     } 
 
 
-    
-
-
-    
 </script>
 
 <script src="{{ asset('js/app.js') }}"></script>
