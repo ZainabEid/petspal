@@ -28,7 +28,7 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
-                    
+                <!--
                     {{-- new message count  --}}
                     <div class="dropdown-menu-header">
                         <div class="position-relative">
@@ -59,6 +59,7 @@
                         @endif
                         
                     </div>
+                -->
 
                     {{-- view all messages link  --}}
                     <div class="dropdown-menu-footer">
