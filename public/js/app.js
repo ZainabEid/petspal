@@ -25548,7 +25548,7 @@ message_form.on('submit', function (e) {
   });
 });
 window.Echo.channel(channel).listen('Message', function (e) {
-  alert('channel is listening');
+  // alert('channel is listening');
   messages_el.append(html); // messages_el.append(`<div class="message"><strong>${e.message.message_content}</strong></div>`);
 });
 })();

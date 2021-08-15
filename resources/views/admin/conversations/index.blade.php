@@ -51,7 +51,7 @@
                                     <div class="users-container">
 
                                         {{-- search for user  --}}
-                                        <div class="chat-search-box">
+                                        {{-- <div class="chat-search-box">
                                             <div class="input-group">
                                                 <input class="form-control" placeholder="Search">
                                                 <div class="input-group-btn">
@@ -60,7 +60,7 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         
                                         {{-- users list  --}}
