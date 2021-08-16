@@ -25555,11 +25555,11 @@ function left(message) {
 }
 
 function right(message) {
-  return "\n        <li class=\"chat-right\">\n            <div class=\"chat-hour\">\n\n                ".concat(message.time_ago, "\n\n            </div>\n            <div class=\"chat-text\">").concat(message.message_content, "</div>\n            <div class=\"chat-avatar\">\n                <img src=\"").concat(message.sender.avatar, "\" alt=\"").concat(message.sender.name, "\">\n                <div class=\"chat-name\">").concat(message.sender.name, "</div>\n            </div>\n        </li>\n        ");
+  return "\n        <li class=\"chat-right\">\n            <div class=\"chat-hour\">\n\n                ".concat(message.time_ago, "\n\n            </div>\n            <div class=\"chat-text\">").concat(message.content, "</div>\n            <div class=\"chat-avatar\">\n                <img src=\"").concat(message.sender.avatar, "\" alt=\"").concat(message.sender.name, "\">\n                <div class=\"chat-name\">").concat(message.sender.name, "</div>\n            </div>\n        </li>\n        ");
 }
 
 window.Echo.channel(channel).listen('Message', function (e) {
-  if (e.message.sender_id === AuthUser.id) {
+  if (e.message.sender_id == AuthUser.id) {
     messages_el.append(left(e.message));
   } else {
     messages_el.append(right(e.message));

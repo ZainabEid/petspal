@@ -69,7 +69,7 @@ function right(message){
                 ${message.time_ago}
 
             </div>
-            <div class="chat-text">${message.message_content}</div>
+            <div class="chat-text">${message.content}</div>
             <div class="chat-avatar">
                 <img src="${message.sender.avatar}" alt="${message.sender.name}">
                 <div class="chat-name">${message.sender.name}</div>
@@ -81,7 +81,7 @@ function right(message){
 window.Echo.channel(channel)
     .listen('Message', (e) => {
         
-        if(e.message.sender_id === AuthUser.id )  {
+        if(e.message.sender_id == AuthUser.id )  {
 
             messages_el.append( left(e.message) );
         }else{
