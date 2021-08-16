@@ -20,7 +20,6 @@ message_form.on('submit',function(e){
         return;
     }
 
-
     $.ajax({
         type: "post",
         url: url,
@@ -43,11 +42,54 @@ let get_message_html = async function(message){
     
 }
 
+function left(message){
+   return  `<li class="chat-left">
+
+                <div class="chat-avatar">
+
+                    <img src=" ${message.sender.avatar}" alt="${message.sender.name}">
+                    <div class="chat-name">${message.sender.name}</div>
+                    
+                </div>
+
+                <div class="chat-text">${message.message_content}</div>
+
+                <div class="chat-hour">
+                    ${message.time_ago}
+                </div>
+            </li>`;
+}
+
+
+function right(message){
+    return  `
+        <li class="chat-right">
+            <div class="chat-hour">
+
+                ${message.time_ago}
+
+            </div>
+            <div class="chat-text">${message.message_content}</div>
+            <div class="chat-avatar">
+                <img src="${message.sender.avatar}" alt="${message.sender.name}">
+                <div class="chat-name">${message.sender.name}</div>
+            </div>
+        </li>
+        `;
+ }
+
+
+
 
 
 window.Echo.channel(channel)
     .listen('Message', (e) => {
-       
-            messages_el.append( get_message_html(e.message) );
+      if(e.message.sender_id === __auth().id )  {
+
+          messages_el.append( left(e.message) );
+      }else{
+          messages_el.append( right(e.message) );
+
+      }
             // messages_el.append(`<div class="message"><strong>${e.message.message_content}</strong></div>`);
         });

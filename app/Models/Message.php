@@ -27,16 +27,14 @@ class Message extends Model
         );
     }
 
-  
-
     public function sender()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(Admin::class,'sender_id','id');
     }
 
     public function reciever()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(Admin::class,'reciever_id','id');
     }
 
     public function conversation()
