@@ -100,6 +100,14 @@ Route::middleware('admin.auth:admin')->group(function () {
     Route::resource('conversations', 'ConversationController');
 
 
+
+
+    Route::get('/test/message', 'MessageController@test');
+
+
+
+    
+
     // Dashboard
     Route::get('/', 'DashboardController@index')->name('dashboard');
 
@@ -112,28 +120,6 @@ Route::middleware('admin.auth:admin')->group(function () {
     Route::get('/pages/edit/{page}', 'DashboardController@editPage')->name('pages.edit');
     Route::put('/pages/update/{page}', 'DashboardController@updatePages')->name('pages.update');
     
-    
-    
-    
-    // //livechat
-    // Route::get('/chat', function(){
-    //     return view('chat');
-    // })->name('chat');
-    
-    
-    
-    // Route::post('/send-message', function(Request $request){
-    //     // dd($request->all()); // returns values
-        
-    //     event( // cURL error 60: SSL certificate problem: unable to get local issuer certificate
-    //         new Message(
-    //             $request->input('username') ,
-    //             $request->input('message')
-    //         )  
-    //     );    
-    
-    //     return ["success"=>true];
-    // });
 });
 
 

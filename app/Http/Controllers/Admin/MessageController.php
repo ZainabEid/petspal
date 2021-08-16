@@ -23,6 +23,12 @@ class MessageController extends Controller
         return view('admin.conversations._message',compact( 'message')); 
     }
 
+    public function test()
+    {
+        $message = ModelsMessage::first();
+        dd($message->sender->id);
+    }
+
     public function show(Conversation $conversation, ModelsMessage $message)
     {
         if (request()->expectsJson()) {
