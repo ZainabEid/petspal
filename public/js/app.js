@@ -25559,8 +25559,9 @@ function right(message) {
 }
 
 window.Echo.channel(channel).listen('Message', function (e) {
-  alert('message is ' + e.message.message_content);
-  alert(__auth().id + '  ' + e.message.sender_id); //   if(e.message.sender_id === __auth().id )  {
+  alert('message is ' + e.message.content);
+  alert('sender id is' + e.message.sender.id);
+  alert('auth id is' + AuthUser.id); //   if(e.message.sender_id === __auth().id )  {
   //       messages_el.append( left(e.message) );
   //   }else{
   //       messages_el.append( right(e.message) );

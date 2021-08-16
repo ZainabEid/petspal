@@ -96,15 +96,17 @@
 
    
     <script>
-        window.AuthUser = '{!! Auth::guard("admin")->user()   !!}'
-
+        window.AuthUser = '{!! auth("admin")->user()  !!}'
+        
         window.__auth =function(){
-                try{
-                    return JSON.parse(AuthUser)
-                }catch(error){
-                    return null;
-                }
+            try{
+                return JSON.parse(AuthUser)
+            }catch(error){
+                return null;
+            }
         }
+        // alert(AuthUser)
+        // alert(JSON.parse(AuthUser))
     </script>
 </body>
 
