@@ -15,11 +15,6 @@ class ConversationController extends Controller
 {
     public function index(Request $request)
     {
-
-        // $auth_admin = Admin::findOrFail(Auth::guard('admin')->id());
-        // dd( $auth_admin->conversations()->first()->lastMessage()->sender->avatar );
-
-        
         if ( $request->expectsJson() ) {
 
             // handle when conversation is selected
@@ -31,8 +26,6 @@ class ConversationController extends Controller
 
             return response()->json([ 'error' => 'there is no conversation_id' ]);
         }
-
-
 
         // conversations where auth_admin is one of talker
         $conversations = Conversation::where('admin_id' , Auth::guard('admin')->id())
@@ -83,5 +76,8 @@ class ConversationController extends Controller
 
             return response()->json([ 'error' => 'there is no messages' ]);
         }
+
+      
+        return redirect()->route('admin.conversations.index');
     }
 }
