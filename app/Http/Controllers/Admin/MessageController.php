@@ -22,4 +22,12 @@ class MessageController extends Controller
         event( new Message($message));
         return view('admin.conversations._message',compact( 'message')); 
     }
+
+    public function show(Conversation $conversation, ModelsMessage $message)
+    {
+        if (request()->expectsJson()) {
+            return view('admin.conversations._message',compact( 'message')); 
+        }
+        return view('admin.conversations._message',compact( 'message')); 
+    }
 }

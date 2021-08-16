@@ -2,7 +2,6 @@ require('./bootstrap');
 
 var messages_el = $('#messages');
 var message_form = $('#message_form');
-var html ='';
 
 message_form.on('submit',function(e){
     e.preventDefault();
@@ -37,11 +36,18 @@ message_form.on('submit',function(e){
     
 });
 
+let get_message_html = async function(message){
+    var url = "{{ route('conversations.messages.show',[ "+ message.conversaion.id +" , "+ message.id +"]) }}"
+    
+   return  await $.get(url);
+    
+}
+
 
 
 window.Echo.channel(channel)
     .listen('Message', (e) => {
-        alert(html);
-            messages_el.append(html);
+       
+            messages_el.append( get_message_html(e.message) );
             // messages_el.append(`<div class="message"><strong>${e.message.message_content}</strong></div>`);
         });
