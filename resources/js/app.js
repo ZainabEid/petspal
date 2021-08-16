@@ -85,7 +85,7 @@ function right(message){
 window.Echo.channel(channel)
     .listen('Message', (e) => {
         alert('message is '+ e.message.message_content);
-    //     alert(__auth().id + '  '+e.message.sender_id );
+        alert(__auth().id + '  '+e.message.sender_id );
     //   if(e.message.sender_id === __auth().id )  {
 
     //       messages_el.append( left(e.message) );
