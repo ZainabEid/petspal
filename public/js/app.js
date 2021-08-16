@@ -25545,11 +25545,10 @@ message_form.on('submit', function (e) {
   }).done(function (response) {
     html = response;
     message_input.val('');
-    messages_el.append(html);
   });
 });
 window.Echo.channel(channel).listen('Message', function (e) {
-  // alert('channel is listening');
+  alert(html);
   messages_el.append(html); // messages_el.append(`<div class="message"><strong>${e.message.message_content}</strong></div>`);
 });
 })();
