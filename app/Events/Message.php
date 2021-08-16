@@ -31,7 +31,20 @@ class Message implements ShouldBroadcast
 
     public function broadcastWith()
 {
-    return ['sender' => $this->message->sender];
+    return [
+        'message' => [
+            'id' => $this->message->id,
+            'content' => $this->message->message_content,
+            'type' => $this->message->message_type,
+            'time_ago' => $this->message->time_ago,
+
+            'sender' => [
+                'id' => $this->message->sender->id,
+                'name' => $this->message->sender->name,
+                'avatar' => $this->message->sender->avatar,
+            ]
+        ]
+    ];
 }
 
    
