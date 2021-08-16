@@ -28,19 +28,19 @@ message_form.on('submit',function(e){
             message: message_input.val(),
         } ,
     }).done(function(response){
-        html = response;
+        // html = response;
         message_input.val('');
     });
 
     
 });
 
-let get_message_html = async function(message){
-    var url = "{{ route('conversations.messages.show',[ "+ message.conversaion.id +" , "+ message.id +"]) }}"
+// let get_message_html = async function(message){
+//     var url = "{{ route('conversations.messages.show',[ "+ message.conversaion.id +" , "+ message.id +"]) }}"
     
-   return  await $.get(url);
+//    return  await $.get(url);
     
-}
+// }
 
 function left(message){
    return  `<li class="chat-left">
