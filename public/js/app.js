@@ -25559,6 +25559,8 @@ function right(message) {
 }
 
 window.Echo.channel(channel).listen('Message', function (e) {
+  alert(__auth().id + '  ' + e.message.sender_id);
+
   if (e.message.sender_id === __auth().id) {
     messages_el.append(left(e.message));
   } else {
