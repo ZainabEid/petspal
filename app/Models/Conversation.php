@@ -46,8 +46,6 @@ class Conversation extends Model
         return now();
     }
 
-
-
     protected static function boot()
     {
         parent::boot();
@@ -57,6 +55,16 @@ class Conversation extends Model
         });
     }
 
+    // chatting methods
+    public function lastMessage()
+    {
+        
+        if( ! $this->messages()->exists() ||  $this->messages()->count() == 0){
+            return null;
+        }
+    
+        return $this->messages()->latest()->first();
+    }
 
 
    

@@ -37,11 +37,48 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // chatting methods
-    public function lastNewMessages()
+    // get the last 4 conversations
+    public function lastNewConversaions()
     {
-        return null;
+        if( ! $this->conversations() ||  $this->conversations()->count() == 0){
+            return null;
+        }
+        
+        return $this->conversations()->sortByDesc('created_at')->slice(0, 3);
     }
+
+    // get all conversation where admin involved
+    public function conversations()
+    {
+        // if there are no conversation return null
+        if( $this->started_conversations()->count() == 0  && $this->recived_conversations()->count() == 0   )
+        {
+            return  null;
+        }
+        
+        // if there are no started conversations and there are recieved ones
+        if( $this->started_conversations()->count() == 0  && $this->recived_conversations()->count() >= 0   )
+        {
+            return  $this->recived_conversations()->get();
+        }
+        
+        // if there are not recieved conversations and there are started ones
+        if( $this->started_conversations()->count() == 0 && $this->recived_conversations()->count() >= 0  )
+        {
+            return  $this->started_conversations()->get();
+        }
+       
+        // if there are both merge them
+        $started_conversations =  $this->started_conversations()->get();
+        $recived_conversations =  $this->recived_conversations()->get();
+        
+        return $conversations = $started_conversations->merge($recived_conversations);
+    }
+
+
+
+
+    ##### getting Attributes
 
     public function getAvatarAttribute()
     {
@@ -68,6 +105,7 @@ class Admin extends Authenticatable
         $this->notify(new VerifyEmail);
     }
 
+  
 
     ### getting attributes ###
 
@@ -79,9 +117,20 @@ class Admin extends Authenticatable
 
     ##### Relations #####
    
-    // public function conversations()
-    // {
-    //     return $this->hasMany(conversation::class,['admin_id','to_admin_id']);
-    // }
+    
+    public function started_conversations()
+    {
+        return $this->hasMany(conversation::class,'admin_id');
+    }
+
+    public function recived_conversations()
+    {
+        return $this->hasMany(conversation::class,'to_admin_id');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'sender_id' );
+    }
 
 }

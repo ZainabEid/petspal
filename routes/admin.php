@@ -96,8 +96,8 @@ Route::middleware('admin.auth:admin')->group(function () {
     // notification
     
     //chat
-    Route::resource('conversations', 'ConversationController');
     Route::resource('conversations.messages', 'MessageController');
+    Route::resource('conversations', 'ConversationController');
 
 
     // Dashboard

@@ -5,7 +5,7 @@
 
      <div class="chat-avatar">
 
-         <img src="{{ $message->sender->avatar ?? 'https://www.bootdey.com/img/Content/avatar/avatar3.png' }}" alt="{{ $message->sender->name }}">
+         <img src="{{ $message->sender->avatar}}" alt="{{ $message->sender->name }}">
          <div class="chat-name">{{ $message->sender->name }}</div>
          
      </div>

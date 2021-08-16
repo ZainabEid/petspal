@@ -58,7 +58,8 @@
     infinteLoadMore(page);
     
     $('.chatContainerScroll').scroll(function () {
-        if ($('.chatContainerScroll').scrollTop() + $('.chatContainerScroll').height() >= $('.chatContainerScroll')[0].scrollHeight) {
+        // if ($('.chatContainerScroll').scrollTop() + $('.chatContainerScroll').height() >= $('.chatContainerScroll')[0].scrollHeight) {
+        if ($('.chatContainerScroll').scrollTop() == 0) {
             page++;
             infinteLoadMore(page);
         }

@@ -25,18 +25,20 @@ message_form.on('submit',function(e){
     $.ajax({
         type: "post",
         url: url,
+        datatype: "html",
         data:{
             message: message_input.val(),
-        },
-        success:function(response){
-            message_input.empty();
-        }
+        } ,
     }).done(function(response){
         html = response;
+        message_input.val('');
+        messages_el.append(html);
     });
 
     
 });
+
+
 
 window.Echo.channel(channel)
     .listen('Message', (e) => {

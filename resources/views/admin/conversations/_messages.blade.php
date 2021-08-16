@@ -32,7 +32,7 @@
         <li class="chat-right">
             <div class="chat-hour">
 
-                {{  $message->time_ago ?? '08:55' }}
+                {{  $message->time_ago  }}
 
                 {{-- seen  --}}
                 {{-- <span class="fa fa-check-circle"></span> --}}

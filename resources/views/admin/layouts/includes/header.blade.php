@@ -32,26 +32,36 @@
                     {{-- new message count  --}}
                     <div class="dropdown-menu-header">
                         <div class="position-relative">
-                             {{Auth::guard('admin')->user()->lastNewMessages() ? Auth::guard('admin')->user()->lastNewMessages()->count() : '0'  }} 
+                             {{Auth::guard('admin')->user()->lastNewConversaions() ? Auth::guard('admin')->user()->lastNewConversaions()->count() : '0'  }} 
                              {{ __('New Messages') }}
                         </div>
                     </div>
+                -->
 
                     {{-- list of latest 4 messages  --}}
                     <div class="list-group">
-                        {{-- $lastNewMessages : last 4  chat rooms -> for each find last message --}}
-                        @if (Auth::guard('admin')->user()->lastNewMessages() !== null)
+                        {{-- $lastNewConversaions : last 4  chat rooms -> for each find last message --}}
+                        @if (Auth::guard('admin')->user()->lastNewConversaions() !== null)
                             
-                            @foreach (Auth::guard('admin')->user()->lastNewMessages() as $message)
-                                <a href="#" class="list-group-item">
+                            @foreach (Auth::guard('admin')->user()->lastNewConversaions() as $conversation)
+                                <a href="{{ route('admin.conversations.show',$conversation->id) }}" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="{{ $message->author->avater ??  asset('img/avatars/avatar-5.jpg') }}" class="avatar img-fluid rounded-circle" alt="{{ $message->author->name }}">
+                                            <img src="{{ $conversation->talked_admin->avatar  }}" class="avatar img-fluid rounded-circle" alt="{{ $conversation->talked_admin->name}}">
                                         </div>
                                         <div class="col-10 ps-2">
-                                            <div class="text-dark">{{ $message->author->name }}</div>
-                                            <div class="text-muted small mt-1">{{ $message->message }}</div>
-                                            <div class="text-muted small mt-1">{{ $message->time_ago ?? '15m ago' }}</div>
+                                            <div class="text-dark">{{ $conversation->talked_admin->name }}</div>
+                                            {{-- if last message is from you or from talekd admin --}}
+                                            <div class="text-muted small mt-1">
+                                                @if ($conversation->lastMessage()->sender->id === Auth::guard('admin')->id() )
+                                                    {{ __('you :') }}
+
+                                                @else
+                                                    {{ __('say :') }}
+                                                @endif
+                                                {{ $conversation->lastMessage()->message_content }}
+                                            </div>
+                                            <div class="text-muted small mt-1">{{ $conversation->lastMessage()->time_ago }}</div>
                                         </div>
                                     </div>
                                 </a>
@@ -59,7 +69,6 @@
                         @endif
                         
                     </div>
-                -->
 
                     {{-- view all messages link  --}}
                     <div class="dropdown-menu-footer">

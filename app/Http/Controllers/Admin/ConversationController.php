@@ -16,6 +16,10 @@ class ConversationController extends Controller
     public function index(Request $request)
     {
 
+        // $auth_admin = Admin::findOrFail(Auth::guard('admin')->id());
+        // dd( $auth_admin->conversations()->first()->lastMessage()->sender->avatar );
+
+        
         if ( $request->expectsJson() ) {
 
             // handle when conversation is selected
