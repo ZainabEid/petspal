@@ -120,12 +120,12 @@ class Admin extends Authenticatable
     
     public function started_conversations()
     {
-        return $this->hasMany(conversation::class,'admin_id');
+        return $this->hasMany(Conversation::class,'admin_id');
     }
 
     public function recived_conversations()
     {
-        return $this->hasMany(conversation::class,'to_admin_id');
+        return $this->hasMany(Conversation::class,'to_admin_id');
     }
 
     public function messages()

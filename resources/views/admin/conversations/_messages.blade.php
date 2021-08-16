@@ -38,12 +38,13 @@
                 {{-- <span class="fa fa-check-circle"></span> --}}
 
             </div>
-            <div class="chat-text">{!! $message->content !!}</div>
+            <div class="chat-text">{!! $message->message_content !!}</div>
             <div class="chat-avatar">
                 <img src="{{ $message->sender->avatar}}" alt="{{ $message->sender->name }}">
                 <div class="chat-name">{{ $message->sender->name }}</div>
             </div>
         </li>
+
     @endif
 
 @endforeach
