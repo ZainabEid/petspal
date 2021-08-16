@@ -25559,14 +25559,12 @@ function right(message) {
 }
 
 window.Echo.channel(channel).listen('Message', function (e) {
-  alert('message is ' + e.message.content);
-  alert('sender id is' + e.message.sender.id);
-  alert('auth id is' + AuthUser.id); //   if(e.message.sender_id === __auth().id )  {
-  //       messages_el.append( left(e.message) );
-  //   }else{
-  //       messages_el.append( right(e.message) );
-  //   }
-  // messages_el.append(`<div class="message"><strong>${e.message.message_content}</strong></div>`);
+  if (e.message.sender_id === AuthUser.id) {
+    messages_el.append(left(e.message));
+  } else {
+    messages_el.append(right(e.message));
+  } // messages_el.append(`<div class="message"><strong>${e.message.message_content}</strong></div>`);
+
 });
 })();
 
