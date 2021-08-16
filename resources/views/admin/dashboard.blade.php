@@ -8,12 +8,126 @@
         <h1 class="h3 mb-3">{{ __('Dashboard') }} </h1>
 
         <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0"></h5>
+            <div class="col-xl-6 col-xxl-5 d-flex">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            
+                            {{-- clinics --}}
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">{{ __('Clinics') }}</h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="align-middle" data-feather="plus-square"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3">{{ $clinics_count }}</h1>
+                                    <div class="mb-0">
+                                        {{-- <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span> --}}
+                                        <a href="{{ route('admin.clinics.index') }}"><span class="text-muted">{{ __('view clinics') }}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">{{ __('admins') }}</h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="align-middle" data-feather="user"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3">{{ $admins_count }}</h1>
+                                    <div class="mb-0">
+                                        {{-- <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span> --}}
+                                        <a href="{{ route('admin.admins.index') }}"><span class="text-muted">{{ __('view admins') }}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">{{ __('Categories') }}</h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="align-middle" data-feather="bookmark"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3">{{ $categoris_count }}</h1>
+                                    <div class="mb-0">
+                                        {{-- <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span> --}}
+                                        <a href="{{ route('admin.clinics-categories.index') }}"><span class="text-muted">{{ __('view categoris') }}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">{{ __('Users') }}</h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="align-middle" data-feather="github"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3">{{ $users_count }}</h1>
+                                    <div class="mb-0">
+                                        {{-- <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span> --}}
+                                        <a href="{{ route('admin.users.index') }}"><span class="text-muted">{{ __('view users') }}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-xxl-7">
+                <div class="card flex-fill w-100">
+                    <div class="card-header">
+
+                        <h5 class="card-title mb-0">Recent posts</h5>
+                    </div>
+                    <div class="card-body py-3">
+                        @if (isset($posts) && $posts->count() > 0)
+
+                        @foreach ($posts as $index => $post)
+                      
+                          {!! $index != 0 ? '<hr />' : '' !!}
+                      
+                          {{-- post component --}}
+                          <div class="d-flex align-items-start">
+                              <div class="flex-grow-1">
+                      
+                                  {{-- post component --}}
+                                @include('admin.users.accounts._post')
+                      
+                              
+                              </div>
+                          </div>
+                      
+                        @endforeach
+                      @endif
+                      
                     </div>
                 </div>
             </div>

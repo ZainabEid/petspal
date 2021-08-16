@@ -1,6 +1,6 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="#">
+        <a class="sidebar-brand" href="{{ route('admin.dashboard') }}">
             <span class="align-middle">{{ __('PetsPals ') }}:: {{ __('Dashboard') }}</span>
         </a>
 
