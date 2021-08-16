@@ -25559,14 +25559,13 @@ function right(message) {
 }
 
 window.Echo.channel(channel).listen('Message', function (e) {
-  alert(__auth().id + '  ' + e.message.sender_id);
-
-  if (e.message.sender_id === __auth().id) {
-    messages_el.append(left(e.message));
-  } else {
-    messages_el.append(right(e.message));
-  } // messages_el.append(`<div class="message"><strong>${e.message.message_content}</strong></div>`);
-
+  alert('message is ' + e.message_content); //     alert(__auth().id + '  '+e.message.sender_id );
+  //   if(e.message.sender_id === __auth().id )  {
+  //       messages_el.append( left(e.message) );
+  //   }else{
+  //       messages_el.append( right(e.message) );
+  //   }
+  // messages_el.append(`<div class="message"><strong>${e.message.message_content}</strong></div>`);
 });
 })();
 
