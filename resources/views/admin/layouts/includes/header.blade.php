@@ -44,6 +44,8 @@
                         @if (Auth::guard('admin')->user()->lastNewConversaions() !== null)
                             
                             @foreach (Auth::guard('admin')->user()->lastNewConversaions() as $conversation)
+                                @if ($conversation->messages && $conversation->messages()->count() > 0)
+                                    
                                 <a href="{{ route('admin.conversations.show',$conversation->id) }}" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
@@ -65,6 +67,7 @@
                                         </div>
                                     </div>
                                 </a>
+                                @endif
                             @endforeach
                         @endif
                         
