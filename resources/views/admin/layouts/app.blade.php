@@ -96,7 +96,7 @@
 
    
     <script>
-        window.AuthUser = '{!! auth()->user()  !!}'
+        window.AuthUser = '{!! Auth::guard("admin")->user()   !!}'
 
         window.__auth =function(){
                 try{
