@@ -52,7 +52,7 @@ function left(message){
                     
                 </div>
 
-                <div class="chat-text">${message.message_content}</div>
+                <div class="chat-text">${message.content}</div>
 
                 <div class="chat-hour">
                     ${message.time_ago}

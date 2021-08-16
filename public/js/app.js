@@ -25551,7 +25551,7 @@ message_form.on('submit', function (e) {
 // }
 
 function left(message) {
-  return "<li class=\"chat-left\">\n\n                <div class=\"chat-avatar\">\n\n                    <img src=\" ".concat(message.sender.avatar, "\" alt=\"").concat(message.sender.name, "\">\n                    <div class=\"chat-name\">").concat(message.sender.name, "</div>\n                    \n                </div>\n\n                <div class=\"chat-text\">").concat(message.message_content, "</div>\n\n                <div class=\"chat-hour\">\n                    ").concat(message.time_ago, "\n                </div>\n            </li>");
+  return "<li class=\"chat-left\">\n\n                <div class=\"chat-avatar\">\n\n                    <img src=\" ".concat(message.sender.avatar, "\" alt=\"").concat(message.sender.name, "\">\n                    <div class=\"chat-name\">").concat(message.sender.name, "</div>\n                    \n                </div>\n\n                <div class=\"chat-text\">").concat(message.content, "</div>\n\n                <div class=\"chat-hour\">\n                    ").concat(message.time_ago, "\n                </div>\n            </li>");
 }
 
 function right(message) {
