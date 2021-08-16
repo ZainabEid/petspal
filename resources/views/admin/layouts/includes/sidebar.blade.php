@@ -39,7 +39,7 @@
             @endif
 
             {{-- clinics --}}
-            @if (Auth::guard('admin')->user()->can('create_clinics', 'read_clinics', 'update_clinics', 'delete_clinics'))
+            @if (Auth::guard('admin')->user()->can('create_clinic', 'read_clinic', 'update_clinic', 'delete_clinic'))
 
                 <li class="sidebar-header">
                     {{ __('Clinics') }}
@@ -109,14 +109,14 @@
             @endif
 
             {{-- users --}}
-            @if (Auth::guard('admin')->user()->can('create_users', 'read_users', 'update_users', 'delete_users'))
+            @if (Auth::guard('admin')->user()->can('create_user', 'read_user', 'update_user', 'delete_user'))
 
                 <li class="sidebar-header">
                     {{ __('Users') }}
                 </li>
 
 
-                @if (Auth::guard('admin')->user()->can('read_users'))
+                @if (Auth::guard('admin')->user()->can('read_user'))
 
                     {{-- all users --}}
                     <li class="sidebar-item @if (Request::is('admin/users')) active @endif">
@@ -141,14 +141,14 @@
             @endif
 
             {{-- posts --}}
-            @if (Auth::guard('admin')->user()->can('read_posts', 'update_posts', 'delete_users'))
+            @if (Auth::guard('admin')->user()->can('read_post', 'update_post', 'delete_post'))
 
                 <li class="sidebar-header">
                     {{ __('Posts') }}
                 </li>
 
 
-                @if (Auth::guard('admin')->user()->can('read_posts'))
+                @if (Auth::guard('admin')->user()->can('read_post'))
 
                     {{-- all posts --}}
                     <li class="sidebar-item @if (Request::is('admin/posts')) active @endif">

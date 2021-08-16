@@ -17,7 +17,7 @@
     <div class="d-flex flex-wrap">
 
         @php
-            $models = ['account','admin','clinic','clinicscategory','comment','page','petscategory','post','user']
+            $models = ['admin','role','clinic','clinicscategory','page','petscategory','user','account','post','comment']
         @endphp
         @foreach ($models as $index => $model)
         
