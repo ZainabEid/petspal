@@ -84,7 +84,7 @@ function right(message){
 
 window.Echo.channel(channel)
     .listen('Message', (e) => {
-        alert('message is '+ e.message_content);
+        alert('message is '+ e.message.message_content);
     //     alert(__auth().id + '  '+e.message.sender_id );
     //   if(e.message.sender_id === __auth().id )  {
 
