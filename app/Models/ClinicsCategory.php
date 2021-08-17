@@ -14,7 +14,7 @@ class ClinicsCategory extends Model
     use HasTranslations;
 
     protected $fillable =[
-        'name', 'description'
+        'name-en', 'description'
     ];
     
     public $translatable = ['name', 'description'];

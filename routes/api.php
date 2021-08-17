@@ -21,6 +21,8 @@ Route::group([],function () {
     
 });
 
+Route::get('/counts','CountsController@index');
+
 
 // authenticated routes
 Route::middleware(['auth:sanctum','verified_by_code','change_lang'])->group(function () {
