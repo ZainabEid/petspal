@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([],function () {
     
     // authentication
+    Route::get('pets/categories', 'PetsCategoryController@index');
     Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
     
