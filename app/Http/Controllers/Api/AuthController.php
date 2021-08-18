@@ -21,6 +21,14 @@ class AuthController extends Controller
         $this->user = $user;
     }
 
+    public function getCsrfToken()
+    {
+
+        return response()->json([
+            '_token' =>  csrf_token()
+        ]);
+    }
+
    
     public function register(Request $request)
     {

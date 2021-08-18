@@ -10,6 +10,7 @@ Route::group([],function () {
     
     // authentication
     Route::get('pets/categories', 'PetsCategoryController@index');
+    Route::get('CSRFtoken', 'AuthController@getCsrfToken');
     Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
     
