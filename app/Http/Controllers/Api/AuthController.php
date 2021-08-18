@@ -23,13 +23,19 @@ class AuthController extends Controller
    
     public function register(Request $request)
     {
-        $validatedData = $request->validate([
+          // validation
+          $validator = Validator::make($request->all(),[
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'pets_category_id' => 'required',
             'is_adoption' => 'required|boolean',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['msg' => $validator->errors()->all()], 422);
+        } 
+       
 
         // event(new Registered( $user = $this->user->create( $request->all() ) ));
         $user = $this->user->create( $request->all() );
@@ -48,6 +54,16 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+         // validation
+         $validator = Validator::make($request->all(),[
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['msg' => $validator->errors()->all()], 422);
+        } 
+       
         if (!Auth::attempt($request->only('email', 'password'))) {
 
             return response()->json([
