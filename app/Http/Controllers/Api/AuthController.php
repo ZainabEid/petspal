@@ -24,9 +24,7 @@ class AuthController extends Controller
     public function getCsrfToken()
     {
 
-        return response()->json([
-            '_token' =>  csrf_token()
-        ]);
+        return  csrf_token();
     }
 
    
