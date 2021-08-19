@@ -78,6 +78,7 @@ class AccountController extends Controller
   
     public function show(User $user, Account $account)
     {
+       
         // move thisa to 404 Exeption handler model not found
         if($account->deleted_at != null){
             return response()->json(['msg' => 'account is deleted'], 422);

@@ -41,20 +41,20 @@
         <td class="d-flex  d-md-table-cell">
 
             @if (Auth::guard('admin')->user()->can('delete_user'))
+                
+                {!! Form::open(['route' => ['admin.users.destroy', $user->id], 'method' => 'post', 'class' => 'delete', 'id' => 'DeleteUser']) !!}
+                @csrf
+                @method('DELETE')
 
-                <button type="submit" class="text-danger"
-                    onclick="document.getElementById('DeleteUser').submit()"
-                    style=" border:none; background: none; text-decoration: none; ">
-                    {{ __('delete') }}</button>
-                    <i class="align-middle me-2" data-feather="trash"></i>
+
+                    <button type="submit" class="text-danger"
+                        style=" border:none; background: none; text-decoration: none; ">
+                        {{ __('delete') }}</button>
+                        <i class="align-middle me-2" data-feather="trash"></i>
+
+                {!! Form::close() !!}
             @endif
-            {{-- {{ $user->id }} --}}
-            {!! Form::open(['route' => ['admin.users.destroy', $user->id], 'method' => 'post', 'class' => 'delete', 'id' => 'DeleteUser']) !!}
-            @csrf
-            @method('DELETE')
-
-
-            {!! Form::close() !!}
+           
 
         </td>
     </tr>

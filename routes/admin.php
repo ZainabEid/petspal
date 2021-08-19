@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -66,6 +67,7 @@ Route::middleware('admin.auth:admin')->group(function () {
     // Users
     Route::get('users/{user}/block-list', 'UserController@blockList')->name('users.block-list');
     Route::get('users/{user}/report-list', 'UserController@reportList')->name('users.report-list');
+    
     Route::resource('users', 'UserController');
 
     // users / accounts
