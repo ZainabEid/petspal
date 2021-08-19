@@ -43,12 +43,12 @@
             @if (Auth::guard('admin')->user()->can('delete_user'))
 
                 <button type="submit" class="text-danger"
-                    onclick="Document.getElementById('DeleteUser').submit()"
+                    onclick="document.getElementById('DeleteUser').submit()"
                     style=" border:none; background: none; text-decoration: none; ">
                     {{ __('delete') }}</button>
                     <i class="align-middle me-2" data-feather="trash"></i>
             @endif
-
+            {{-- {{ $user->id }} --}}
             {!! Form::open(['route' => ['admin.users.destroy', $user->id], 'method' => 'post', 'class' => 'delete', 'id' => 'DeleteUser']) !!}
             @csrf
             @method('DELETE')
