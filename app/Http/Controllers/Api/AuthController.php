@@ -70,7 +70,7 @@ class AuthController extends Controller
         if (!Auth::attempt($request->only('email', 'password'))) {
 
             return response()->json([
-                'message' => 'Invalid login details'
+                'errors' => 'Invalid login details'
             ], 401);
         }
 
@@ -78,7 +78,7 @@ class AuthController extends Controller
 
         
         if(! $user->is_verified() ){
-            return response()->json([ 'error' => "you need to verify your email"]);
+            return response()->json([ 'errors' => "you need to verify your email"]);
         }
 
         // activate user if it is in active
