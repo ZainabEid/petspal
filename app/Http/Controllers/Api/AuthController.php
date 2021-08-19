@@ -78,7 +78,7 @@ class AuthController extends Controller
 
         
         if(! $user->is_verified() ){
-            return response()->json([ 'errors' => "you need to verify your email"]);
+            return response()->json([ 'errors' => "NotVerifiedError"]);
         }
 
         // activate user if it is in active
