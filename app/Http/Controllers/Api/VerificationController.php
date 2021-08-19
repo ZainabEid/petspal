@@ -34,6 +34,9 @@ class VerificationController extends Controller
     // name varify gives 403 invalid signature error
     public function verifyCode(Request $request) {
 
+        return response()->json([
+            'request' => $request->all(),
+        ]);
         // validation
         $validator = Validator::make($request->all(),[
             'code' => 'required|integer|min:1000|max:9999'
@@ -65,7 +68,7 @@ class VerificationController extends Controller
         $user->resetCode();
         $user->verified();
         event(new Verified($user));
-        
+
         return response()->json(["message" => __("verified")], 400);
 
     }
