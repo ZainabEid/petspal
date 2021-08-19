@@ -15,8 +15,8 @@ Route::group([],function () {
     
 
     // verification
+    Route::get('email/verify/index', 'VerificationController@index'); // not used
     Route::get('email/verify-code/', 'VerificationController@verifyCode'); 
-    Route::get('email/verify/index', 'VerificationController@index'); 
     Route::get('email/resend-code', 'VerificationController@resendCode');
 
     

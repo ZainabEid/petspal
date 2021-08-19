@@ -36,7 +36,7 @@ class VerificationController extends Controller
 
         // validation
         $validator = Validator::make($request->all(),[
-            'code' => 'required|integer|max:9999'
+            'code' => 'required|integer|min:1000|max:9999'
         ]);
 
         if ($validator->fails()) {
@@ -68,7 +68,7 @@ class VerificationController extends Controller
             return response()->json(["message" => __("verified")], 400);
         }
 
-        return response()->json(["message" => "Invalid/Expired Verification Code provided."], 401);
+        return response()->json(["errors" => "Invalid/Expired Verification Code provided."], 401);
     }
     
     public function resendCode( Request $request) {
