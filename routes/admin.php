@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 
 // admin auth routes
-Route::middleware('admin.guest')->group(function () {
+Route::group([],function () {
     
 
     // Login
