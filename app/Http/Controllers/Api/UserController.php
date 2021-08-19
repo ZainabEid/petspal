@@ -53,7 +53,7 @@ class UserController extends Controller
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable','string', 'min:8', 'confirmed'],
         ]);
-
+        
         if ($validator->fails()) {
             return response()->json(['msg' => $validator->errors()->all()], 422);
         } 

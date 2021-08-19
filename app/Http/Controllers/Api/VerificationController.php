@@ -40,7 +40,7 @@ class VerificationController extends Controller
         $user = User::findOrFail($request->user);
        
         if(! $user){
-            return response()->json(["msg" => "User is not Exist."]);
+            return response()->json(["error" => "User is not Exist."]);
         }
         
         
@@ -51,17 +51,17 @@ class VerificationController extends Controller
             if ($user->code_expires_at->lt(now())){
                 
                 $user->resetCode();
-                return response()->json(["msg" => __("The code is Expired. Please resend to get new verification code")]);
+                return response()->json(["error" => __("The code is Expired. Please resend to get new verification code")]);
             }
            
 
             $user->resetCode();
             $user->verified();
             event(new Verified($user));
-            return response()->json(["msg" => __("verified")], 400);
+            return response()->json(["message" => __("verified")], 400);
         }
 
-        return response()->json(["msg" => "Invalid/Expired Verification Code provided."], 401);
+        return response()->json(["message" => "Invalid/Expired Verification Code provided."], 401);
     }
     
     public function resendCode( Request $request) {
@@ -70,7 +70,7 @@ class VerificationController extends Controller
 
         $user->sendEmailVerificationCode();
 
-        return response()->json(["msg" => "The code have been send again, Please check your email."], 401);
+        return response()->json(["message" => "The code have been send again, Please check your email."], 401);
     }
 
     // not used
@@ -82,18 +82,18 @@ class VerificationController extends Controller
           // 2. check if url expired 
           if (! hash_equals((string) $request->route('id'), (string) $user->getKey())) {
               throw new AuthorizationException();
-              return response()->json(["msg" => "Invalid/Expired url provided."], 401);
+              return response()->json(["error" => "Invalid/Expired url provided."], 401);
           }
   
           // 3. check the hashed code 
           if (! hash_equals((string) $request->route('hash'), sha1($user->getEmailForVerification()))) {
               throw new AuthorizationException();
-              return response()->json(["msg" => " getEmailForVerification error."], 401);
+              return response()->json(["error" => " getEmailForVerification error."], 401);
           }
   
           // 4. check already verified
           if ($user->hasVerifiedEmail()) {
-              return response()->json(["msg" => "Already verified."], 400);
+              return response()->json(["message" => "Already verified."], 400);
           }
   
           // 5. send verified event 
@@ -103,7 +103,7 @@ class VerificationController extends Controller
   
          // 6. response to api as verified
           if ($request->wantsJson()) {
-              return response()->json(["msg" => __("verified")], 400);
+              return response()->json(["message" => __("verified")], 400);
   
           }
   
@@ -117,14 +117,14 @@ class VerificationController extends Controller
         $user = User::findOrFail($request->user);
         
         if ($user->hasVerifiedEmail()) {
-            return response()->json(["msg" => __("Already verified.")], 400);
+            return response()->json(["message" => __("Already verified.")], 400);
         }
        
     
         $user->sendEmailVerificationNotification();
     
         if ($request->wantsJson()) {
-            return response()->json(["msg" => __("Email verification Code is sent to your email id")], 400);
+            return response()->json(["message" => __("Email verification Code is sent to your email id")], 400);
 
         }
 

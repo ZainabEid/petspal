@@ -21,11 +21,7 @@ class AuthController extends Controller
         $this->user = $user;
     }
 
-    public function getCsrfToken()
-    {
-
-        return  csrf_token();
-    }
+    
 
    
     public function register(Request $request)
@@ -82,7 +78,7 @@ class AuthController extends Controller
 
         
         if(! $user->is_verified() ){
-            return response()->json([ 'msg' => "you need to verify your email"]);
+            return response()->json([ 'error' => "you need to verify your email"]);
         }
 
         // activate user if it is in active
