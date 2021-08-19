@@ -79,7 +79,10 @@ class AuthController extends Controller
 
         
         if(! $user->is_verified() ){
-            return response()->json([ 'errors' => "NotVerifiedError"]);
+            return response()->json([ 
+                'errors' => "NotVerifiedError",
+                'user' => $user,
+            ]);
         }
 
         // activate user if it is in active

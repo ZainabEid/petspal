@@ -50,25 +50,24 @@ class VerificationController extends Controller
             return response()->json(["errors" => "User is not Exist."]);
         }
         
-        
-        // if verivication code is correct
-        if ($request->code == $user->code) {
+        if ($request->code != $user->code) {
 
-            // if code expired
-            if ($user->code_expires_at->lt(now())){
-                
-                $user->resetCode();
-                return response()->json(["errors" => __("The code is Expired. Please resend to get new verification code")]);
-            }
-           
+            return response()->json(["errors" => "Invalid/Expired Verification Code provided."], 401);
+        }
+        
+        // if code expired
+        if ($request->code == $user->code && $user->code_expires_at->lt(now())) {
 
             $user->resetCode();
-            $user->verified();
-            event(new Verified($user));
-            return response()->json(["message" => __("verified")], 400);
+            return response()->json(["errors" => __("The code is Expired. Please resend to get new verification code")]);
         }
 
-        return response()->json(["errors" => "Invalid/Expired Verification Code provided."], 401);
+        $user->resetCode();
+        $user->verified();
+        event(new Verified($user));
+        
+        return response()->json(["message" => __("verified")], 400);
+
     }
     
     public function resendCode( Request $request) {
