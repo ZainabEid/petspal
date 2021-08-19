@@ -10,6 +10,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class VerificationController extends Controller
 {
@@ -32,15 +33,21 @@ class VerificationController extends Controller
 
     // name varify gives 403 invalid signature error
     public function verifyCode(Request $request) {
-        
-        $request->validate([
+
+        // validation
+        $validator = Validator::make($request->all(),[
             'code' => 'required|integer|max:9999'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()], 422);
+        } 
+
 
         $user = User::findOrFail($request->user);
        
         if(! $user){
-            return response()->json(["error" => "User is not Exist."]);
+            return response()->json(["errors" => "User is not Exist."]);
         }
         
         
@@ -51,7 +58,7 @@ class VerificationController extends Controller
             if ($user->code_expires_at->lt(now())){
                 
                 $user->resetCode();
-                return response()->json(["error" => __("The code is Expired. Please resend to get new verification code")]);
+                return response()->json(["errors" => __("The code is Expired. Please resend to get new verification code")]);
             }
            
 
@@ -82,13 +89,13 @@ class VerificationController extends Controller
           // 2. check if url expired 
           if (! hash_equals((string) $request->route('id'), (string) $user->getKey())) {
               throw new AuthorizationException();
-              return response()->json(["error" => "Invalid/Expired url provided."], 401);
+              return response()->json(["errors" => "Invalid/Expired url provided."], 401);
           }
   
           // 3. check the hashed code 
           if (! hash_equals((string) $request->route('hash'), sha1($user->getEmailForVerification()))) {
               throw new AuthorizationException();
-              return response()->json(["error" => " getEmailForVerification error."], 401);
+              return response()->json(["errors" => " getEmailForVerification error."], 401);
           }
   
           // 4. check already verified
