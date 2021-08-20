@@ -14,10 +14,6 @@ Route::group([],function () {
     Route::post('login', 'AuthController@login');
     
 
-    // verification
-    Route::get('email/verify/index', 'VerificationController@index'); // not used
-    Route::post('email/verify-code/', 'VerificationController@verifyCode'); 
-    Route::get('email/resend-code', 'VerificationController@resendCode');
 
     
 });
@@ -28,6 +24,14 @@ Route::get('/counts','CountsController@index');
 // authenticated routes
 Route::middleware(['auth:sanctum','verified_by_code','change_lang'])->group(function () {
 
+    
+    // verification
+    Route::get('email/verify/index', 'VerificationController@index'); // not used
+    Route::post('email/verify-code/', 'VerificationController@verifyCode'); 
+    Route::get('email/resend-code', 'VerificationController@resendCode');
+
+
+    
     // user loggout
     Route::post('logout', 'AuthController@logout');
 

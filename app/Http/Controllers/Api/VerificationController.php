@@ -60,7 +60,7 @@ class VerificationController extends Controller
         if ( $request->code == $user->code && $user->code_expires_at->lt(now())) {
 
             $user->resetCode();
-            return response()->json(["errors" => __("The code is Expired. Please click resend to get new verification code")]);
+            return response()->json(["errors" => __("The code is Expired. Please click resend to get new verification code")], 401);
         }
 
         $user->resetCode();
