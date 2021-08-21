@@ -18,6 +18,16 @@ Route::group([],function () {
     
 });
 
+
+// mail verification routes 
+Route::middleware(['auth:sanctum','change_lang'])->group(function () {
+
+      // verification
+      Route::get('email/verify/index', 'VerificationController@index'); // not used
+      Route::post('email/verify-code/', 'VerificationController@verifyCode'); 
+      Route::get('email/resend-code', 'VerificationController@resendCode');
+});
+
 Route::get('/counts','CountsController@index');
 
 
@@ -25,10 +35,7 @@ Route::get('/counts','CountsController@index');
 Route::middleware(['auth:sanctum','verified_by_code','change_lang'])->group(function () {
 
     
-    // verification
-    Route::get('email/verify/index', 'VerificationController@index'); // not used
-    Route::post('email/verify-code/', 'VerificationController@verifyCode'); 
-    Route::get('email/resend-code', 'VerificationController@resendCode');
+  
 
 
     
