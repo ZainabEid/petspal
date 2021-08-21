@@ -48,7 +48,7 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'user' =>$user,
+            'user' => $user,
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
@@ -82,7 +82,7 @@ class AuthController extends Controller
             return response()->json([ 
                 'errors' => "NotVerifiedError",
                 'user' => $user,
-            ]);
+            ],401);
         }
 
         // activate user if it is in active
@@ -107,9 +107,9 @@ class AuthController extends Controller
     public function logout(Request $request){
         Auth::user()->tokens()->logout();
 
-        return [
-            'message'=>'Logged out'
-        ];
+        return response()->json([
+            'message'=>'You Logged out'
+        ],200);
     }
 
 

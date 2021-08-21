@@ -34,8 +34,23 @@ class VerificationController extends Controller
     // name varify gives 403 invalid signature error
     public function verifyCode(Request $request) {
 
+     // check if user exist
+        $user = User::findOrFail($request->user);
         
-        // validation
+        if(! $user){
+            return response()->json(["errors" => "User is not Exist."],401);
+        }
+
+        
+        // check if user is already verified return success
+        if( $user->is_verified() ){
+            return response()->json([
+                "success" => true,
+                "message" => __("you are verified")
+            ], 200 );
+        }
+
+        // code input validation
         $validator = Validator::make($request->all(),[
             'code' => 'required|integer|min:1000|max:9999'
         ]);
@@ -45,33 +60,32 @@ class VerificationController extends Controller
         } 
 
 
-        $user = User::findOrFail($request->user);
-       
-        if(! $user){
-            return response()->json(["errors" => "User is not Exist."]);
-        }
-        
+        // check if code doesn't match user's code
         if ($request->code != $user->code) {
-
-            return response()->json(["errors" => "The code is Invalid. Please click resend to get new verification code."], 401);
+            return response()->json(["errors" => __("The code is Invalid. Please click resend to get new verification code.")], 401);
         }
         
-        // if code expired
-        if ( $request->code == $user->code && $user->code_expires_at->lt(now())) {
-
+        // if code is expired
+        if ($user->code_expires_at->lt(now())) {
             $user->resetCode();
             return response()->json(["errors" => __("The code is Expired. Please click resend to get new verification code")], 401);
         }
 
         $user->resetCode();
+
         $user->verified();
 
         event(new Verified($user));
 
-        return response()->json(["message" => __("verified")], 400);
+        return response()->json([
+            "success" => true,
+            "message" => __("you are verified")
+        ], 200 );
 
     }
     
+
+
     public function resendCode( Request $request) {
 
         if(! isset($request->user)){
@@ -83,8 +97,10 @@ class VerificationController extends Controller
 
         $user->sendEmailVerificationCode();
 
-        return response()->json(["message" => "The code have been send again, Please check your email."], 401);
+        return response()->json(["message" => "The code have been send again, Please check your email."], 200);
     }
+
+
 
     // not used
     public function verifyWithMailLink(Request $request)
@@ -92,6 +108,8 @@ class VerificationController extends Controller
           // 1. login
           Auth::loginUsingId($request->route('id'));
 
+
+          $user = User::findOrFail($request->route('id'));
           // 2. check if url expired 
           if (! hash_equals((string) $request->route('id'), (string) $user->getKey())) {
               throw new AuthorizationException();
