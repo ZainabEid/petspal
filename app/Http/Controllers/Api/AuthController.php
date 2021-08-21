@@ -88,17 +88,10 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
         // $accessToken = auth()->user()->createToken('authToken')->accessToken;
 
-        if(! $user->is_verified() ){
-            return response()->json([ 
-                'errors' => "NotVerifiedError",
-                'access_token' => $token,
-                'user' => $user,
-            ],401);
-        }
-
         return response()->json([
-            'user' =>$user,
+            'user' => $user,
             'access_token' => $token,
+            'isVerified' =>$user->is_verified(),
             'notice' => $activated_notice ,
         ],200);
 
@@ -108,6 +101,7 @@ class AuthController extends Controller
         Auth::user()->tokens()->logout();
 
         return response()->json([
+            'isLogged' => true,
             'message'=>'You Logged out'
         ],200);
     }
