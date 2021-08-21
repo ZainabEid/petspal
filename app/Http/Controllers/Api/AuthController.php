@@ -78,13 +78,6 @@ class AuthController extends Controller
         $user = User::where('email', $request['email'])->firstOrFail();
 
         
-        if(! $user->is_verified() ){
-            return response()->json([ 
-                'errors' => "NotVerifiedError",
-                'user' => $user,
-            ],401);
-        }
-
         // activate user if it is in active
         $activated_notice = '';
         if(! $user->is_active()){
@@ -95,12 +88,19 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
         // $accessToken = auth()->user()->createToken('authToken')->accessToken;
 
-        return response()->json([
-                'user' =>$user,
-                'notice' => $activated_notice ,
+        if(! $user->is_verified() ){
+            return response()->json([ 
+                'errors' => "NotVerifiedError",
                 'access_token' => $token,
-                'token_type' => 'Bearer',
-        ]);
+                'user' => $user,
+            ],401);
+        }
+
+        return response()->json([
+            'user' =>$user,
+            'access_token' => $token,
+            'notice' => $activated_notice ,
+        ],200);
 
     }
     
