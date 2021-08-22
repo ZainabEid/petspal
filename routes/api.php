@@ -32,7 +32,7 @@ Route::get('/counts','CountsController@index');
 
 
 // authenticated routes
-Route::middleware(['auth:sanctum','verified_by_code','change_lang'])->group(function () {
+Route::middleware(['auth:sanctum','verified_by_code','change_lang','cors'])->group(function () {
 
     
   

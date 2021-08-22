@@ -17,6 +17,7 @@ class TimelineController extends Controller
       
     public function index()
     {
+    
         $posts = Post::latest()->paginate(5);
 
         return PostResource::collection( $posts);
