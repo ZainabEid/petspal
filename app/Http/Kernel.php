@@ -80,6 +80,7 @@ class Kernel extends HttpKernel
 
         'change_lang' => \App\Http\Middleware\ChangeLanguage::class,
 
+        'cors' => \App\Http\Middleware\Cors::class,
 
         // /**** OTHER MIDDLEWARE ****/
         // 'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,

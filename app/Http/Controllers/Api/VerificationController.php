@@ -45,7 +45,6 @@ class VerificationController extends Controller
         // check if user is already verified return success
         if( $user->is_verified() ){
             return response()->json([
-                "success" => true,
                 "message" => __("you are verified")
             ], 200 );
         }
@@ -78,7 +77,6 @@ class VerificationController extends Controller
         event(new Verified($user));
 
         return response()->json([
-            "success" => true,
             "message" => __("you are verified")
         ], 200 );
 
