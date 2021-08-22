@@ -20,7 +20,7 @@ Route::group([],function () {
 
 
 // mail verification routes 
-Route::middleware(['auth:sanctum','change_lang','cors'])->group(function () {
+Route::middleware(['auth:sanctum','change_lang'])->group(function () {
 
       // verification
       Route::get('email/verify/index', 'VerificationController@index'); // not used
